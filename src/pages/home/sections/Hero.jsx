@@ -2,9 +2,9 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <div className="relative bg-emerald-500 min-h-[calc(100vh-64px)] overflow-hidden">
+    <div className="relative clip-path1 bg-emerald-400 min-h-[calc(100vh-150px)] overflow-hidden">
       {/* Background Shape */}
-      <div className="absolute bottom-0 right-0 w-full h-[70%] bg-emerald-400 transform rotate-[-5deg] scale-125 translate-y-1/4" />
+      <div className="absolute clip-path2 bottom-0 right-0 w-full h-[70%] bg-emerald-500 " />
 
       {/* Content Container */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -22,7 +22,7 @@ const HeroSection = () => {
               communication barriers with local traders
             </p>
 
-            <button className="bg-white text-emerald-500 px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors">
+            <button className="bg-white text-gray-900 px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-colors">
               Get Started
             </button>
           </div>
