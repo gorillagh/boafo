@@ -1,5 +1,6 @@
 import React from "react";
-
+import Accessibility from "../../../assets/images/accessibility.png";
+import accessIcon from "../../../assets/images/acc.png";
 const FeatureSection = () => {
   return (
     <div className="py-20 bg-white">
@@ -18,16 +19,14 @@ const FeatureSection = () => {
           {/* Left Column - Feature Description */}
           <div>
             {/* Icon and Title */}
-            <div className="flex items-start gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 flex-shrink-0 bg-white rounded-lg shadow-lg p-3">
                 <div className="w-full h-full bg-blue-100 rounded-lg flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-8 h-8 text-blue-500">
-                    <circle cx="12" cy="12" r="3" className="fill-current" />
-                    <path
-                      className="fill-current"
-                      d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 14c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-7c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"
-                    />
-                  </svg>
+                  <img
+                    src={accessIcon}
+                    alt="Access Icon"
+                    className=" rounded-lg object-cover"
+                  />
                 </div>
               </div>
               <h3 className="text-2xl font-bold">Accessibility Tools</h3>
@@ -46,45 +45,14 @@ const FeatureSection = () => {
           </div>
 
           {/* Right Column - Illustration */}
-          <div className="relative">
-            {/* Background Arc */}
-            <div className="absolute right-0 w-4/5 h-4/5 bg-sky-100 rounded-full" />
 
-            {/* Placeholder Images */}
-            <div className="relative grid grid-cols-2 gap-4">
-              {/* Country Flags */}
-              <div className="absolute flex gap-2">
-                <div className="w-8 h-8 rounded-full bg-red-100" />
-                <div className="w-8 h-8 rounded-full bg-yellow-100" />
-                <div className="w-8 h-8 rounded-full bg-blue-100" />
-              </div>
-
-              {/* User Images */}
-              <div className="relative flex items-center justify-around">
-                <img
-                  src="/api/placeholder/120/120"
-                  alt="User 1"
-                  className="w-24 h-24 rounded-lg object-cover"
-                />
-                <img
-                  src="/api/placeholder/120/120"
-                  alt="User 2"
-                  className="w-24 h-24 rounded-lg object-cover mt-12"
-                />
-              </div>
-              <div className="relative flex items-center justify-around">
-                <img
-                  src="/api/placeholder/120/120"
-                  alt="User 3"
-                  className="w-24 h-24 rounded-lg object-cover mb-12"
-                />
-                <img
-                  src="/api/placeholder/120/120"
-                  alt="User 4"
-                  className="w-24 h-24 rounded-lg object-cover"
-                />
-              </div>
-            </div>
+          {/* User Images */}
+          <div className="relative flex items-center justify-around">
+            <img
+              src={Accessibility}
+              alt="User 1"
+              className=" rounded-lg object-cover"
+            />
           </div>
         </div>
       </div>

@@ -31,19 +31,19 @@ const Navbar = () => {
                 Home
               </a>
               <a
-                href="#"
+                href="#features"
                 className="text-gray-500 hover:text-gray-900 px-1 py-2"
               >
                 Features
               </a>
               <a
-                href="#"
+                href="#about"
                 className="text-gray-500 hover:text-gray-900 px-1 py-2"
               >
                 About
               </a>
               <a
-                href="#"
+                href="#footer"
                 className="text-gray-500 hover:text-gray-900 px-1 py-2"
               >
                 Contact Us
