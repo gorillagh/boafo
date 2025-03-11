@@ -166,82 +166,15 @@ const Hero = () => {
                   repeatType: "reverse",
                   ease: "easeInOut",
                 }}
-                className="backdrop-blur-xl bg-white dark:bg-gray-800 bg-opacity-30 dark:bg-opacity-20 border border-white border-opacity-50 dark:border-gray-700 dark:border-opacity-20 rounded-2xl p-5 shadow-lg"
+                className="backdrop-blur-xl bg-white dark:bg-gray-800 bg-opacity-30 dark:bg-opacity-20 border border-white border-opacity-50 dark:border-gray-700 dark:border-opacity-20 rounded-3xl  shadow-lg"
               >
                 {/* Screen content */}
-                <div className="bg-white dark:bg-gray-900 rounded-xl overflow-hidden shadow-inner">
-                  <div className="h-5 bg-gray-100 dark:bg-gray-800 flex items-center px-4">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                      <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    </div>
-                  </div>
+                <div className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-inner">
                   <img
-                    src="/hero-device.png"
+                    src="/hero.webp"
                     alt="Boafo interface demonstration"
                     className="w-full h-auto"
                   />
-                </div>
-
-                {/* Feature indicators with improved styling */}
-                <div className="absolute -right-3 top-1/3 flex flex-col space-y-1">
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="w-3 h-3 rounded-full bg-green-500 shadow-lg shadow-green-500/30"
-                  />
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, delay: 0.3, repeat: Infinity }}
-                    className="w-3 h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/30"
-                  />
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, delay: 0.6, repeat: Infinity }}
-                    className="w-3 h-3 rounded-full bg-purple-500 shadow-lg shadow-purple-500/30"
-                  />
-                </div>
-
-                {/* Voice feature badge with refined design */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 1.5 }}
-                  className="absolute -bottom-4 -left-4 backdrop-blur-xl bg-white dark:bg-gray-800 bg-opacity-60 dark:bg-opacity-30 border border-white border-opacity-40 dark:border-gray-700 dark:border-opacity-20 rounded-lg py-2 px-3 shadow-lg flex items-center space-x-2"
-                >
-                  <div className="w-6 h-6 rounded-full bg-primaryGreen-light dark:bg-primaryGreen-dark flex items-center justify-center">
-                    <span className="text-white text-xs">AI</span>
-                  </div>
-                  <span className="text-xs font-medium text-gray-800 dark:text-gray-200">
-                    Voice Enabled
-                  </span>
-                </motion.div>
-              </motion.div>
-
-              {/* Accessibility badge with enhanced styling */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 1.7 }}
-                className="absolute -right-4 -top-4 backdrop-blur-xl bg-white dark:bg-gray-800 bg-opacity-60 dark:bg-opacity-30 border border-white border-opacity-40 dark:border-gray-700 dark:border-opacity-20 rounded-full py-2 px-4 shadow-lg"
-              >
-                <div className="flex items-center space-x-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-primaryGreen-light dark:text-primaryGreen-dark"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-xs font-medium text-gray-800 dark:text-gray-200">
-                    100% Accessible
-                  </span>
                 </div>
               </motion.div>
             </div>

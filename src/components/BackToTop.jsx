@@ -25,7 +25,7 @@ const BackToTop = () => {
 
   return (
     <button
-      className={`fixed bg-amber-500 bottom-10 right-10 z-50 rounded-full bg-secondary p-3 cursor-pointer text-white shadow-lg ${
+      className={`fixed bg-primaryGreen-light dark:bg-primaryGreen-dark  hover:bg-primaryGreen-hover-light dark:hover:bg-primaryGreen-hover-dark" bottom-10 right-10 z-50 rounded-full bg-secondary p-3 cursor-pointer text-white shadow-lg ${
         showScroll ? "block" : "hidden"
       }`}
       onClick={scrollTop}

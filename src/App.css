@@ -1,11 +1,25 @@
 * {
   scroll-behavior: smooth;
 }
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+/* Width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 15px;
 }
 
-.hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+/* Track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #b9dfc2;
+  border-radius: 20px;
+}
+
+/* Handle (draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #28a745;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #34b652;
 }

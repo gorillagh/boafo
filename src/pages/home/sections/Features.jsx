@@ -26,7 +26,7 @@ const Features = () => {
         "Converts text content into audio, enabling visually impaired users to hear website information.",
       color: "#34C759",
       darkColor: "#28A745",
-      illustration: "/illustrations/text-to-speech.svg",
+      illustration: "/illustrations/text-to-speech.webp",
     },
     {
       icon: <FaImage size={24} />,
@@ -35,7 +35,7 @@ const Features = () => {
         "Describes images and graphics in audio form for visually impaired users.",
       color: "#5E5CE6",
       darkColor: "#4E4CD4",
-      illustration: "/illustrations/audio-description.svg",
+      illustration: "/illustrations/audio-description.webp",
     },
     {
       icon: <FaMicrophone size={24} />,
@@ -44,7 +44,7 @@ const Features = () => {
         "Transcribes audio input into text, simplifying searches for users with limited typing abilities.",
       color: "#FF9500",
       darkColor: "#E68600",
-      illustration: "/illustrations/speech-to-text.svg",
+      illustration: "/illustrations/speech-to-text.webp",
     },
     {
       icon: <FaExpand size={24} />,
@@ -53,7 +53,7 @@ const Features = () => {
         "Allows users to adjust text and image sizes for a comfortable viewing experience.",
       color: "#FF3B30",
       darkColor: "#D33227",
-      illustration: "/illustrations/resizable-elements.svg",
+      illustration: "/illustrations/resizable-elements.webp",
     },
     {
       icon: <FaFileAlt size={24} />,
@@ -62,7 +62,7 @@ const Features = () => {
         "Generates descriptive text for images, providing context for graphics without alt text.",
       color: "#007AFF",
       darkColor: "#0066D6",
-      illustration: "/illustrations/image-description.svg",
+      illustration: "/illustrations/image-description.webp",
     },
   ];
 
@@ -155,9 +155,9 @@ const Features = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <div className="inline-block px-4 py-1 bg-primaryGreen-light bg-opacity-10 dark:bg-primaryGreen-dark dark:bg-opacity-20 rounded-full text-primaryGreen-dark dark:text-primaryGreen-light text-sm font-medium mb-4">
+          {/* <div className="inline-block px-4 py-1 bg-primaryGreen-light bg-opacity-10 dark:bg-primaryGreen-dark dark:bg-opacity-20 rounded-full text-primaryGreen-dark dark:text-primaryGreen-light text-sm font-medium mb-4">
             ACCESSIBILITY SUITE
-          </div>
+          </div> */}
           <h2 className="font-montserrat font-bold text-3xl md:text-5xl mb-4 text-gray-800 dark:text-white">
             Intelligent Features for{" "}
             <span className="bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark bg-clip-text text-transparent">
@@ -185,7 +185,7 @@ const Features = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   onClick={() => selectFeature(index)}
-                  className={`flex-shrink-0 snap-center mx-2 first:ml-4 last:mr-4 w-[180px] cursor-pointer p-4 rounded-2xl transition-all duration-300 ${
+                  className={`flex-shrink-0 snap-center mx-2 first:ml-4 last:mr-4 w-[180px] cursor-pointer p-4 rounded-3xl transition-all duration-300 ${
                     activeFeature === index
                       ? "bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark text-white shadow-lg"
                       : "bg-white dark:bg-gray-800 bg-opacity-70 dark:bg-opacity-40 shadow-md text-gray-800 dark:text-gray-200 border border-gray-100 dark:border-gray-700"
@@ -237,7 +237,7 @@ const Features = () => {
                     {/* Feature Illustration */}
                     <div className="relative order-2 md:order-2">
                       <div
-                        className="backdrop-blur-xl bg-white dark:bg-gray-800 bg-opacity-80 dark:bg-opacity-20 border border-gray-100 dark:border-gray-700 rounded-3xl p-5 shadow-xl h-52 md:h-80 flex items-center justify-center"
+                        className="backdrop-blur-xl h-52 md:h-80 flex items-center justify-center"
                         style={{
                           boxShadow: `0 20px 80px -20px ${currentFeature.color}50`,
                         }}
@@ -251,7 +251,7 @@ const Features = () => {
                             duration: 2,
                             ease: "easeInOut",
                           }}
-                          className="w-full h-full max-w-xs mx-auto flex items-center justify-center"
+                          className="w-full h-full rounded-3xl max-w-xs mx-auto flex items-center justify-center"
                         >
                           <img
                             src={
@@ -259,7 +259,7 @@ const Features = () => {
                               "/illustrations/placeholder.svg"
                             }
                             alt={currentFeature.title}
-                            className="max-w-full max-h-full object-contain"
+                            className="max-w-full max-h-full rounded-3xl object-contain"
                           />
                         </motion.div>
                       </div>
@@ -336,7 +336,7 @@ const Features = () => {
                       transition={{ duration: 0.4, delay: index * 0.1 }}
                       onClick={() => selectFeature(index)}
                       whileHover={{ x: 5 }}
-                      className={`cursor-pointer p-4 rounded-xl transition-all duration-300 ${
+                      className={`cursor-pointer p-4 rounded-full transition-all duration-300 ${
                         activeFeature === index
                           ? "bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark text-white shadow-md"
                           : "hover:bg-gray-50 hover:dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-transparent hover:border-gray-100 dark:hover:border-gray-700"
@@ -356,7 +356,7 @@ const Features = () => {
                           <h4 className="font-montserrat font-medium">
                             {feature.title}
                           </h4>
-                          {activeFeature === index && (
+                          {/* {activeFeature === index && (
                             <motion.p
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
@@ -364,7 +364,7 @@ const Features = () => {
                             >
                               {feature.description.substring(0, 60)}...
                             </motion.p>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </motion.div>

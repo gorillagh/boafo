@@ -7,6 +7,7 @@ import {
   FaInstagram,
   FaArrowRight,
 } from "react-icons/fa";
+import { COMPANY_DATA } from "../constants/placeholder";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -155,7 +156,7 @@ const Footer = () => {
                     href="mailto:support@boafoapp.com"
                     className="hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark transition-colors"
                   >
-                    support@boafoapp.com
+                    {COMPANY_DATA.emails[0]}
                   </a>
                 </li>
                 <li className="flex items-center py-1">
@@ -166,20 +167,20 @@ const Footer = () => {
                     href="tel:+233123456789"
                     className="hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark transition-colors"
                   >
-                    +233 123 456 789
+                    {COMPANY_DATA.phones[0]}
                   </a>
                 </li>
                 <li className="flex items-center py-1">
                   <span className="text-primaryGreen-light dark:text-primaryGreen-dark mr-2">
                     Address:
                   </span>
-                  <span>Accra, Ghana</span>
+                  <span>{COMPANY_DATA.addresses[0].name}</span>
                 </li>
                 <li className="flex items-center py-1">
                   <span className="text-primaryGreen-light dark:text-primaryGreen-dark mr-2">
                     Hours:
                   </span>
-                  <span>Mon-Fri, 9am-5pm GMT</span>
+                  <span>{COMPANY_DATA.workingHours}</span>
                 </li>
               </ul>
             </motion.div>
