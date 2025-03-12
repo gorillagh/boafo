@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import { COMPANY_DATA } from "../constants/placeholder";
 import LegalModal from "./LegalModal";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -409,13 +410,26 @@ const Footer = () => {
                 className="flex space-x-3"
               >
                 {[
-                  { icon: <FaTwitter size={16} />, label: "Twitter" },
-                  { icon: <FaLinkedinIn size={16} />, label: "LinkedIn" },
-                  { icon: <FaInstagram size={16} />, label: "Instagram" },
+                  {
+                    icon: <FaXTwitter size={16} />,
+                    label: "Twitter",
+                    href: COMPANY_DATA.socials.x,
+                  },
+                  {
+                    icon: <FaLinkedinIn size={16} />,
+                    label: "LinkedIn",
+                    href: COMPANY_DATA.socials.linkedin,
+                  },
+                  {
+                    icon: <FaInstagram size={16} />,
+                    label: "Instagram",
+                    href: COMPANY_DATA.socials.instagram,
+                  },
                 ].map((social, index) => (
                   <a
+                    target="_blank"
                     key={index}
-                    href="#"
+                    href={social.href}
                     aria-label={social.label}
                     className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-white hover:bg-primaryGreen-light dark:hover:bg-primaryGreen-dark transition-all shadow-sm bg-white dark:bg-gray-700 bg-opacity-70 dark:bg-opacity-30"
                   >
