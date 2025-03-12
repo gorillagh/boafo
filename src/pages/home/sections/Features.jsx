@@ -13,6 +13,20 @@ import {
   FaChevronRight,
 } from "react-icons/fa";
 
+// Add CSS to hide scrollbars but keep scrolling functionality
+const scrollbarHiddenStyles = `
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+`;
+
 const Features = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -123,7 +137,10 @@ const Features = () => {
   const currentFeature = features[activeFeature];
 
   return (
-    <section id="features" className="pt-24  overflow-hidden relative">
+    <section id="features" className="pt-24 overflow-hidden relative">
+      {/* Inject the CSS to hide scrollbars */}
+      <style>{scrollbarHiddenStyles}</style>
+
       {/* Background Elements with improved light mode */}
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900 -z-10"></div>
       <div className="absolute inset-0 opacity-5 dark:opacity-10 -z-10">
@@ -155,9 +172,6 @@ const Features = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          {/* <div className="inline-block px-4 py-1 bg-primaryGreen-light bg-opacity-10 dark:bg-primaryGreen-dark dark:bg-opacity-20 rounded-full text-primaryGreen-dark dark:text-primaryGreen-light text-sm font-medium mb-4">
-            ACCESSIBILITY SUITE
-          </div> */}
           <h2 className="font-montserrat font-bold text-3xl md:text-5xl mb-4 text-gray-800 dark:text-white">
             Intelligent Features for{" "}
             <span className="bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark bg-clip-text text-transparent">
@@ -350,15 +364,6 @@ const Features = () => {
                           <h4 className="font-montserrat font-medium">
                             {feature.title}
                           </h4>
-                          {/* {activeFeature === index && (
-                            <motion.p
-                              initial={{ opacity: 0, height: 0 }}
-                              animate={{ opacity: 1, height: "auto" }}
-                              className="text-sm mt-2 text-white text-opacity-90"
-                            >
-                              {feature.description.substring(0, 60)}...
-                            </motion.p>
-                          )} */}
                         </div>
                       </div>
                     </motion.div>

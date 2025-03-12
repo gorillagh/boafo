@@ -30,7 +30,7 @@ const LegalModal = ({ isOpen, onClose, title, content }) => {
           />
 
           {/* Modal Container - Centered with flexbox */}
-          <div className="fixed inset-0 flex items-center justify-center z-50 p-4 pointer-events-none">
+          <div className="fixed inset-0 flex items-center justify-center z-[99999999999] p-4 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}

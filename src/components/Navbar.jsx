@@ -22,7 +22,7 @@ const navLinks = [
   },
   {
     name: "Company",
-    href: "#company",
+    href: "#company", // Updated: common section ID pattern
     sectionId: "company",
   },
   {
@@ -56,37 +56,102 @@ const Navbar = ({ theme, toggleTheme }) => {
 
   // Handle active section detection
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-20% 0px -75% 0px", // Adjust the detection area
-      threshold: 0.1,
+    // Default to first section (home) on initial load
+    setActiveSection("home");
+
+    // Find all sections - try multiple potential ID patterns
+    const findSections = () => {
+      // First, check for sections with exact IDs from navLinks
+      let sections = navLinks
+        .map((link) => ({
+          id: link.sectionId,
+          element: document.getElementById(link.sectionId),
+        }))
+        .filter((item) => item.element);
+
+      // If we didn't find all sections, look for sections with data attributes
+      if (sections.length < navLinks.length) {
+        document.querySelectorAll("[data-section]").forEach((element) => {
+          const sectionName = element.getAttribute("data-section");
+          const matchingLink = navLinks.find(
+            (link) =>
+              link.sectionId === sectionName ||
+              link.name.toLowerCase() === sectionName.toLowerCase()
+          );
+
+          if (
+            matchingLink &&
+            !sections.some((s) => s.id === matchingLink.sectionId)
+          ) {
+            sections.push({
+              id: matchingLink.sectionId,
+              element,
+            });
+          }
+        });
+      }
+
+      // Log what we found - for debugging
+      console.log(
+        "Found sections:",
+        sections.map((s) => s.id)
+      );
+
+      return sections;
     };
 
-    const observerCallback = (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+    const sections = findSections();
+
+    const handleScroll = () => {
+      if (sections.length === 0) return;
+
+      // Find which section is currently most visible in the viewport
+      let currentSection = "";
+      let maxVisibility = 0;
+
+      sections.forEach((section) => {
+        const rect = section.element.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Calculate how much of the section is visible in the viewport (as a percentage)
+        const visibleHeight =
+          Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+        const visiblePercentage = visibleHeight / section.element.offsetHeight;
+
+        // Special handling for first section (home) to detect when at top of page
+        if (section.id === "home" && window.scrollY < 100) {
+          currentSection = "home";
+          return;
+        }
+
+        if (visiblePercentage > maxVisibility && visibleHeight > 0) {
+          maxVisibility = visiblePercentage;
+          currentSection = section.id;
         }
       });
+
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
     };
 
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
+    // Initialize
+    handleScroll();
 
-    // Observe all sections
-    navLinks.forEach((link) => {
-      const section = document.getElementById(link.sectionId);
-      if (section) observer.observe(section);
-    });
-
-    return () => {
-      navLinks.forEach((link) => {
-        const section = document.getElementById(link.sectionId);
-        if (section) observer.unobserve(section);
-      });
+    // Add scroll event listener with throttling to improve performance
+    let ticking = false;
+    const scrollListener = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+
+    window.addEventListener("scroll", scrollListener);
+    return () => window.removeEventListener("scroll", scrollListener);
   }, []);
 
   // Handle click outside to close mobile menu
@@ -151,24 +216,23 @@ const Navbar = ({ theme, toggleTheme }) => {
                         : "text-gray-900 dark:text-white hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark"
                     } ${
                       isActive
-                        ? "text-primaryGreen-light dark:text-primaryGreen-dark"
+                        ? "text-primaryGreen-light dark:text-primaryGreen-dark font-semibold"
                         : ""
                     }`}
                   >
                     {link.name}
-                    {isActive && (
-                      <motion.span
-                        layoutId="activeIndicator"
-                        className="absolute bottom-0 left-0 w-full h-0.5 bg-primaryGreen-light dark:bg-primaryGreen-dark rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: "100%" }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 200,
-                          damping: 15,
-                        }}
-                      />
-                    )}
+                    <motion.span
+                      className="absolute bottom-0 left-0 w-full h-0.5 bg-primaryGreen-light dark:bg-primaryGreen-dark rounded-full"
+                      animate={{
+                        width: isActive ? "100%" : "0%",
+                        opacity: isActive ? 1 : 0,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 15,
+                      }}
+                    />
                   </a>
                 );
               })}
@@ -287,15 +351,15 @@ const Navbar = ({ theme, toggleTheme }) => {
                         }`}
                         onClick={() => setMobileMenuOpen(false)}
                       >
+                        <motion.span
+                          className="absolute left-0 top-0 bottom-0 w-1 bg-primaryGreen-light dark:bg-primaryGreen-dark rounded-r-full"
+                          animate={{
+                            opacity: isActive ? 1 : 0,
+                            height: isActive ? "100%" : "0%",
+                          }}
+                          transition={{ duration: 0.3 }}
+                        />
                         {link.name}
-                        {isActive && (
-                          <motion.span
-                            className="absolute left-0 top-0 bottom-0 w-1 bg-primaryGreen-light dark:bg-primaryGreen-dark rounded-r-full"
-                            layoutId="mobileActiveIndicator"
-                            initial={{ height: 0 }}
-                            animate={{ height: "100%" }}
-                          />
-                        )}
                       </a>
                     );
                   })}
