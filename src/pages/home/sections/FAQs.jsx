@@ -162,7 +162,7 @@ const FAQs = () => {
   });
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section id="faqs" className="py-20 relative overflow-hidden">
       {/* Background */}
       <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-secondaryGreen-light to-white dark:from-secondaryGreen-dark dark:to-gray-900 -z-10"></div>
       <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-white dark:bg-gray-900 -z-10"></div>
@@ -181,16 +181,9 @@ const FAQs = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <div className="inline-block px-4 py-1 bg-primaryGreen-light dark:bg-primaryGreen-dark text-white font-medium rounded-full mb-3">
-            FAQ
-          </div>
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-4 text-gray-800 dark:text-white">
             Frequently Asked Questions
           </h2>
-          <p className="font-ubuntu text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
-            Find answers to common questions about Boafo and how it can enhance
-            your e-commerce experience.
-          </p>
         </motion.div>
 
         {/* FAQ Search and Categories */}

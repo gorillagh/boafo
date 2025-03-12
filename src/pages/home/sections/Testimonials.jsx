@@ -15,7 +15,7 @@ const Testimonials = () => {
         "Boafo made online shopping so easy for me! I can now listen to product descriptions and shop independently. The voice quality is excellent and the instructions are very clear.",
       name: "Kwame A.",
       role: "Visually Impaired User",
-      image: "/testimonial-1-placeholder.jpg",
+      image: "/testimonials/kwame.webp",
       rating: 5,
       location: "Accra, Ghana",
     },
@@ -24,7 +24,7 @@ const Testimonials = () => {
         "As a trader with limited digital skills, the speech-to-text feature helped me sell my products online without stress. I can now reach customers I never could before.",
       name: "Ama S.",
       role: "Local Trader",
-      image: "/testimonial-2-placeholder.jpg",
+      image: "/testimonials/ama.webp",
       rating: 4.5,
       location: "Kumasi, Ghana",
     },
@@ -33,7 +33,7 @@ const Testimonials = () => {
         "The resizable elements allowed me to view products comfortably, making my shopping experience seamless. I no longer struggle to read small text on websites.",
       name: "Kofi B.",
       role: "User with Low Vision",
-      image: "/testimonial-3-placeholder.jpg",
+      image: "/testimonials/kofi.webp",
       rating: 5,
       location: "Tamale, Ghana",
     },
@@ -42,7 +42,7 @@ const Testimonials = () => {
         "Boafo's audio descriptions of products have transformed how I shop. I can now make informed decisions independently and feel confident in my purchases.",
       name: "Adwoa P.",
       role: "Blind User",
-      image: "/testimonial-4-placeholder.jpg",
+      image: "/testimonials/adwoa.webp",
       rating: 4.5,
       location: "Cape Coast, Ghana",
     },
@@ -192,11 +192,11 @@ const Testimonials = () => {
                     </div>
 
                     {/* Rating badge */}
-                    <div className="absolute -bottom-2 right-0 backdrop-blur-xl bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 rounded-full px-3 py-1 shadow-lg border border-white dark:border-gray-700 flex items-center">
+                    {/* <div className="absolute -bottom-2 right-0 backdrop-blur-xl bg-white dark:bg-gray-900 bg-opacity-80 dark:bg-opacity-80 rounded-full px-3 py-1 shadow-lg border border-white dark:border-gray-700 flex items-center">
                       <div className="flex">
                         {renderRating(testimonials[activeIndex].rating)}
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 

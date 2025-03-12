@@ -15,9 +15,10 @@ export const COMPANY_DATA = {
   ],
   workingHours: "Mon-Fri, 8am-5pm GMT",
   socials: {
-    facebook: "",
-    instagram: "",
-    tiktok: "",
+    linkedin:
+      "https://www.linkedin.com/company/digital-drivers-technology/about/?viewAsMember=true",
+    instagram: "https://www.instagram.com",
+    x: "https://www.x.com",
   },
   shortAbout: "",
   longAbout: "",

@@ -1,5 +1,3 @@
-// src/components/sections/ContactUs.jsx
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
@@ -12,6 +10,8 @@ import {
   FaPaperPlane,
   FaCheckCircle,
 } from "react-icons/fa";
+import { COMPANY_DATA } from "../../../constants/placeholder";
+import { FaXTwitter } from "react-icons/fa6";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -52,27 +52,39 @@ const ContactUs = () => {
     {
       icon: <FaEnvelope size={20} />,
       title: "Email",
-      value: "support@boafoapp.com",
-      action: "mailto:support@boafoapp.com",
+      value: COMPANY_DATA.emails[0],
+      action: `mailto:${COMPANY_DATA.emails[0]}`,
     },
     {
       icon: <FaPhone size={20} />,
       title: "Phone",
-      value: "+233 123 456 789",
-      action: "tel:+233123456789",
+      value: COMPANY_DATA.phones[0],
+      action: `tel:+233202621904`,
     },
     {
       icon: <FaMapMarkerAlt size={20} />,
       title: "Office",
-      value: "Accra, Ghana",
-      action: "https://maps.google.com/?q=Accra,Ghana",
+      value: COMPANY_DATA.addresses[0].name,
+      action: `https://maps.google.com/?q=${COMPANY_DATA.addresses[0].name}`,
     },
   ];
 
   const socialLinks = [
-    { icon: <FaTwitter />, label: "Twitter", href: "#" },
-    { icon: <FaLinkedinIn />, label: "LinkedIn", href: "#" },
-    { icon: <FaInstagram />, label: "Instagram", href: "#" },
+    {
+      icon: <FaXTwitter />,
+      label: "Twitter",
+      href: COMPANY_DATA.socials.x,
+    },
+    {
+      icon: <FaLinkedinIn />,
+      label: "LinkedIn",
+      href: COMPANY_DATA.socials.linkedin,
+    },
+    {
+      icon: <FaInstagram />,
+      label: "Instagram",
+      href: COMPANY_DATA.socials.instagram,
+    },
   ];
 
   return (
@@ -115,10 +127,6 @@ const ContactUs = () => {
                 <h3 className="font-montserrat font-bold text-2xl mb-6">
                   Contact Information
                 </h3>
-                <p className="font-ubuntu mb-8 text-white text-opacity-90">
-                  Fill out the form or contact us directly using the information
-                  below.
-                </p>
 
                 <div className="space-y-6">
                   {contactInfo.map((info, index) => (
@@ -133,7 +141,7 @@ const ContactUs = () => {
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                       className="flex items-center group"
                     >
-                      <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-4 group-hover:bg-opacity-30 transition-all">
+                      <div className="w-12 h-12   flex items-center justify-center mr-4 group-hover:bg-opacity-30 transition-all">
                         {info.icon}
                       </div>
                       <div>
@@ -155,6 +163,7 @@ const ContactUs = () => {
                   <div className="flex space-x-4">
                     {socialLinks.map((social, index) => (
                       <motion.a
+                        target="_blank"
                         key={index}
                         href={social.href}
                         whileHover={{ y: -5 }}
@@ -216,7 +225,7 @@ const ContactUs = () => {
                           className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-3xl focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark text-gray-900 dark:text-white"
                           required
                           aria-label="Your name"
-                          placeholder="John Doe"
+                          placeholder="Yaw Davour"
                         />
                       </div>
                       <div>
@@ -235,7 +244,7 @@ const ContactUs = () => {
                           className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-3xl focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark text-gray-900 dark:text-white"
                           required
                           aria-label="Your email"
-                          placeholder="john@example.com"
+                          placeholder="davour@example.com"
                         />
                       </div>
                     </div>

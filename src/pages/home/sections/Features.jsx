@@ -123,7 +123,7 @@ const Features = () => {
   const currentFeature = features[activeFeature];
 
   return (
-    <section id="features" className="py-24 overflow-hidden relative">
+    <section id="features" className="pt-24  overflow-hidden relative">
       {/* Background Elements with improved light mode */}
       <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900 -z-10"></div>
       <div className="absolute inset-0 opacity-5 dark:opacity-10 -z-10">
@@ -288,12 +288,6 @@ const Features = () => {
                         <p className="font-ubuntu text-gray-600 dark:text-gray-300 mb-6">
                           {currentFeature.description}
                         </p>
-                        <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Supporting all abilities, including visual, hearing,
-                            and physical impairments.
-                          </p>
-                        </div>
                       </div>
                     </div>
                   </motion.div>

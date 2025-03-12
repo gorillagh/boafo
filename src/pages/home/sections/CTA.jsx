@@ -1,5 +1,3 @@
-// src/components/sections/CTA.jsx
-
 import { motion } from "framer-motion";
 import { FaRocket, FaHeadset, FaArrowRight } from "react-icons/fa";
 
@@ -37,7 +35,7 @@ const CTA = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <div className="backdrop-blur-xl bg-white bg-opacity-10 dark:bg-opacity-5 border border-white border-opacity-20 rounded-2xl p-10 shadow-2xl relative overflow-hidden">
+              <div className="backdrop-blur-xl bg-white bg-opacity-10 dark:bg-opacity-5 border border-white border-opacity-20 rounded-3xl p-10 shadow-2xl relative overflow-hidden">
                 {/* Glass shine effect */}
                 <div className="absolute -top-10 -left-10 w-40 h-40 bg-white rounded-full opacity-10 blur-xl"></div>
 
@@ -126,7 +124,7 @@ const CTA = () => {
             >
               <div className="relative max-w-md">
                 {/* Decorative elements */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-20 rounded-2xl"></div>
+                {/* <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-20 rounded-3xl"></div> */}
 
                 {/* Main device frame */}
                 <motion.div
@@ -140,57 +138,14 @@ const CTA = () => {
                   }}
                   className="relative z-10"
                 >
-                  <div className="backdrop-blur-xl bg-white bg-opacity-20 dark:bg-opacity-10 border border-white border-opacity-30 rounded-2xl p-5 shadow-2xl">
-                    <div className="relative rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+                  <div className=" bg-transparent  rounded-3xl  shadow-2xl">
+                    <div className="relative rounded-xl overflow-hidden bg-transparent">
                       <img
-                        src="/cta-device-mockup.png"
+                        src="/illustrations/CTA.webp"
                         alt="Boafo in action on various devices"
                         className="w-full h-auto"
                       />
-
-                      {/* Animated glow effect */}
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: [0.3, 0.5, 0.3] }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          repeatType: "loop",
-                        }}
-                        className="absolute inset-0 bg-gradient-to-tr from-primaryGreen-light to-blue-400 dark:from-primaryGreen-dark dark:to-blue-500 opacity-30 mix-blend-overlay"
-                      ></motion.div>
                     </div>
-                  </div>
-                </motion.div>
-
-                {/* Stats badges */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                  className="absolute -bottom-6 -left-6 backdrop-blur-xl bg-white bg-opacity-20 dark:bg-opacity-10 border border-white border-opacity-30 rounded-full py-2 px-4 shadow-lg"
-                >
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
-                    <span className="text-white text-sm font-medium">
-                      10,000+ Users
-                    </span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.9 }}
-                  className="absolute -top-6 -right-6 backdrop-blur-xl bg-white bg-opacity-20 dark:bg-opacity-10 border border-white border-opacity-30 rounded-full py-2 px-4 shadow-lg"
-                >
-                  <div className="flex items-center">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-2 animate-pulse"></div>
-                    <span className="text-white text-sm font-medium">
-                      98% Satisfaction
-                    </span>
                   </div>
                 </motion.div>
               </div>

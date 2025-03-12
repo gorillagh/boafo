@@ -253,7 +253,7 @@ const AboutProduct = () => {
     },
     {
       icon: <FaHandHoldingHeart />,
-      title: "Independence & Empowerment",
+      title: "Shop Independently, with Confidence & Ease",
       description:
         "Enabling users to shop independently, boosting confidence and self-reliance.",
     },
@@ -265,21 +265,21 @@ const AboutProduct = () => {
       description:
         "This demonstration showcases how Boafo's text-to-speech feature works in real-time on e-commerce websites. The technology intelligently identifies product descriptions, prices, and reviews, then converts them to clear, natural-sounding speech. Users can adjust the reading speed and voice preferences to suit their individual needs. This feature is particularly valuable for visually impaired users, enabling them to browse products independently without requiring assistance.",
       videoSrc: "/videos/text-to-speech-demo.mp4",
-      posterSrc: "/videos/text-to-speech-poster.jpg",
+      posterSrc: "/illustrations/text-to-speech-preview.webp",
     },
     {
       title: "Speech Recognition",
       description:
         "Our advanced speech recognition technology enables users to navigate e-commerce platforms using voice commands alone. This demonstration shows how users can search for products, filter results, and even complete purchases using natural voice instructions. The system is designed to understand various accents and dialects, making it accessible to a diverse range of users. For individuals with motor disabilities or those who find typing challenging, this feature transforms the online shopping experience into a conversation.",
       videoSrc: "/videos/speech-recognition-demo.mp4",
-      posterSrc: "/videos/speech-recognition-poster.jpg",
+      posterSrc: "/illustrations/speech-recognition-preview.webp",
     },
     {
       title: "Language Translation",
       description:
         "Boafo's real-time language translation feature breaks down communication barriers between shoppers and sellers who speak different languages. This demonstration shows how the widget automatically detects and translates product information, customer questions, and seller responses. The technology supports over 40 languages, with special emphasis on local African languages to empower regional traders. This feature helps connect local businesses with global customers while preserving authentic cultural communication.",
       videoSrc: "/videos/language-translation-demo.mp4",
-      posterSrc: "/videos/language-translation-poster.jpg",
+      posterSrc: "/illustrations/language-translation-preview.webp",
     },
   ];
 
@@ -295,20 +295,6 @@ const AboutProduct = () => {
 
       <div className="section-container relative z-10">
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-4 text-gray-800 dark:text-white">
-            Discover{" "}
-            <span className="bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark bg-clip-text text-transparent">
-              Boafo
-            </span>
-          </h2>
-        </motion.div>
 
         {/* Main Content Area with improved light mode contrast */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
@@ -350,18 +336,24 @@ const AboutProduct = () => {
             className="order-1 lg:order-2"
           >
             <div className="bg-white dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-30 border border-gray-200 dark:border-gray-700 rounded-xl p-8 shadow-lg">
-              <h3 className="font-montserrat font-semibold text-2xl mb-6 text-gray-800 dark:text-white">
-                About Boafo
-              </h3>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-center mb-8"
+              >
+                <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-4 text-gray-800 dark:text-white">
+                  Discover{" "}
+                  <span className="bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark bg-clip-text text-transparent">
+                    Boafo
+                  </span>
+                </h2>
+              </motion.div>
               <p className="font-ubuntu text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                The Accessible E-Commerce Widget is designed to empower
-                individuals with disabilities (visual impairments, hearing
-                impairments, physical disabilities) and local traders with
-                limited digital skills to use e-commerce platforms
-                independently. With features like text-to-speech, audio
-                descriptions, and local language support, Boafo bridges
-                communication barriers and enhances online shopping
-                independence.
+                Boafo makes online shopping inclusive with text-to-speech, audio
+                descriptions, and local language support, empowering users of
+                all abilities.
               </p>
 
               <div className="space-y-6">
@@ -381,9 +373,9 @@ const AboutProduct = () => {
                       <h3 className="font-montserrat font-semibold text-xl mb-2 text-gray-800 dark:text-white">
                         {benefit.title}
                       </h3>
-                      <p className="font-ubuntu text-gray-600 dark:text-gray-400">
+                      {/* <p className="font-ubuntu text-gray-600 dark:text-gray-400">
                         {benefit.description}
-                      </p>
+                      </p> */}
                     </div>
                   </motion.div>
                 ))}
@@ -444,7 +436,7 @@ const AboutProduct = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
           {[
             {
-              number: "15K+",
+              number: "500+",
               label: "Active Users",
               description: "Across multiple countries",
             },

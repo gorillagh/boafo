@@ -10,6 +10,8 @@ import {
   FaHistory,
 } from "react-icons/fa";
 
+import CompanyTimeline from "../components/CompanyTimeline";
+
 const AboutCompany = () => {
   const [activeTab, setActiveTab] = useState("story");
   const [isTabsSticky, setIsTabsSticky] = useState(false);
@@ -44,66 +46,23 @@ const AboutCompany = () => {
     },
   ];
 
-  const timelineEvents = [
-    {
-      year: "2018",
-      title: "The Beginning",
-      description:
-        "Digital Drivers Technology was founded in Accra with a mission to make technology accessible to all.",
-      image: "/timeline/founding-office.jpg",
-      imageAlt: "Founding team at the first office in Accra",
-    },
-    {
-      year: "2020",
-      title: "First Prototype",
-      description:
-        "The first version of Boafo was developed to address accessibility challenges in e-commerce.",
-      image: "/timeline/first-prototype.jpg",
-      imageAlt: "Team working on Boafo prototype",
-    },
-    {
-      year: "2021",
-      title: "Community Partnership",
-      description:
-        "Partnered with local disability organizations to refine and enhance our accessibility solutions.",
-      image: "/timeline/community-partnership.jpg",
-      imageAlt: "Partnership signing ceremony with community organizations",
-    },
-    {
-      year: "2022",
-      title: "Launch & Recognition",
-      description:
-        "Official launch of Boafo followed by recognition at the Ghana Technology Awards.",
-      image: "/timeline/award-ceremony.jpg",
-      imageAlt: "Team receiving award at Ghana Technology Awards",
-    },
-    {
-      year: "2023",
-      title: "Expansion",
-      description:
-        "Expanded operations across West Africa, helping thousands access e-commerce platforms.",
-      image: "/timeline/expansion.jpg",
-      imageAlt: "New office opening in West Africa",
-    },
-  ];
-
   const teamMembers = [
     {
       name: "Kofi Mensah",
       role: "Founder & CEO",
-      image: "/team/kofi-placeholder.jpg",
+      image: "/testimonials/kofi.webp",
       quote: "Technology should empower everyone, regardless of ability.",
     },
     {
       name: "Ama Darko",
       role: "Head of Accessibility",
-      image: "/team/ama-placeholder.jpg",
+      image: "/testimonials/ama.webp",
       quote: "We design with empathy first, technology second.",
     },
     {
       name: "Kwame Osei",
       role: "Lead Developer",
-      image: "/team/kwame-placeholder.jpg",
+      image: "/testimonials/kwame.webp",
       quote: "Every line of code we write is a step toward digital inclusion.",
     },
   ];
@@ -175,7 +134,7 @@ const AboutCompany = () => {
 
   return (
     <section
-      id="about-company"
+      id="company"
       className="py-20 relative overflow-hidden"
       ref={sectionRef}
     >
@@ -281,10 +240,9 @@ const AboutCompany = () => {
           <div ref={tabsSentinelRef} className="h-0 w-full"></div>
 
           {/* Tab Navigation - Sticky on Mobile */}
-
           <div
             ref={tabsRef}
-            className={`flex flex-wrap justify-center  mb-8 gap-4 py-4 z-30 transition-all duration-300 w-full ${
+            className={`flex flex-wrap justify-center mb-8 gap-4 py-4 z-30 transition-all duration-300 w-full ${
               isTabsSticky
                 ? "fixed top-20 left-0 right-0 shadow-md border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 bg-opacity-90 dark:bg-opacity-90 backdrop-blur-sm"
                 : ""
@@ -301,13 +259,12 @@ const AboutCompany = () => {
                 onClick={() => setActiveTab(tab.id)}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className={`px-6  py-3 rounded-full font-medium transition-all flex items-center ${
+                className={`px-6 py-3 rounded-full font-medium transition-all flex items-center ${
                   activeTab === tab.id
                     ? "bg-primaryGreen-light dark:bg-primaryGreen-dark text-white shadow-md"
                     : "backdrop-blur-sm bg-white dark:bg-gray-800 bg-opacity-60 dark:bg-opacity-30 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
                 }`}
               >
-                {tab.icon}
                 {tab.label}
               </motion.a>
             ))}
@@ -318,77 +275,8 @@ const AboutCompany = () => {
 
           {/* Tab Content */}
           <div className={`${isTabsSticky ? "mt-48" : "mt-8"}`}>
-            {/* Our Story Tab */}
-            {activeTab === "story" && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="backdrop-blur-xl bg-white dark:bg-gray-800 bg-opacity-60 dark:bg-opacity-20 border border-white border-opacity-40 dark:border-gray-700 rounded-2xl p-8 shadow-lg"
-              >
-                <h3 className="font-montserrat font-semibold text-2xl mb-10 text-center text-gray-800 dark:text-white">
-                  Our Journey
-                </h3>
-
-                {/* Timeline with Images */}
-                <div className="space-y-16 relative">
-                  {/* Timeline line */}
-                  <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark transform md:translate-x-px"></div>
-
-                  {timelineEvents.map((event, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className={`relative pl-8 md:pl-0 flex flex-col ${
-                        index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                      }`}
-                    >
-                      {/* Year bubble */}
-                      <div className="absolute left-0 md:left-1/2 top-16 transform -translate-x-1/2 w-8 h-8 rounded-full bg-primaryGreen-light dark:bg-primaryGreen-dark shadow-md flex items-center justify-center z-10">
-                        <span className="w-3 h-3 rounded-full bg-white"></span>
-                      </div>
-
-                      {/* Event content */}
-                      <div
-                        className={`md:w-1/2 ${
-                          index % 2 === 0
-                            ? "md:pr-12 md:text-right"
-                            : "md:pl-12"
-                        }`}
-                      >
-                        <div className="backdrop-blur-md bg-white dark:bg-gray-800 bg-opacity-70 dark:bg-opacity-30 rounded-xl overflow-hidden shadow-md">
-                          {/* Event Image */}
-                          <div className="relative h-48 overflow-hidden">
-                            <img
-                              src={event.image}
-                              alt={event.imageAlt}
-                              className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-40"></div>
-                          </div>
-
-                          {/* Event Text */}
-                          <div className="p-5">
-                            <span className="inline-block px-3 py-1 bg-primaryGreen-light dark:bg-primaryGreen-dark text-white text-sm font-bold mb-2 rounded-full">
-                              {event.year}
-                            </span>
-                            <h4 className="font-montserrat font-semibold text-xl mb-2 text-gray-800 dark:text-white">
-                              {event.title}
-                            </h4>
-                            <p className="font-ubuntu text-gray-600 dark:text-gray-400">
-                              {event.description}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
+            {/* Our Story Tab - Now using the CompanyTimeline component */}
+            {activeTab === "story" && <CompanyTimeline />}
 
             {/* Team Tab */}
             {activeTab === "team" && (
@@ -398,9 +286,16 @@ const AboutCompany = () => {
                 transition={{ duration: 0.5 }}
                 className="backdrop-blur-xl bg-white dark:bg-gray-800 bg-opacity-60 dark:bg-opacity-20 border border-white border-opacity-40 dark:border-gray-700 rounded-2xl p-8 shadow-lg"
               >
-                <h3 className="font-montserrat font-semibold text-2xl mb-6 text-center text-gray-800 dark:text-white">
-                  Meet Our Team
-                </h3>
+                <div className="flex items-center justify-center mb-12">
+                  <div className="h-px bg-gradient-to-r from-transparent via-primaryGreen-light dark:via-primaryGreen-dark to-transparent w-1/4"></div>
+                  <div className="mx-4 flex items-center">
+                    <FaUsers className="text-primaryGreen-light dark:text-primaryGreen-dark mr-2" />
+                    <h3 className="font-montserrat font-semibold text-2xl text-gray-800 dark:text-white">
+                      Meet Our Team
+                    </h3>
+                  </div>
+                  <div className="h-px bg-gradient-to-r from-transparent via-primaryGreen-light dark:via-primaryGreen-dark to-transparent w-1/4"></div>
+                </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {teamMembers.map((member, index) => (
@@ -410,14 +305,17 @@ const AboutCompany = () => {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
-                      whileHover={{ y: -5 }}
-                      className="backdrop-blur-xl bg-white dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-30 border border-white border-opacity-40 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg"
+                      whileHover={{
+                        y: -5,
+                        transition: { duration: 0.3 },
+                      }}
+                      className="backdrop-blur-xl bg-white dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-30 border border-white border-opacity-40 dark:border-gray-700 rounded-xl overflow-hidden shadow-lg group"
                     >
                       <div className="relative h-60 overflow-hidden">
                         <img
                           src={member.image}
                           alt={member.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
                         <div className="absolute bottom-0 left-0 right-0 p-4">

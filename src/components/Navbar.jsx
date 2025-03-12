@@ -4,10 +4,39 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
 
+const navLinks = [
+  {
+    name: "Home",
+    href: "#home",
+    sectionId: "home",
+  },
+  {
+    name: "Features",
+    href: "#features",
+    sectionId: "features",
+  },
+  {
+    name: "About",
+    href: "#about",
+    sectionId: "about",
+  },
+  {
+    name: "Company",
+    href: "#company",
+    sectionId: "company",
+  },
+  {
+    name: "Contact Us",
+    href: "#contact",
+    sectionId: "contact",
+  },
+];
+
 const Navbar = ({ theme, toggleTheme }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
+  const [activeSection, setActiveSection] = useState("");
   const mobileMenuRef = useRef(null);
 
   // Handle scroll effect
@@ -23,6 +52,41 @@ const Navbar = ({ theme, toggleTheme }) => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Handle active section detection
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -75% 0px", // Adjust the detection area
+      threshold: 0.1,
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
+
+    // Observe all sections
+    navLinks.forEach((link) => {
+      const section = document.getElementById(link.sectionId);
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      navLinks.forEach((link) => {
+        const section = document.getElementById(link.sectionId);
+        if (section) observer.unobserve(section);
+      });
+    };
   }, []);
 
   // Handle click outside to close mobile menu
@@ -75,46 +139,39 @@ const Navbar = ({ theme, toggleTheme }) => {
 
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex md:items-center md:space-x-8">
-              <a
-                href="#home"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-800 hover:text-primaryGreen-light dark:text-gray-200 dark:hover:text-primaryGreen-dark"
-                    : "text-gray-900 dark:text-white hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark"
-                }`}
-              >
-                Home
-              </a>
-              <a
-                href="#features"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-800 hover:text-primaryGreen-light dark:text-gray-200 dark:hover:text-primaryGreen-dark"
-                    : "text-gray-900 dark:text-white hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark"
-                }`}
-              >
-                Features
-              </a>
-              <a
-                href="#about"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-800 hover:text-primaryGreen-light dark:text-gray-200 dark:hover:text-primaryGreen-dark"
-                    : "text-gray-900 dark:text-white hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark"
-                }`}
-              >
-                About
-              </a>
-              <a
-                href="#contact"
-                className={`font-medium transition-colors ${
-                  isScrolled
-                    ? "text-gray-800 hover:text-primaryGreen-light dark:text-gray-200 dark:hover:text-primaryGreen-dark"
-                    : "text-gray-900 dark:text-white hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark"
-                }`}
-              >
-                Contact Us
-              </a>
+              {navLinks.map((link, index) => {
+                const isActive = activeSection === link.sectionId;
+                return (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className={`font-medium transition-colors relative ${
+                      isScrolled
+                        ? "text-gray-800 hover:text-primaryGreen-light dark:text-gray-200 dark:hover:text-primaryGreen-dark"
+                        : "text-gray-900 dark:text-white hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark"
+                    } ${
+                      isActive
+                        ? "text-primaryGreen-light dark:text-primaryGreen-dark"
+                        : ""
+                    }`}
+                  >
+                    {link.name}
+                    {isActive && (
+                      <motion.span
+                        layoutId="activeIndicator"
+                        className="absolute bottom-0 left-0 w-full h-0.5 bg-primaryGreen-light dark:bg-primaryGreen-dark rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: "100%" }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 200,
+                          damping: 15,
+                        }}
+                      />
+                    )}
+                  </a>
+                );
+              })}
             </div>
 
             {/* Theme Toggle and Get Started Button */}
@@ -217,34 +274,31 @@ const Navbar = ({ theme, toggleTheme }) => {
                 </div>
 
                 <div className="space-y-1 py-4">
-                  <a
-                    href="#home"
-                    className="block px-4 py-3 text-base font-medium text-gray-800 dark:text-white hover:bg-primaryGreen-light hover:text-white dark:hover:bg-primaryGreen-dark rounded-lg transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Home
-                  </a>
-                  <a
-                    href="#features"
-                    className="block px-4 py-3 text-base font-medium text-gray-800 dark:text-white hover:bg-primaryGreen-light hover:text-white dark:hover:bg-primaryGreen-dark rounded-lg transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Features
-                  </a>
-                  <a
-                    href="#about"
-                    className="block px-4 py-3 text-base font-medium text-gray-800 dark:text-white hover:bg-primaryGreen-light hover:text-white dark:hover:bg-primaryGreen-dark rounded-lg transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    About
-                  </a>
-                  <a
-                    href="#contact"
-                    className="block px-4 py-3 text-base font-medium text-gray-800 dark:text-white hover:bg-primaryGreen-light hover:text-white dark:hover:bg-primaryGreen-dark rounded-lg transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Contact Us
-                  </a>
+                  {navLinks.map((link, index) => {
+                    const isActive = activeSection === link.sectionId;
+                    return (
+                      <a
+                        key={index}
+                        href={link.href}
+                        className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors relative ${
+                          isActive
+                            ? "bg-primaryGreen-light bg-opacity-10 dark:bg-primaryGreen-dark dark:bg-opacity-10 text-primaryGreen-light dark:text-primaryGreen-dark"
+                            : "text-gray-800 dark:text-white hover:bg-primaryGreen-light hover:bg-opacity-5 dark:hover:bg-primaryGreen-dark dark:hover:bg-opacity-5"
+                        }`}
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {link.name}
+                        {isActive && (
+                          <motion.span
+                            className="absolute left-0 top-0 bottom-0 w-1 bg-primaryGreen-light dark:bg-primaryGreen-dark rounded-r-full"
+                            layoutId="mobileActiveIndicator"
+                            initial={{ height: 0 }}
+                            animate={{ height: "100%" }}
+                          />
+                        )}
+                      </a>
+                    );
+                  })}
                 </div>
 
                 <div className="pt-6 border-t border-gray-200 dark:border-gray-700">

@@ -93,9 +93,8 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="font-ubuntu text-lg mb-10 text-gray-700 dark:text-gray-300 max-w-xl mx-auto lg:mx-0 leading-relaxed"
             >
-              Boafo bridges communication barriers with AI-powered tools, making
-              online shopping accessible for everyone regardless of ability or
-              digital expertise.
+              AI-powered tools, that make online shopping accessible for
+              everyone.
             </motion.p>
 
             {/* Enhanced CTA buttons */}
