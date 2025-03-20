@@ -14,6 +14,7 @@ import {
 import { COMPANY_DATA } from "../constants/placeholder";
 import LegalModal from "./LegalModal";
 import { FaXTwitter } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -460,7 +461,7 @@ const Footer = () => {
                 {["Home", "Features", "About", "Contact"].map((item, index) => (
                   <li key={index}>
                     <a
-                      href={`#${item.toLowerCase().replace(" ", "-")}`}
+                      href={`/#${item.toLowerCase().replace(" ", "-")}`}
                       className="text-gray-600 dark:text-gray-400 hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark transition-colors text-sm block py-1 relative group"
                     >
                       <span>{item}</span>
@@ -489,8 +490,17 @@ const Footer = () => {
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="space-y-4"
               >
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="text-gray-600 dark:text-gray-400 hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark transition-colors text-sm block py-1 text-left w-full relative group"
+                  >
+                    <span>Privacy Policy</span>
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primaryGreen-light dark:bg-primaryGreen-dark transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                </li>
                 {[
-                  "Privacy Policy",
+                  // "Privacy Policy",
                   "Terms of Service",
                   "Cookies Policy",
                   "Accessibility",
