@@ -9,6 +9,7 @@ import {
   FaUserShield,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { COMPANY_DATA } from "../../constants/placeholder";
 
 const Privacy = () => {
   const [activeSection, setActiveSection] = useState("introduction");
@@ -577,7 +578,7 @@ const Privacy = () => {
                       href="mailto:support@boafoapp.com"
                       className="text-primaryGreen-light dark:text-primaryGreen-dark hover:underline"
                     >
-                      support@boafoapp.com
+                      {COMPANY_DATA.emails[0]}
                     </a>
                     <br />
                     <strong>Website:</strong>{" "}
@@ -600,7 +601,7 @@ const Privacy = () => {
                       have read and understood this Privacy Policy.
                     </p>
                   </div>
-                  <div className="mt-6 md:mt-0">
+                  {/* <div className="mt-6 md:mt-0">
                     <div className="h-16 opacity-80 flex items-center justify-center">
                       <div className="w-48 h-12 bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark rounded-lg flex items-center justify-center text-white font-montserrat font-bold">
                         Digital Drivers Technology
@@ -611,7 +612,7 @@ const Privacy = () => {
                       <br />
                       CEO, Digital Drivers Technology
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
