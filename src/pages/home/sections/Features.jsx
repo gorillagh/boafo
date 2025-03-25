@@ -179,8 +179,8 @@ const Features = () => {
             </span>
           </h2>
           <p className="font-ubuntu text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
-            Discover how Boafo's innovative tools create an inclusive shopping
-            experience regardless of ability.
+            Discover how Boafo's cutting-edge tools create an inclusive digital
+            experience for users of all abilities.
           </p>
         </motion.div>
 

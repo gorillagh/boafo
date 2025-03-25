@@ -81,7 +81,7 @@ const Hero = () => {
                   transition={{ duration: 0.7, delay: 0.2 }}
                   className="inline-block"
                 >
-                  in E-Commerce
+                  Online
                 </motion.span>
               </div>
             </h1>
@@ -93,8 +93,7 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="font-ubuntu text-lg mb-10 text-gray-700 dark:text-gray-300 max-w-xl mx-auto lg:mx-0 leading-relaxed"
             >
-              AI-powered tools, that make online shopping accessible for
-              everyone.
+              AI-powered tools that make the web accessible for everyone
             </motion.p>
 
             {/* Enhanced CTA buttons */}
@@ -193,7 +192,7 @@ const Hero = () => {
                 {
                   number: "50+",
                   label: "Accessibility Features",
-                  description: "Making e-commerce inclusive",
+                  description: "Empowering inclusive digital experiences",
                 },
                 {
                   number: "10K+",

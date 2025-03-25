@@ -169,19 +169,19 @@ const TechnologyContent = () => {
       ),
       title: "AI-Powered Recognition",
       description:
-        "Our proprietary machine learning algorithms analyze web content in real-time to identify text, images, and interactive elements that need to be made accessible.",
+        "Our proprietary machine learning algorithms analyze web content in real time, ensuring every element is optimized for accessibility",
     },
     {
       icon: <FaLightbulb className="text-blue-500 dark:text-blue-400" />,
       title: "Adaptive Interface",
       description:
-        "Boafo's interface dynamically adjusts based on user needs, providing different tools and interactions based on the specific accessibility requirements detected.",
+        "Boafo’s dynamic interface adapts to your unique accessibility needs offering customizable controls for text size, brightness, and even a dark mode to reduce eye strain.",
     },
     {
       icon: <FaShieldAlt className="text-amber-500 dark:text-amber-400" />,
       title: "Privacy-First Design",
       description:
-        "All processing happens locally in the browser without sending sensitive data to external servers, ensuring user privacy while maintaining high-quality accessibility features.",
+        "All processing happens locally in your browser no sensitive data is sent to external servers so you can enjoy enhanced accessibility with peace of mind.",
     },
   ];
 
@@ -189,8 +189,8 @@ const TechnologyContent = () => {
     <div className="space-y-8">
       <p className="text-gray-700 dark:text-gray-300 font-ubuntu text-lg leading-relaxed">
         Boafo leverages cutting-edge technology to bridge the accessibility gap
-        in e-commerce. Our widget is built on a foundation of advanced web
-        technologies and artificial intelligence to provide seamless
+        in the digital world. Our extension is built on advanced web
+        technologies and artificial intelligence to deliver seamless
         accessibility features without requiring changes to the underlying
         website structure.
       </p>
@@ -217,9 +217,9 @@ const TechnologyContent = () => {
           Integration Made Simple
         </h4>
         <p className="font-ubuntu text-gray-600 dark:text-gray-400">
-          Boafo can be integrated into any e-commerce platform with just a few
-          lines of code. Our team provides comprehensive documentation and
-          support to ensure a smooth implementation process.
+          Easily integrate Boafo into any website or web application with just a
+          few lines of code. Our comprehensive documentation and support team
+          are here to ensure a smooth and hassle-free implementation.
         </p>
       </div>
 
@@ -263,21 +263,21 @@ const AboutProduct = () => {
     {
       title: "Text-to-Speech Demo",
       description:
-        "This demonstration showcases how Boafo's text-to-speech feature works in real-time on e-commerce websites. The technology intelligently identifies product descriptions, prices, and reviews, then converts them to clear, natural-sounding speech. Users can adjust the reading speed and voice preferences to suit their individual needs. This feature is particularly valuable for visually impaired users, enabling them to browse products independently without requiring assistance.",
+        "This demonstration showcases how Boafo's text-to-speech feature works in real time on digital platforms. The technology intelligently identifies key content such as descriptions, prices, and reviews, then converts them into clear, natural-sounding speech. Users can adjust the reading speed and voice preferences to suit their individual needs. This feature is particularly valuable for visually impaired users, enabling them to browse independently without requiring assistance.",
       videoSrc: "/videos/text-to-speech-demo.mp4",
       posterSrc: "/illustrations/text-to-speech-preview.webp",
     },
     {
       title: "Speech Recognition",
       description:
-        "Our advanced speech recognition technology enables users to navigate e-commerce platforms using voice commands alone. This demonstration shows how users can search for products, filter results, and even complete purchases using natural voice instructions. The system is designed to understand various accents and dialects, making it accessible to a diverse range of users. For individuals with motor disabilities or those who find typing challenging, this feature transforms the online shopping experience into a conversation.",
+        "Our advanced speech recognition technology enables users to navigate digital platforms using voice commands alone. This demonstration shows how users can search for content, filter results, and perform actions using natural voice instructions. Designed to understand various accents and dialects, it makes interactions accessible to a diverse range of users. For individuals with motor disabilities or those who find typing challenging, this feature transforms the digital experience into an interactive conversation.",
       videoSrc: "/videos/speech-recognition-demo.mp4",
       posterSrc: "/illustrations/speech-recognition-preview.webp",
     },
     {
       title: "Language Translation",
       description:
-        "Boafo's real-time language translation feature breaks down communication barriers between shoppers and sellers who speak different languages. This demonstration shows how the widget automatically detects and translates product information, customer questions, and seller responses. The technology supports over 40 languages, with special emphasis on local African languages to empower regional traders. This feature helps connect local businesses with global customers while preserving authentic cultural communication.",
+        "Boafo's real-time language translation feature breaks down communication barriers on digital platforms. This demonstration shows how the extension automatically detects and translates content, customer questions, and responses. The technology supports over 40 languages, with special emphasis on local African languages to empower regional traders. This feature helps connect local businesses with global customers while preserving authentic cultural communication.",
       videoSrc: "/videos/language-translation-demo.mp4",
       posterSrc: "/illustrations/language-translation-preview.webp",
     },
@@ -351,9 +351,9 @@ const AboutProduct = () => {
                 </h2>
               </motion.div>
               <p className="font-ubuntu text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                Boafo makes online shopping inclusive with text-to-speech, audio
-                descriptions, and local language support, empowering users of
-                all abilities.
+                Boafo makes digital experiences inclusive with text-to-speech,
+                audio descriptions, and local language support, empowering users
+                of all abilities.
               </p>
 
               <div className="space-y-6">

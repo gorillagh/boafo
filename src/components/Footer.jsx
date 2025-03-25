@@ -399,8 +399,8 @@ const Footer = () => {
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="font-ubuntu text-gray-600 dark:text-gray-300"
               >
-                Empowering independence in e-commerce for all abilities,
-                regardless of digital expertise or physical limitation.
+                Empowering independence online for all abilities, regardless of
+                digital expertise or physical limitations.
               </motion.p>
 
               <motion.div

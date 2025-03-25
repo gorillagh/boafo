@@ -20,7 +20,7 @@ const FAQItem = ({ faq, isOpen, toggleOpen, index }) => {
     "What features does Boafo offer?": (
       <FaAccessibleIcon className="text-purple-500" />
     ),
-    "Is Boafo compatible with all e-commerce platforms?": (
+    "Is Boafo compatible with all platforms?": (
       <FaGlobe className="text-green-500" />
     ),
     "Does Boafo support local languages?": (
@@ -95,27 +95,27 @@ const FAQs = () => {
     {
       question: "What is Boafo?",
       answer:
-        "Boafo is an Accessible E-Commerce Widget that empowers individuals with disabilities and local traders to use e-commerce platforms independently. It's designed to make online shopping accessible for everyone.",
+        "Boafo is an accessible Chrome extension designed to empower individuals with disabilities and users worldwide to engage with digital content effortlessly. By offering a comprehensive suite of accessibility tools, Boafo transforms digital experiences across the web, making online environments more inclusive for everyone",
     },
     {
       question: "What features does Boafo offer?",
       answer:
-        "Boafo includes text-to-speech, audio descriptions, speech-to-text, resizable elements, and image descriptions to enhance accessibility. These features make it easier for people with different abilities to navigate and use e-commerce platforms.",
+        "Boafo offers a comprehensive suite of accessibility tools, including text-to-speech with audio descriptions for seamless listening to web content and product details; speech-to-text for effortless voice command interaction; resizable elements and image descriptions to customize interfaces for improved readability; and local language support to bridge communication gaps with languages like Twi, Frafra, French, Spanish, Dutch, and more.",
     },
     {
-      question: "Is Boafo compatible with all e-commerce platforms?",
+      question: "Is Boafo compatible with all all platforms?",
       answer:
-        "Yes, Boafo is designed to work across various e-commerce platforms and browsers like Chrome, Firefox, Safari, and Edge. It integrates seamlessly with existing websites.",
+        "Yes, Boafo is designed to work across a wide range of websites and browsers including Chrome, Firefox, Safari, and Edge integrating seamlessly with your digital environment",
     },
     {
       question: "Does Boafo support local languages?",
       answer:
-        "Yes, Boafo supports local languages like Twi to bridge communication gaps for non-English speakers. This is particularly important for local traders in Ghana who may prefer their native language.",
+        "Absolutely. Boafo supports local languages such as Twi and Frafra, alongside global languages, to ensure users and local traders can access content in their preferred language",
     },
     {
       question: "How easy is it to install Boafo?",
       answer:
-        "Installing Boafo is simple and straightforward. It can be added to your website as a widget with just a few lines of code. Our team also provides installation support if needed.",
+        "Installing Boafo is simple and straightforward. As a Chrome extension, you can easily add it directly from the Chrome Web Store with just a click. Additionally, if you want to integrate its accessibility features directly into your website, our team is on hand to provide quick and seamless support",
     },
     {
       question: "Is Boafo WCAG compliant?",

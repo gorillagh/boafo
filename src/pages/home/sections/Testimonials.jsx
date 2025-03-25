@@ -12,7 +12,7 @@ const Testimonials = () => {
   const testimonials = [
     {
       quote:
-        "Boafo made online shopping so easy for me! I can now listen to product descriptions and shop independently. The voice quality is excellent and the instructions are very clear.",
+        "Boafo has made the internet truly accessible for me. I can now browse websites, read articles, and even navigate government portals with ease, thanks to the text-to-speech and voice command features.",
       name: "Kwame A.",
       role: "Visually Impaired User",
       image: "/testimonials/kwame.webp",
@@ -21,29 +21,29 @@ const Testimonials = () => {
     },
     {
       quote:
-        "As a trader with limited digital skills, the speech-to-text feature helped me sell my products online without stress. I can now reach customers I never could before.",
+        "As someone with limited mobility, Boafo's voice navigation has been life-changing. I can now interact with online services, from filling out forms to sending emails, without needing assistance.",
       name: "Ama S.",
-      role: "Local Trader",
+      role: "User with Motor Disabilities",
       image: "/testimonials/ama.webp",
-      rating: 4.5,
+      rating: 5,
       location: "Kumasi, Ghana",
     },
     {
       quote:
-        "The resizable elements allowed me to view products comfortably, making my shopping experience seamless. I no longer struggle to read small text on websites.",
+        "With Boafo’s real-time translation, I can now understand and engage with online content in multiple languages, making education and job opportunities more accessible to me.",
       name: "Kofi B.",
-      role: "User with Low Vision",
+      role: "Multilingual User",
       image: "/testimonials/kofi.webp",
-      rating: 5,
+      rating: 4.5,
       location: "Tamale, Ghana",
     },
     {
       quote:
-        "Boafo's audio descriptions of products have transformed how I shop. I can now make informed decisions independently and feel confident in my purchases.",
+        "Boafo’s audio descriptions and resizable text have made my daily internet use far more comfortable. Whether I’m reading the news or browsing social media, I no longer struggle with small text.",
       name: "Adwoa P.",
-      role: "Blind User",
+      role: "User with Low Vision",
       image: "/testimonials/adwoa.webp",
-      rating: 4.5,
+      rating: 5,
       location: "Cape Coast, Ghana",
     },
   ];
@@ -151,7 +151,7 @@ const Testimonials = () => {
             Say
           </h2>
           <p className="font-ubuntu text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
-            Discover how Boafo is changing lives and making e-commerce
+            Discover how Boafo is changing lives and making digital experiences
             accessible for everyone.
           </p>
         </motion.div>

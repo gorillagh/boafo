@@ -44,7 +44,7 @@ const CTA = () => {
                 </span>
 
                 <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-white mb-6 leading-tight">
-                  Ready to Make E-Commerce{" "}
+                  Ready to Make Digital Experiences{" "}
                   <span className="relative inline-block">
                     Accessible
                     <motion.span
@@ -59,9 +59,9 @@ const CTA = () => {
                 </h2>
 
                 <p className="font-ubuntu text-lg text-white text-opacity-90 mb-8">
-                  Join Boafo today and empower independence in online shopping.
-                  Our widget seamlessly integrates with your existing e-commerce
-                  platform.
+                  Join Boafo today and empower independence online. Our
+                  extension seamlessly integrates with your digital experience,
+                  opening up a world of accessibility at your fingertips.
                 </p>
 
                 <div className="space-y-4 mb-8">
