@@ -45,7 +45,7 @@ function Home() {
       <CTA />
       <ContactUs />
       <FAQs />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
