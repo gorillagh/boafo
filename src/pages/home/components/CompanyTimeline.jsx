@@ -55,7 +55,7 @@ const CompanyTimeline = () => {
       year: "2024",
       title: "Global Accessibility Revolution",
       description:
-        "In 2024, Boafo expanded from e-commerce to global digital accessibility. We now support the entire web with advanced AI tools, local language support (Twi, Frafra, French, Spanish, Dutch, and more), and adaptive interfaces. New international partnerships reinforce our commitment to making technology accessible for everyone.",
+        "Boafo expanded from e-commerce to global digital accessibility. We now support the entire web with advanced AI tools, local language support (Twi, Frafra, French, Spanish, Dutch, and more), and adaptive interfaces. New international partnerships reinforce our commitment to making technology accessible for everyone.",
       image: "/timelines/future.webp",
       imageAlt: "",
       highlight: "Bringing accessibility to the entire digital world",
