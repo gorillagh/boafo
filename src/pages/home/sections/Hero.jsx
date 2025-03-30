@@ -62,7 +62,28 @@ const Hero = () => {
                   Empowering
                 </motion.span>
               </div>
-              
+              <div className="overflow-hidden mt-1">
+                <motion.span
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.7, delay: 0.1 }}
+                  className="inline-block"
+                >
+                  <span className="bg-gradient-to-r from-primaryGreen-light to-primaryGreen-hover-light dark:from-primaryGreen-dark dark:to-primaryGreen-hover-dark bg-clip-text text-transparent">
+                    Independence
+                  </span>
+                </motion.span>
+              </div>
+              <div className="overflow-hidden mt-1">
+                <motion.span
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.7, delay: 0.2 }}
+                  className="inline-block"
+                >
+                  Online.
+                </motion.span>
+              </div>
             </h1>
 
             {/* Description with improved readability */}
