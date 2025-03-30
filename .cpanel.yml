@@ -1,18 +1,14 @@
 ---
 deployment:
   tasks:
-    # Set the destination deployment path on your cPanel account.
+    # Set the deployment path on your cPanel account.
     - export DEPLOYPATH=/home/jgpuhdee/public_html/boafo
     
-    # Log start time
-    - echo "Deployment started at $(date)" >> $DEPLOYPATH/deploy.log
-    
-    # Install dependencies and build
-    - npm install >> $DEPLOYPATH/deploy.log 2>&1
-    - npm run build >> $DEPLOYPATH/deploy.log 2>&1
-    
-    # Check if the build folder exists before copying
-    - if [ -d "dist" ]; then /bin/cp -R dist/* $DEPLOYPATH; else echo "Build failed: dist folder missing" >> $DEPLOYPATH/deploy.log; fi
-    
-    # Log completion
-    - echo "Deployment finished at $(date)" >> $DEPLOYPATH/deploy.log
+    # Ensure the deployment directory exists.
+    - /bin/mkdir -p $DEPLOYPATH
+
+    # Copy all built files from the dist folder to the deployment path.
+    - /bin/cp -R dist/* $DEPLOYPATH
+
+    # Set correct permissions (optional, ensures files are readable).
+    - /bin/chmod -R 755 $DEPLOYPATH
