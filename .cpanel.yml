@@ -1,14 +1,5 @@
----
 deployment:
   tasks:
-    # Set the deployment path on your cPanel account.
-    - export DEPLOYPATH=/home/jgpuhdee/public_html/boafo
-    
-    # Ensure the deployment directory exists.
-    - /bin/mkdir -p $DEPLOYPATH
-
-    # Copy all built files from the dist folder to the deployment path.
-    - /bin/cp -R dist/* $DEPLOYPATH
-
-    # Set correct permissions (optional, ensures files are readable).
-    - /bin/chmod -R 755 $DEPLOYPATH
+    - export DEPLOYPATH=/home/jgpuhdee/public_html
+    - /bin/rm -rf $DEPLOYPATH/*
+    - /bin/cp -r dist/* $DEPLOYPATH
