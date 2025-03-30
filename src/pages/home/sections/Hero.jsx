@@ -81,7 +81,7 @@ const Hero = () => {
                   transition={{ duration: 0.7, delay: 0.2 }}
                   className="inline-block"
                 >
-                  Online
+                  Online.
                 </motion.span>
               </div>
             </h1>
