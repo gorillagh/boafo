@@ -4,9 +4,15 @@ deployment:
     # Set the destination deployment path on your cPanel account.
     - export DEPLOYPATH=/home/jgpuhdee/public_html/boafo
     
-    # 2. Build your Vite project. (If you build locally and just commit the final files, you can skip this step.)
-    - npm install
-    - npm run build
-
-    # 3. Copy your build output to your deployment path.
-    - /bin/cp -R dist/* $DEPLOYPATH
+    # Log start time
+    - echo "Deployment started at $(date)" >> $DEPLOYPATH/deploy.log
+    
+    # Install dependencies and build
+    - npm install >> $DEPLOYPATH/deploy.log 2>&1
+    - npm run build >> $DEPLOYPATH/deploy.log 2>&1
+    
+    # Check if the build folder exists before copying
+    - if [ -d "dist" ]; then /bin/cp -R dist/* $DEPLOYPATH; else echo "Build failed: dist folder missing" >> $DEPLOYPATH/deploy.log; fi
+    
+    # Log completion
+    - echo "Deployment finished at $(date)" >> $DEPLOYPATH/deploy.log
