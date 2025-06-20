@@ -4,7 +4,7 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/home";
 import BackToTop from "./components/BackToTop";
 import Privacy from "./pages/privacy";
-import OnboardingFlow from "./pages/getStarted/OnboardingFlow";
+import OnboardingFlow from "./pages/onboarding/OnboardingFlow";
 
 function App() {
   const router = createBrowserRouter([
