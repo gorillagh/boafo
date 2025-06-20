@@ -45,7 +45,6 @@ function Home() {
       <CTA />
       <ContactUs />
       <FAQs />
-      {/* <Footer /> */}
     </div>
   );
 }
