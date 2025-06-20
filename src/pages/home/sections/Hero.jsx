@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -104,30 +105,31 @@ const Hero = () => {
               className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-5"
             >
               {/* Primary button with glass effect */}
-              <motion.button
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 10px 20px -10px rgba(52, 199, 89, 0.5)",
-                }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
-                className="relative overflow-hidden group backdrop-blur-md bg-primaryGreen-light dark:bg-primaryGreen-dark text-white font-medium py-3.5 px-8 rounded-full shadow-md"
-              >
-                {/* Subtle shine effect */}
-                <span className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-45 transition-all duration-700 ease-out"></span>
-
-                <span className="flex items-center justify-center">
-                  Get Started
-                  <motion.span
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.3 }}
-                    className="ml-2"
-                  >
-                    <FaArrowRight />
-                  </motion.span>
-                </span>
-              </motion.button>
+              <Link to= "/onboarding">
+                <motion.button
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: "0 10px 20px -10px rgba(52, 199, 89, 0.5)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                  className="relative overflow-hidden group backdrop-blur-md bg-primaryGreen-light dark:bg-primaryGreen-dark text-white font-medium py-3.5 px-8 rounded-full shadow-md"
+                >
+                  {/* Subtle shine effect */}
+                  <span className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-white to-transparent opacity-0 group-hover:opacity-20 transform -skew-x-45 transition-all duration-700 ease-out"></span>
+                  <span className="flex items-center justify-center">
+                    Get Started
+                    <motion.span
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.3 }}
+                      className="ml-2"
+                    >
+                      <FaArrowRight />
+                    </motion.span>
+                  </span>
+                </motion.button>
+              </Link>
 
               {/* Secondary button with glass effect */}
               <motion.button

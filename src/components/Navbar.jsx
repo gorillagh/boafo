@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   {
@@ -251,15 +252,17 @@ const Navbar = ({ theme, toggleTheme }) => {
               >
                 {theme === "light" ? <FiMoon size={20} /> : <FiSun size={20} />}
               </button>
-              <button
-                className={`transition-all duration-300 font-medium py-2 px-6 rounded-full ${
-                  isScrolled
-                    ? "bg-primaryGreen-light dark:bg-primaryGreen-dark text-white hover:bg-primaryGreen-hover-light dark:hover:bg-primaryGreen-hover-dark"
-                    : "bg-white text-primaryGreen-dark hover:bg-gray-100"
-                }`}
-              >
-                Get Started
-              </button>
+              <Link to="/onboarding">
+                <button
+                  className={`transition-all duration-300 font-medium py-2 px-6 rounded-full ${
+                    isScrolled
+                      ? "bg-primaryGreen-light dark:bg-primaryGreen-dark text-white hover:bg-primaryGreen-hover-light dark:hover:bg-primaryGreen-hover-dark"
+                      : "bg-white text-primaryGreen-dark hover:bg-gray-100"
+                  }`}
+                >
+                  Get Started
+                </button>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -366,12 +369,14 @@ const Navbar = ({ theme, toggleTheme }) => {
                 </div>
 
                 <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <button
-                    className="w-full bg-primaryGreen-light dark:bg-primaryGreen-dark text-white hover:bg-primaryGreen-hover-light dark:hover:bg-primaryGreen-hover-dark font-medium py-3 px-6 rounded-lg transition-all duration-300"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Get Started
-                  </button>
+                  <Link to="/onboarding">
+                    <button
+                      className="w-full bg-primaryGreen-light dark:bg-primaryGreen-dark text-white hover:bg-primaryGreen-hover-light dark:hover:bg-primaryGreen-hover-dark font-medium py-3 px-6 rounded-lg transition-all duration-300"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Get Started
+                    </button>
+                  </Link>
                 </div>
 
                 <div className="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">

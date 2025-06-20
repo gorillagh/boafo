@@ -4,6 +4,7 @@ import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/home";
 import BackToTop from "./components/BackToTop";
 import Privacy from "./pages/privacy";
+import OnboardingFlow from "./pages/getStarted/OnboardingFlow";
 
 function App() {
   const router = createBrowserRouter([
@@ -13,6 +14,7 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "/privacy", element: <Privacy /> },
+        { path: "/onboarding", element: <OnboardingFlow /> },
       ],
     },
   ]);
