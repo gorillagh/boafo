@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FaChrome, FaPuzzlePiece } from "react-icons/fa";
 import { useNavigate } from "react-router-dom"; // For potential redirection after simulated install
 
-const CHROME_WEB_STORE_LINK = "#"; // Replace with actual link later
+const CHROME_WEB_STORE_LINK = "https://chromewebstore.google.com/detail/bfpoecmheiafbmghdbajladmhdjgobkg?utm_source=item-share-cb"; // Replace with actual link later
 
 const OnboardingStep8Install = ({ onContinue }) => {
   const navigate = useNavigate();
