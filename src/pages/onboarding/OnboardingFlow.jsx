@@ -131,7 +131,7 @@ const OnboardingFlow = () => {
           ></motion.div>
         </div>
 
-        {/* Speechify-like logo at the top */}
+       
         <div className="mb-8">
           <span className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
             <svg
