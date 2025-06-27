@@ -1,4 +1,3 @@
-// src/components/onboarding/OnboardingStep1Account.jsx
 "use client";
 
 import React, { useState } from 'react';
@@ -19,7 +18,7 @@ const formSchema = z
     path: ['confirmPassword'],
   });
 
-export default function OnboardingStep1Account({ onContinue, updateData, data }) {
+export default function SignUpPage({ onContinue, updateData, data }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const {

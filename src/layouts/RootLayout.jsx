@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 const RootLayout = () => {
   const location = useLocation();
-  const hideFooterRoutes = ["/onboarding"]; // Add more routes here if needed
+  const hideFooterRoutes = ["/onboarding"];
 
   const shouldShowFooter = !hideFooterRoutes.includes(location.pathname);
 
