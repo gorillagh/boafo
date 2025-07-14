@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useTheme } from "@/context/ThemeContext";
 
 const navLinks = [
   {
@@ -33,12 +34,13 @@ const navLinks = [
   },
 ];
 
-const Navbar = ({ theme, toggleTheme }) => {
+const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
   const [activeSection, setActiveSection] = useState("");
   const mobileMenuRef = useRef(null);
+   const { theme, toggleTheme } = useTheme();
 
   // Handle scroll effect
   useEffect(() => {

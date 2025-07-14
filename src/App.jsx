@@ -7,6 +7,7 @@ import BackToTop from "./components/BackToTop";
 import Privacy from "./pages/privacy";
 import OnboardingFlow from "./pages/onboarding/OnboardingFlow";
 import Login from "./pages/login";
+import { ThemeProvider } from "./context/ThemeContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,10 +24,10 @@ function App() {
   ]);
 
   return (
-    <>
+    <ThemeProvider>
       <RouterProvider router={router} />
       <BackToTop />
-    </>
+    </ThemeProvider>
   );
 }
 
