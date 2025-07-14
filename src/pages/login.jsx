@@ -31,7 +31,7 @@ export default function Login() {
     // Here you would typically send formData to your authentication API
     // On successful login, you might redirect the user, e.g., to the home page or a dashboard.
     // For now, let's just log and then redirect to home
-    navigate('/');
+    navigate('/dashboard');
   };
 
   return (

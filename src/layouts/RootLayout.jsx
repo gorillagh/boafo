@@ -1,20 +1,20 @@
-import React from "react";
-import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
-import Footer from "../components/Footer";
+import React from 'react'
+import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
+import Footer from '../components/Footer'
 
-const RootLayout = () => {
-  const location = useLocation();
-  const hideFooterRoutes = ["/onboarding","/login"]; // Add more routes here if needed
+export default function RootLayout() {
+  const location = useLocation()
+  const hideFooterOn = ['/onboarding', '/login', '/dashboard']
 
-  const shouldShowFooter = !hideFooterRoutes.includes(location.pathname);
+  const showFooter = !hideFooterOn.some((p) =>
+    location.pathname.startsWith(p)
+  )
 
   return (
     <div>
       <ScrollRestoration />
       <Outlet />
-      {shouldShowFooter && <Footer />}
+      {showFooter && <Footer />}
     </div>
-  );
-};
-
-export default RootLayout;
+  )
+}
