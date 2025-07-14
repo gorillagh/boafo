@@ -4,8 +4,9 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { FiMenu } from 'react-icons/fi'
 import Sidebar from '@/pages/dashboard/Sidebar'
 import DashboardHeader from '@/pages/dashboard/DashboardHeader'
+import { Outlet } from 'react-router-dom'
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
@@ -32,7 +33,7 @@ export default function DashboardLayout({ children }) {
         {/* Pass toggle to header so it can open the drawer on mobile */}
         <DashboardHeader toggleSidebar={() => setSidebarOpen(true)} />
         <main className="flex-1 p-6 overflow-auto bg-white dark:bg-gray-900 transition-colors duration-300">
-          {children}
+         <Outlet/>
         </main>
       </div>
     </div>

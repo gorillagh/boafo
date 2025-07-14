@@ -3,13 +3,14 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Chrome, Download } from "lucide-react";
+import { FaChrome } from "react-icons/fa";
 
 export default function ExtensionStatus() {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center">
-          <Chrome className="mr-2 text-blue-500" /> Extension Status
+          <FaChrome className="mr-2 text-blue-500" /> Extension Status
         </CardTitle>
       </CardHeader>
       <CardContent>
