@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import API from "@/lib/axios";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button"; // assumes you're using shadcn/ui
+import { Button } from "@/components/ui/button";
 
 // Schema that matches backend expectations
 const formSchema = z
@@ -40,7 +40,7 @@ export default function OnboardingStep1Account({
   } = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: data.name || "",
       email: data.email || "",
       password: data.password || "",
       confirmPassword: data.password || "",
@@ -57,13 +57,17 @@ export default function OnboardingStep1Account({
         confirmPassword: formData.confirmPassword,
       });
 
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
+      if (res.data?.accessToken) {
+        localStorage.setItem("token", res.data.accessToken);
+        console.log("token",res.data.accessToken);
+        toast.success("Account created successfully!");
+        updateData("name", formData.name);
+        updateData("email", formData.email);
+        updateData("password", formData.password);
+        onContinue();
+      } else {
+        throw new Error("No token received");
       }
-      toast.success("Account created successfully!");
-      updateData("email", formData.email);
-      updateData("password", formData.password);
-      onContinue();
     } catch (err) {
       const message = err.response?.data?.message || "Registration failed";
       toast.error(message);
@@ -121,7 +125,9 @@ export default function OnboardingStep1Account({
             {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
           {errors.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.password.message}
+            </p>
           )}
         </div>
 
@@ -141,21 +147,15 @@ export default function OnboardingStep1Account({
             {showConfirm ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
           {errors.confirmPassword && (
-            <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {errors.confirmPassword.message}
+            </p>
           )}
         </div>
 
-        {/* Submit Button with Spinner */}
-        <Button
-          type="submit"
-          className="w-full py-3 mb-4"
-          disabled={loading}
-        >
-          {loading ? (
-            <Loader2 className="h-5 w-5 animate-spin" />
-          ) : (
-            "Sign Up"
-          )}
+        {/* Submit Button */}
+        <Button type="submit" className="w-full py-3 mb-4" disabled={loading}>
+          {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Sign Up"}
         </Button>
       </form>
 

@@ -2,8 +2,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import API from "@/lib/axios";
 
-// Import individual step components (will be created next)
+// Import individual step components
 import OnboardingStep1Account from "./OnboardingStep1Account";
 import OnboardingStep2Welcome from "./OnboardingStep2Welcome";
 import OnboardingStep3Goals from "./OnboardingStep3Goals";
@@ -15,10 +18,11 @@ import OnboardingStep8Install from "./OnboardingStep8Install";
 
 const OnboardingFlow = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 8; // Update this as more steps are added
+  const totalSteps = 8;
+  const navigate = useNavigate();
 
-  // State to hold user preferences from the onboarding quiz
   const [onboardingData, setOnboardingData] = useState({
+    name: "",
     email: "",
     password: "",
     goals: [],
@@ -36,12 +40,48 @@ const OnboardingFlow = () => {
   };
 
   const handleNext = () => {
-    // Here you might add validation for the current step before proceeding
     setCurrentStep((prevStep) => Math.min(prevStep + 1, totalSteps));
   };
 
   const handleBack = () => {
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 1));
+  };
+  const handleFinalizeAndNavigate = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Authentication token not found. Please log in.");
+        navigate("/login");
+        return;
+      }
+
+      const res = await API.post(
+        "/users/onboarding",
+        {
+          goals: onboardingData.goals,
+          contentTypes: onboardingData.contentTypes,
+          selectedVoice: onboardingData.selectedVoice,
+          readingSpeed: onboardingData.readingSpeed,
+          localLanguageInterest: onboardingData.localLanguageInterest,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast.success("Onboarding completed!");
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(
+        "Onboarding API error:",
+        err.response ? err.response.data : err.message
+      );
+      toast.error(
+        "Failed to save preferences. " +
+          (err.response?.data?.message || "Please try again.")
+      );
+    }
   };
 
   const renderStep = () => {
@@ -97,7 +137,11 @@ const OnboardingFlow = () => {
           />
         );
       case 8:
-        return <OnboardingStep8Install onContinue={handleNext} />; // Final step often redirects
+        return (
+          <OnboardingStep8Install
+            onCompleteOnboarding={handleFinalizeAndNavigate}
+          />
+        );
       default:
         return <div>Something went wrong.</div>;
     }
@@ -107,7 +151,6 @@ const OnboardingFlow = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative pb-16">
-      {/* Background with subtle gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-secondaryGreen-light to-gray-50 dark:from-[#0D0D0D] dark:via-secondaryGreen-dark dark:to-[#0D0D0D] opacity-80 -z-10"></div>
       <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
 
@@ -121,7 +164,6 @@ const OnboardingFlow = () => {
           </button>
         )}
 
-        {/* Progress Bar */}
         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-8">
           <motion.div
             className="bg-primaryGreen-light dark:bg-primaryGreen-dark h-2.5 rounded-full"
@@ -131,7 +173,6 @@ const OnboardingFlow = () => {
           ></motion.div>
         </div>
 
-       
         <div className="mb-8">
           <span className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
             <svg

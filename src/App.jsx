@@ -17,6 +17,7 @@ import SettingsPage from "./pages/dashboard/settings";
 import ShortcutsPage from "./pages/dashboard/shortcuts";
 import TutorialsPage from "./pages/dashboard/tutorials";
 import { DashboardProvider } from "./context/DashboardContext";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -32,9 +33,11 @@ function App() {
         {
           path: "dashboard",
           element: (
-            <DashboardProvider>
-              <DashboardLayout />
-            </DashboardProvider>
+            <ProtectedRoute> 
+              <DashboardProvider>
+                <DashboardLayout />
+              </DashboardProvider>
+            </ProtectedRoute>
           ),
           children: [
             { index: true, element: <DashboardPage /> },

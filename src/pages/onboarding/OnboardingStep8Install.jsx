@@ -1,27 +1,23 @@
-// src/components/onboarding/OnboardingStep8Install.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import { FaChrome, FaPuzzlePiece } from "react-icons/fa";
-import { useNavigate } from "react-router-dom"; // For potential redirection after simulated install
+import { useNavigate } from "react-router-dom";
 
-const CHROME_WEB_STORE_LINK = "https://chromewebstore.google.com/detail/bfpoecmheiafbmghdbajladmhdjgobkg?utm_source=item-share-cb"; // Replace with actual link later
+const CHROME_WEB_STORE_LINK = "https://chromewebstore.google.com/detail/bfpoecmheiafbmghdbajladmhdjgobkg?utm_source=item-share-cb";
 
-const OnboardingStep8Install = ({ onContinue }) => {
+const OnboardingStep8Install = ({ onCompleteOnboarding }) => {
   const navigate = useNavigate();
 
   const handleInstallClick = () => {
     window.open(CHROME_WEB_STORE_LINK, "_blank", "noopener,noreferrer");
-    // After the user clicks install, you might want to redirect them to a "thank you" page
-    // or their dashboard/settings, assuming installation is successful or they return.
-    // For now, we'll just log and proceed.
     console.log("Redirecting to Chrome Web Store...");
-    // Simulate navigation to a dashboard or success page after user clicks install
-    // This could happen after a short delay or based on a successful extension installation callback
     setTimeout(() => {
-      // onContinue(); // If there's another step after install confirmation
-      // OR navigate directly to a dashboard/success page
-      navigate("/dashboard"); // Replace with your actual post-install route
-    }, 2000); // Give user time to click the external link
+      if (onCompleteOnboarding) {
+        onCompleteOnboarding(); 
+      } else {
+        navigate("/dashboard");
+      }
+    }, 2000); 
   };
 
   return (
@@ -70,7 +66,6 @@ const OnboardingStep8Install = ({ onContinue }) => {
           browser toolbar, find Boafo, and click the pin icon next to it for
           quick access!
         </p>
-        {/* Could add an animated GIF here showing how to pin */}
       </motion.div>
     </div>
   );
