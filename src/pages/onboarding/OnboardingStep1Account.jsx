@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import API from "@/lib/axios";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button"; // assumes you're using shadcn/ui
 
 // Schema that matches backend expectations
 const formSchema = z
@@ -28,6 +31,7 @@ export default function OnboardingStep1Account({
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -44,6 +48,7 @@ export default function OnboardingStep1Account({
   });
 
   const onSubmit = async (formData) => {
+    setLoading(true);
     try {
       const res = await API.post("/users/register", {
         name: formData.name,
@@ -55,13 +60,15 @@ export default function OnboardingStep1Account({
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
       }
-
+      toast.success("Account created successfully!");
       updateData("email", formData.email);
       updateData("password", formData.password);
       onContinue();
     } catch (err) {
       const message = err.response?.data?.message || "Registration failed";
-      alert(message);
+      toast.error(message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -114,9 +121,7 @@ export default function OnboardingStep1Account({
             {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
           {errors.password && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.password.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
           )}
         </div>
 
@@ -136,15 +141,22 @@ export default function OnboardingStep1Account({
             {showConfirm ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </button>
           {errors.confirmPassword && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.confirmPassword.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
           )}
         </div>
 
-        <button type="submit" className="primary-button w-full py-3 mb-4">
-          Continue
-        </button>
+        {/* Submit Button with Spinner */}
+        <Button
+          type="submit"
+          className="w-full py-3 mb-4"
+          disabled={loading}
+        >
+          {loading ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            "Sign Up"
+          )}
+        </Button>
       </form>
 
       <p className="text-textColor-light dark:text-textColor-dark mb-4">

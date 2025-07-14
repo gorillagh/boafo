@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
 import Footer from '../components/Footer'
+import { Toaster } from 'sonner'
 
 export default function RootLayout() {
   const location = useLocation()
@@ -13,6 +14,7 @@ export default function RootLayout() {
   return (
     <div>
       <ScrollRestoration />
+      <Toaster position="top-right" richColors />
       <Outlet />
       {showFooter && <Footer />}
     </div>
