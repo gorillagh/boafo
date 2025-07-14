@@ -20,7 +20,7 @@ const OnboardingStep8Install = ({ onContinue }) => {
     setTimeout(() => {
       // onContinue(); // If there's another step after install confirmation
       // OR navigate directly to a dashboard/success page
-      navigate("/dashboard-or-success"); // Replace with your actual post-install route
+      navigate("/dashboard"); // Replace with your actual post-install route
     }, 2000); // Give user time to click the external link
   };
 
