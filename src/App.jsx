@@ -13,10 +13,10 @@ import BackToTop from "./components/BackToTop";
 import DashboardLayout from "./layouts/DashboardLayout";
 import DashboardPage from "./pages/dashboard/index";
 import BillingPage from "./pages/dashboard/billing";
-import ProfilePage from "./pages/dashboard/profile";
 import SettingsPage from "./pages/dashboard/settings";
 import ShortcutsPage from "./pages/dashboard/shortcuts";
 import TutorialsPage from "./pages/dashboard/tutorials";
+import { DashboardProvider } from "./context/DashboardContext";
 
 function App() {
   const router = createBrowserRouter([
@@ -31,11 +31,14 @@ function App() {
 
         {
           path: "dashboard",
-          element: <DashboardLayout />,
+          element: (
+            <DashboardProvider>
+              <DashboardLayout />
+            </DashboardProvider>
+          ),
           children: [
             { index: true, element: <DashboardPage /> },
             { path: "billing", element: <BillingPage /> },
-            { path: "profile", element: <ProfilePage /> },
             { path: "settings", element: <SettingsPage /> },
             { path: "shortcuts", element: <ShortcutsPage /> },
             { path: "tutorials", element: <TutorialsPage /> },

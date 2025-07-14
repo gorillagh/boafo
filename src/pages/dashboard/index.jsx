@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
+import { useDashboard } from "@/context/DashboardContext"; // Import context hook
 import QuickActions from "./QuickActions";
 import ExtensionStatus from "./ExtensionStatus";
 import ShortcutsCard from "./ShortcutsCard";
@@ -7,7 +8,8 @@ import Plans from "./Plan";
 import GettingStarted from "./GettingStarted";
 
 export default function DashboardPage() {
-  const [currentPlan, setCurrentPlan] = useState("free");
+  // Get plan state and updater function from context
+  const { plan, setPlan } = useDashboard();
 
   return (
     <motion.div
@@ -35,7 +37,8 @@ export default function DashboardPage() {
         <ShortcutsCard />
       </div>
 
-      <Plans currentPlan={currentPlan} onChange={setCurrentPlan} />
+      {/* Pass the plan state and updater to the Plans component */}
+      <Plans currentPlan={plan} onChange={setPlan} />
 
       <GettingStarted />
     </motion.div>
