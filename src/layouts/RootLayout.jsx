@@ -1,15 +1,18 @@
-import React from 'react'
-import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
-import Footer from '../components/Footer'
-import { Toaster } from 'sonner'
+// src/layouts/RootLayout.jsx
+import React from "react";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
+import Footer from "@/components/Footer";
+import { Toaster } from "sonner";
 
 export default function RootLayout() {
-  const location = useLocation()
-  const hideFooterOn = ['/onboarding', '/login', '/dashboard']
-
-  const showFooter = !hideFooterOn.some((p) =>
-    location.pathname.startsWith(p)
-  )
+  const location = useLocation();
+  const hideFooterOn = [
+    "/onboarding",
+    "/login",
+    "/dashboard",
+    "/forgot-password",
+  ];
+  const showFooter = !hideFooterOn.some((p) => location.pathname.startsWith(p));
 
   return (
     <div>
@@ -18,5 +21,5 @@ export default function RootLayout() {
       <Outlet />
       {showFooter && <Footer />}
     </div>
-  )
+  );
 }

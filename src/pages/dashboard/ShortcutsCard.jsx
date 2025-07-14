@@ -1,16 +1,18 @@
+"use client";
+
 import React from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Keyboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const shortcuts = [
-  { key: "Ctrl+Shift+S", action: "Read selected text aloud" },
-  { key: "Ctrl+Shift+L", action: "Summarize current page" },
-  { key: "Ctrl+Shift+U", action: "Start speech-to-text" },
-];
+import { Keyboard } from "lucide-react";
 
 export default function ShortcutsCard() {
+  const shortcuts = [
+    { key: "Ctrl+Shift+S", action: "Read selected text" },
+    { key: "Ctrl+Shift+L", action: "Summarize page" },
+    { key: "Ctrl+Shift+U", action: "Start speech-to-text" },
+  ];
+
   return (
     <Card>
       <CardHeader>
@@ -23,12 +25,12 @@ export default function ShortcutsCard() {
           {shortcuts.map((s, i) => (
             <div
               key={i}
-              className="flex items-center justify-between bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg"
+              className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg"
             >
-              <span className="text-sm text-gray-700 dark:text-gray-300">
+              <span className="text-sm text-slate-700 dark:text-slate-300">
                 {s.action}
               </span>
-              <Badge variant="outline" className="font-mono text-xs">
+              <Badge variant="default" className="font-mono text-xs">
                 {s.key}
               </Badge>
             </div>

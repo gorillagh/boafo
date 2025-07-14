@@ -1,52 +1,53 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import {
-  LayoutDashboard,
-  CreditCard,
-  Settings as SettingsIcon,
-  LogOut,
-} from "lucide-react";
+"use client";
 
-// "Profile" has been removed from the nav items
-const navItems = [
-  { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard, end: true },
-  { title: "Billing", to: "/dashboard/billing", icon: CreditCard },
-  { title: "Settings", to: "/dashboard/settings", icon: SettingsIcon },
-];
+import { Link, useLocation } from "react-router-dom";
+import { LayoutDashboard, LogOut, Settings, X } from "lucide-react";
 
-export default function Sidebar({ onNavigate }) {
+export default function Sidebar({ isOpen, setIsOpen }) {
+  const location = useLocation();
+  const navItems = [
+    { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+    { title: "Settings", to: "/dashboard/settings", icon: Settings },
+  ];
+
   return (
-    <aside className="w-64 flex flex-col bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 h-full">
-      <div className="p-6 flex items-center space-x-2 border-b dark:border-gray-700">
+    <aside
+      className={`absolute md:relative z-50 md:z-auto flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 h-full transition-transform duration-300 ease-in-out ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } md:translate-x-0 w-64`}
+    >
+      <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 h-16">
         <span className="text-2xl font-bold text-green-500">Boafo</span>
+        <button
+          onClick={() => setIsOpen(false)}
+          className="md:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700"
+        >
+          <X />
+        </button>
       </div>
       <nav className="flex-1 px-4 py-4 space-y-2">
         {navItems.map((item) => (
-          <NavLink
+          <Link
             key={item.to}
             to={item.to}
-            end={item.end} // Use end prop for exact matching on the dashboard index route
-            onClick={onNavigate}
-            className={({ isActive }) =>
-              `flex items-center p-3 rounded-md text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-200"
-                  : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-              }`
-            }
+            className={`flex items-center p-3 rounded-lg text-sm font-medium transition-colors text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 ${
+              location.pathname === item.to
+                ? "bg-slate-100 dark:bg-slate-800"
+                : ""
+            }`}
           >
-            <item.icon className="h-5 w-5 mr-3" />
-            {item.title}
-          </NavLink>
+            <item.icon className="mr-3" />
+            <span>{item.title}</span>
+          </Link>
         ))}
       </nav>
-      <div className="p-4 border-t dark:border-gray-700">
+      <div className="p-4 border-t border-slate-200 dark:border-slate-800">
         <button
-          onClick={() => (window.location.href = "/login")}
-          className="w-full flex items-center p-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors"
+          onClick={() => alert("Signing out!")}
+          className="w-full flex items-center p-3 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg transition-colors"
         >
-          <LogOut className="h-5 w-5 mr-3" />
-          Sign Out
+          <LogOut />
+          <span className="ml-3">Sign Out</span>
         </button>
       </div>
     </aside>
