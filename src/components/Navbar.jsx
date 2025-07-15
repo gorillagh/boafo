@@ -371,7 +371,8 @@ const Navbar = () => {
                 </div>
 
                 <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <Link to="/onboarding">
+                  {/* <Link to="/onboarding"> */}
+                  <Link to="/">
                     <button
                       className="w-full bg-primaryGreen-light dark:bg-primaryGreen-dark text-white hover:bg-primaryGreen-hover-light dark:hover:bg-primaryGreen-hover-dark font-medium py-3 px-6 rounded-lg transition-all duration-300"
                       onClick={() => setMobileMenuOpen(false)}

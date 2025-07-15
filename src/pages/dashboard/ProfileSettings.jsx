@@ -10,7 +10,8 @@ import { Loader2, Save, Trash2 } from "lucide-react";
 import { FaUpload } from "react-icons/fa";
 import { toast } from "sonner";
 import API from "@/lib/axios";
-import { motion } from "framer-motion"; // ✅ Added for animation
+import { motion } from "framer-motion";
+import ProfileSettingsSkeleton from "./ProfileSettingSkeleton";
 
 export default function ProfileSettings() {
   const { user, setUser } = useDashboard();
@@ -31,11 +32,14 @@ export default function ProfileSettings() {
     }
   }, [user]);
 
-  if (!user) return <Loader2 className="h-5 w-5 animate-spin mx-auto" />;
+  if (!user) return <ProfileSettingsSkeleton />;
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (avatarPreview?.startsWith("blob:")) {
+        URL.revokeObjectURL(avatarPreview);
+      }
       setAvatarFile(file);
       setAvatarPreview(URL.createObjectURL(file));
       setHasAvatarBeenRemoved(false);
@@ -43,15 +47,37 @@ export default function ProfileSettings() {
   };
 
   const handleRemoveAvatar = () => {
-    setAvatarPreview("");
-    setAvatarFile(null);
-    setHasAvatarBeenRemoved(true);
     if (avatarPreview?.startsWith("blob:")) {
       URL.revokeObjectURL(avatarPreview);
     }
+    setAvatarPreview("");
+    setAvatarFile(null);
+    setHasAvatarBeenRemoved(true);
+  };
+
+  const resolveAvatarSrc = () => {
+    const isBlob = avatarPreview?.startsWith("blob:");
+    const baseUrl =
+      "https://boafo-accessibility-services-production-b6b5.up.railway.app";
+
+    if (isBlob) return avatarPreview;
+    if (avatarPreview) {
+      return avatarPreview.startsWith("http")
+        ? `${avatarPreview}?t=${Date.now()}`
+        : `${baseUrl}${avatarPreview}?t=${Date.now()}`;
+    }
+
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      name || "User"
+    )}&background=34C759&color=fff`;
   };
 
   const handleSave = async () => {
+    if (!name.trim()) {
+      toast.error("Name cannot be empty.");
+      return;
+    }
+
     setLoading(true);
     const formData = new FormData();
     formData.append("name", name);
@@ -64,16 +90,21 @@ export default function ProfileSettings() {
 
     try {
       const response = await API.put("/users/updateProfile", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (response.data.status === "success") {
-        toast.success(response.data.message);
-        setUser(response.data.user);
+        const updatedUser = {
+          ...response.data.user,
+          avatarUrl: response.data.user.avatarUrl
+            ? `${response.data.user.avatarUrl}?t=${Date.now()}`
+            : "",
+        };
 
-        if (avatarFile?.name && avatarPreview?.startsWith("blob:")) {
+        setUser(updatedUser);
+        toast.success(response.data.message);
+
+        if (avatarPreview?.startsWith("blob:")) {
           URL.revokeObjectURL(avatarPreview);
         }
 
@@ -96,7 +127,6 @@ export default function ProfileSettings() {
         <CardTitle>Public Profile</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {/* Avatar Upload */}
         <div className="flex items-center space-x-4">
           <motion.img
             key={avatarPreview || name}
@@ -104,19 +134,16 @@ export default function ProfileSettings() {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3 }}
             className="h-20 w-20 rounded-full object-cover"
-            src={
-              avatarPreview ||
-              `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                name || "User"
-              )}&background=34C759&color=fff`
-            }
+            src={resolveAvatarSrc()}
             alt={name || "User Avatar"}
             onError={(e) => {
+              e.currentTarget.onerror = null;
               e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
                 name || "User"
               )}&background=34C759&color=fff`;
             }}
           />
+
           <div className="flex items-center gap-2">
             <label htmlFor="avatar-upload">
               <input
@@ -145,7 +172,6 @@ export default function ProfileSettings() {
           </div>
         </div>
 
-        {/* Form Fields */}
         <div className="grid md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="name">Name</Label>
@@ -168,7 +194,6 @@ export default function ProfileSettings() {
           </div>
         </div>
 
-        {/* Save Button */}
         <Button onClick={handleSave} disabled={loading}>
           {loading ? (
             <>

@@ -105,7 +105,8 @@ const Hero = () => {
               className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-5"
             >
               {/* Primary button with glass effect */}
-              <Link to= "/onboarding">
+              {/* <Link to= "/onboarding"> */}
+              <Link to= "/">
                 <motion.button
                   whileHover={{
                     scale: 1.02,
