@@ -49,10 +49,7 @@ export default function ProfileSettings() {
   const handleRemoveAvatar = () => {
     setAvatarPreview(""); // Clear current preview
     setAvatarFile(null); // Clear the file selected for upload
-    setHasAvatarBeenRemoved(true); // Set flag to signal avatar removal
-    // Revoke the object URL if it was a preview of a newly selected file
-    // Note: If avatarPreview was from user.avatarUrl, URL.revokeObjectURL won't work on it.
-    // It's mainly for new files.
+    setHasAvatarBeenRemoved(true); 
     if (avatarPreview && avatarPreview.startsWith("blob:")) {
       URL.revokeObjectURL(avatarPreview);
     }
