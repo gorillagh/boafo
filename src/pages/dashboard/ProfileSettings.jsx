@@ -61,9 +61,6 @@ export default function ProfileSettings() {
   const handleSave = async () => {
     setLoading(true);
     const formData = new FormData();
-
-    // Always append the name, even if it's not changed, to ensure it's sent.
-    // The backend handles if it's identical.
     formData.append("name", name);
 
     if (avatarFile) {
