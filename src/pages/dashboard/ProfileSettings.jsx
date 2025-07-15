@@ -10,47 +10,43 @@ import { Loader2, Save, Trash2 } from "lucide-react";
 import { FaUpload } from "react-icons/fa";
 import { toast } from "sonner";
 import API from "@/lib/axios";
+import { motion } from "framer-motion"; // ✅ Added for animation
 
 export default function ProfileSettings() {
-  const { user, fetchDashboardData, setUser } = useDashboard();
+  const { user, setUser } = useDashboard();
 
-  // Initialize state with empty strings; useEffect will populate when user data is ready
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("");
   const [avatarFile, setAvatarFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [hasAvatarBeenRemoved, setHasAvatarBeenRemoved] = useState(false); // New state to track explicit removal
+  const [hasAvatarBeenRemoved, setHasAvatarBeenRemoved] = useState(false);
 
-  // Use useEffect to populate state when user data becomes available
   useEffect(() => {
     if (user) {
       setName(user.name || "");
       setEmail(user.email || "");
-      // Set initial avatar preview from user data, if available
       setAvatarPreview(user.avatarUrl || "");
-      setHasAvatarBeenRemoved(false); // Reset this flag when user data loads
+      setHasAvatarBeenRemoved(false);
     }
-  }, [user]); // Depend on the 'user' object
+  }, [user]);
 
-  if (!user) {
-    return <Loader2 className="h-5 w-5 animate-spin mx-auto" />;
-  }
+  if (!user) return <Loader2 className="h-5 w-5 animate-spin mx-auto" />;
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
       setAvatarPreview(URL.createObjectURL(file));
-      setHasAvatarBeenRemoved(false); // If a new file is selected, it's not a removal anymore
+      setHasAvatarBeenRemoved(false);
     }
   };
 
   const handleRemoveAvatar = () => {
-    setAvatarPreview(""); // Clear current preview
-    setAvatarFile(null); // Clear the file selected for upload
-    setHasAvatarBeenRemoved(true); 
-    if (avatarPreview && avatarPreview.startsWith("blob:")) {
+    setAvatarPreview("");
+    setAvatarFile(null);
+    setHasAvatarBeenRemoved(true);
+    if (avatarPreview?.startsWith("blob:")) {
       URL.revokeObjectURL(avatarPreview);
     }
   };
@@ -61,7 +57,6 @@ export default function ProfileSettings() {
     formData.append("name", name);
 
     if (avatarFile) {
-      // Case 1: A new avatar file has been selected for upload
       formData.append("avatar", avatarFile);
     } else if (hasAvatarBeenRemoved) {
       formData.append("removeAvatar", "true");
@@ -76,25 +71,20 @@ export default function ProfileSettings() {
 
       if (response.data.status === "success") {
         toast.success(response.data.message);
-
-        // Update the user context with the new data from the backend
         setUser(response.data.user);
 
-        // Clean up the object URL if a new avatar was uploaded
-        if (avatarFile && avatarPreview.startsWith("blob:")) {
+        if (avatarFile?.name && avatarPreview?.startsWith("blob:")) {
           URL.revokeObjectURL(avatarPreview);
         }
-        setAvatarFile(null); // Clear the temporary file state after successful upload/removal
-        setHasAvatarBeenRemoved(false); // Reset the removal flag
+
+        setAvatarFile(null);
+        setHasAvatarBeenRemoved(false);
       } else {
-        toast.error(response.data.message || "Failed to update profile");
+        toast.error(response.data.message || "Failed to update profile.");
       }
     } catch (err) {
       console.error("Profile update error:", err);
-      toast.error(
-        err?.response?.data?.message ||
-          "Failed to update profile. Please try again."
-      );
+      toast.error(err?.response?.data?.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -108,15 +98,24 @@ export default function ProfileSettings() {
       <CardContent className="space-y-6">
         {/* Avatar Upload */}
         <div className="flex items-center space-x-4">
-          <img
+          <motion.img
+            key={avatarPreview || name}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
             className="h-20 w-20 rounded-full object-cover"
             src={
               avatarPreview ||
               `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                name || "User" // Provide a fallback for name for UI Avatar
+                name || "User"
               )}&background=34C759&color=fff`
             }
             alt={name || "User Avatar"}
+            onError={(e) => {
+              e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                name || "User"
+              )}&background=34C759&color=fff`;
+            }}
           />
           <div className="flex items-center gap-2">
             <label htmlFor="avatar-upload">
@@ -134,11 +133,10 @@ export default function ProfileSettings() {
                 </span>
               </Button>
             </label>
-            {/* Show remove button only if an avatar is currently displayed */}
-            {(avatarPreview || user?.avatarUrl) && ( // Check if there's an avatar to remove
+            {(avatarPreview || user?.avatarUrl) && (
               <Button
                 variant="ghost"
-                onClick={handleRemoveAvatar} // Call the new handler
+                onClick={handleRemoveAvatar}
                 className="text-red-500 hover:text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30"
               >
                 <Trash2 className="h-4 w-4" />
@@ -155,7 +153,7 @@ export default function ProfileSettings() {
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              disabled={loading} // Disable input during loading
+              disabled={loading}
             />
           </div>
           <div className="space-y-2">
@@ -163,7 +161,7 @@ export default function ProfileSettings() {
             <Input
               id="email"
               type="email"
-              disabled // Email is typically not editable by the user directly
+              disabled
               value={email}
               className="cursor-not-allowed opacity-70"
             />
@@ -172,8 +170,17 @@ export default function ProfileSettings() {
 
         {/* Save Button */}
         <Button onClick={handleSave} disabled={loading}>
-          <Save className="mr-2 h-4 w-4" />
-          {loading ? "Saving..." : "Save Changes"}
+          {loading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            <>
+              <Save className="mr-2 h-4 w-4" />
+              Save Changes
+            </>
+          )}
         </Button>
       </CardContent>
     </Card>
