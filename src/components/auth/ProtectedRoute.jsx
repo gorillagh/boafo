@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { toast } from "sonner";
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem("token"); // Check for the presence of a token
+  const token = localStorage.getItem("token");
 
   if (!token) {
     // If no token, redirect to login and show a toast message
