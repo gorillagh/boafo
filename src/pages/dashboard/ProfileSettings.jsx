@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Save, Trash2 } from "lucide-react";
+import { Loader2, Save, Trash2 } from "lucide-react";
 import { FaUpload } from "react-icons/fa";
 import { toast } from "sonner";
 import API from "@/lib/axios";
@@ -34,7 +34,7 @@ export default function ProfileSettings() {
   }, [user]); // Depend on the 'user' object
 
   if (!user) {
-    return <div className="text-center text-gray-500">Loading profile...</div>;
+    return <Loader2 className="h-5 w-5 animate-spin mx-auto" />;
   }
 
   const handleAvatarChange = (e) => {
@@ -70,13 +70,8 @@ export default function ProfileSettings() {
       // Case 1: A new avatar file has been selected for upload
       formData.append("avatar", avatarFile);
     } else if (hasAvatarBeenRemoved) {
-      // Case 2: The user explicitly clicked the 'remove' button, and no new file was selected
-      formData.append("removeAvatar", "true"); // Send 'true' string as Multer expects form data fields as strings
+      formData.append("removeAvatar", "true");
     }
-    // Case 3: No avatarFile, and hasAvatarBeenRemoved is false.
-    // This means the avatar was not touched or was already null/empty.
-    // In this case, neither 'avatar' nor 'removeAvatar' will be appended to formData,
-    // and the backend will correctly preserve the existing avatarUrl.
 
     try {
       const response = await API.put("/users/updateProfile", formData, {
