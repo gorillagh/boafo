@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 "use client";
 
 import React, { useState } from "react";
@@ -21,7 +20,6 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -34,16 +32,23 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await API.post("/users/login", formData);
+      const token = res.data?.accessToken;
 
-      if (res.data?.accessToken) {
-        localStorage.setItem("token", res.data.accessToken);
-        toast.success("Login successful!");
-        navigate("/dashboard");
-      } else {
-        throw new Error("No token received");
+      if (!token) {
+        throw new Error("Login failed: No access token received.");
       }
+
+      // ✅ Store the token in localStorage
+      localStorage.setItem("accessToken", token);
+
+      toast.success("Login successful! Redirecting...");
+
+      // ✅ Navigate to the dashboard. The DashboardProvider will take over from here.
+      navigate("/dashboard");
     } catch (err) {
-      const message = err.response?.data?.message || "Login failed";
+      console.error("Login error:", err);
+      const message =
+        err.response?.data?.message || "An unknown error occurred.";
       toast.error(message);
     } finally {
       setLoading(false);
@@ -52,10 +57,12 @@ export default function Login() {
 
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative pb-16">
+      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-secondaryGreen-light to-gray-50 dark:from-[#0D0D0D] dark:via-secondaryGreen-dark dark:to-[#0D0D0D] opacity-80 -z-10"></div>
       <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
 
       <div className="relative glass-card max-w-3xl w-full p-8 md:p-12 text-center my-8 mx-4">
+        {/* Logo */}
         <div className="mb-8">
           <span className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
             <svg
@@ -98,6 +105,7 @@ export default function Login() {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-sm mx-auto"
         >
+          {/* Email */}
           <div className="mb-4">
             <input
               type="email"
@@ -112,6 +120,7 @@ export default function Login() {
             )}
           </div>
 
+          {/* Password */}
           <div className="mb-4 relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -133,6 +142,7 @@ export default function Login() {
             )}
           </div>
 
+          {/* Forgot Password */}
           <div className="flex justify-end mb-4">
             <Link
               to="/forgot-password"
@@ -142,6 +152,7 @@ export default function Login() {
             </Link>
           </div>
 
+          {/* Submit */}
           <button
             type="submit"
             className="primary-button w-full py-3 mb-4"
@@ -165,6 +176,7 @@ export default function Login() {
           </Link>
         </p>
 
+        {/* Divider */}
         <div className="relative w-full max-w-sm mx-auto flex items-center justify-center mb-6">
           <span className="absolute bg-white dark:bg-gray-900 px-2 text-gray-500 dark:text-gray-400 z-10">
             or
@@ -172,6 +184,7 @@ export default function Login() {
           <div className="absolute w-full h-px bg-gray-200 dark:bg-gray-700"></div>
         </div>
 
+        {/* Google button */}
         <button className="secondary-button w-full max-w-sm mx-auto py-3 mb-3 flex items-center justify-center border-gray-300 dark:border-gray-600">
           <FaGoogle className="mr-2 text-lg" /> Continue with Google
         </button>

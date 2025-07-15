@@ -52,14 +52,14 @@ export default function OnboardingStep1Account({
     try {
       const res = await API.post("/users/register", {
         name: formData.name,
-        email: formData.email,
+        email: formData.email.trim().toLowerCase(),
         password: formData.password,
         confirmPassword: formData.confirmPassword,
       });
 
       if (res.data?.accessToken) {
         localStorage.setItem("token", res.data.accessToken);
-        console.log("token",res.data.accessToken);
+        console.log("token", res.data.accessToken);
         toast.success("Account created successfully!");
         updateData("name", formData.name);
         updateData("email", formData.email);

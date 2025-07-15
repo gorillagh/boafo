@@ -1,28 +1,58 @@
+// src/context/DashboardContext.jsx
+import API from "@/lib/axios";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+import { useNavigate } from "react-router-dom";
 
-import React, { createContext, useState, useContext } from "react";
-
-// Create the context
 const DashboardContext = createContext();
 
-// Custom hook to use the context
 export const useDashboard = () => useContext(DashboardContext);
 
-// Mock user data
-const mockUser = {
-  name: "Alex Doe",
-  email: "alex.doe@example.com",
-  avatarUrl: "https://placehold.co/100x100/E2E8F0/4A5568?text=AD",
-};
-
-// Context Provider component
 export const DashboardProvider = ({ children }) => {
-  const [user] = useState(mockUser);
-  const [plan, setPlan] = useState("free"); // 'free' or 'pro'
+  const [user, setUser] = useState(null);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const fetchDashboardData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await API.get("/users/userDashboard"); // ✅ updated path
+      if (response.data.status === "success") {
+        setUser(response.data.user);
+        setTransactions(response.data.transactions);
+      }
+    } catch (error) {
+      console.error("Failed to fetch dashboard data:", error);
+      if (error.response?.status === 401) {
+        localStorage.removeItem("accessToken");
+        navigate("/login");
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    if (localStorage.getItem("accessToken")) {
+      fetchDashboardData();
+    } else {
+      setLoading(false);
+      navigate("/login");
+    }
+  }, [fetchDashboardData, navigate]);
 
   const value = {
     user,
-    plan,
-    setPlan,
+    setUser,
+    transactions,
+    loading,
+    fetchDashboardData,
   };
 
   return (

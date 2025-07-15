@@ -29,6 +29,9 @@ export default function UserNav() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // ✅ Do the null-check after all hooks
+  if (!user) return null;
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -37,7 +40,7 @@ export default function UserNav() {
       >
         {user.avatarUrl ? (
           <img
-            className="h-9 w-9 rounded-full"
+            className="h-9 w-9 rounded-full object-cover"
             src={user.avatarUrl}
             alt={user.name}
           />
@@ -49,7 +52,7 @@ export default function UserNav() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1">
+        <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1 z-50">
           <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
             <p className="text-sm font-medium text-slate-900 dark:text-slate-200 truncate">
               {user.name}
