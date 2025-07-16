@@ -254,7 +254,7 @@ const Navbar = () => {
               >
                 {theme === "light" ? <FiMoon size={20} /> : <FiSun size={20} />}
               </button>
-              <Link to="/">
+              <Link to="/onboarding">
                 <button
                   className={`transition-all duration-300 font-medium py-2 px-6 rounded-full ${
                     isScrolled
@@ -371,8 +371,8 @@ const Navbar = () => {
                 </div>
 
                 <div className="pt-6 border-t border-gray-200 dark:border-gray-700">
-                  {/* <Link to="/onboarding"> */}
-                  <Link to="/">
+                  <Link to="/onboarding">
+                 
                     <button
                       className="w-full bg-primaryGreen-light dark:bg-primaryGreen-dark text-white hover:bg-primaryGreen-hover-light dark:hover:bg-primaryGreen-hover-dark font-medium py-3 px-6 rounded-lg transition-all duration-300"
                       onClick={() => setMobileMenuOpen(false)}
