@@ -15,6 +15,7 @@ import OnboardingStep5Voice from "./OnboardingStep5Voice";
 import OnboardingStep6Speed from "./OnboardingStep6Speed";
 import OnboardingStep7LocalLanguage from "./OnboardingStep7LocalLanguage";
 import OnboardingStep8Install from "./OnboardingStep8Install";
+import { getToken } from "@/lib/auth";
 
 const OnboardingFlow = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -48,7 +49,7 @@ const OnboardingFlow = () => {
   };
   const handleFinalizeAndNavigate = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = getToken();
       if (!token) {
         toast.error("Authentication token not found. Please log in.");
         navigate("/login");

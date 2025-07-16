@@ -5,7 +5,7 @@ const API = axios.create({
     "https://boafo-accessibility-services-production-b6b5.up.railway.app",
 });
 
-// Automatically attach token to every request
+// Attach token on every request
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
   if (token) {

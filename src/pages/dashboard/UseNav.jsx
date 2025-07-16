@@ -1,109 +1,107 @@
 "use client";
-
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDashboard } from "@/context/DashboardContext";
+import { useAvatar } from "@/lib/avatar";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 export default function UserNav() {
   const { user, logout } = useDashboard();
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  const getInitials = (name) =>
-    name
-      ? name
-          .split(" ")
-          .map((n) => n[0])
-          .join("")
-          .toUpperCase()
-      : "";
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const buttonRef = useRef(null);
+  const src = useAvatar(user);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setIsOpen(false);
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
       }
     };
+
+    const handleKey = (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        buttonRef.current?.focus();
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKey);
+    };
   }, []);
 
   if (!user) return null;
 
-  const getAvatarUrl = () => {
-    const baseUrl =
-      "https://boafo-accessibility-services-production-b6b5.up.railway.app";
-    if (!user.avatarUrl) {
-      return `https://ui-avatars.com/api/?name=${encodeURIComponent(
-        user.name
-      )}&background=34C759&color=fff`;
-    }
-    return user.avatarUrl.startsWith("http")
-      ? `${user.avatarUrl}?t=${Date.now()}`
-      : `${baseUrl}${user.avatarUrl}?t=${Date.now()}`;
-  };
-
   return (
-    <div className="relative" ref={dropdownRef}>
-      <button
-        onClick={() => setIsOpen((o) => !o)}
-        className="rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-100 dark:focus:ring-offset-slate-800 focus:ring-green-500"
+    <div className="relative" ref={ref}>
+      <motion.button
+        ref={buttonRef}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setOpen((prev) => !prev)}
+        aria-haspopup="true"
+        aria-expanded={open}
+        aria-label="User menu"
+        className="rounded-full ring-2 ring-offset-2 ring-offset-background ring-primaryGreen-light/50 hover:ring-primaryGreen-light transition-all duration-300"
       >
-        {user.avatarUrl ? (
-          <img
-            className="h-9 w-9 rounded-full object-cover"
-            src={getAvatarUrl()}
-            alt={user.name}
-            onError={(e) => {
-              e.currentTarget.onerror = null;
-              e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                user.name
-              )}&background=34C759&color=fff`;
-            }}
-          />
-        ) : (
-          <div className="h-9 w-9 rounded-full bg-green-500 flex items-center justify-center text-white font-bold">
-            {getInitials(user.name)}
-          </div>
-        )}
-      </button>
+        <img
+          src={src}
+          onError={(e) =>
+            (e.currentTarget.src = `https://api.dicebear.com/8.x/initials/svg?seed=${user.name}`)
+          }
+          alt={user.name || "User avatar"}
+          className="h-10 w-10 rounded-full object-cover"
+        />
+      </motion.button>
 
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-slate-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1 z-50">
-          <div className="px-4 py-3 border-b border-slate-200 dark:border-slate-700">
-            <p className="text-sm font-medium text-slate-900 dark:text-slate-200 truncate">
-              {user.name}
-            </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 truncate">
-              {user.email}
-            </p>
-          </div>
-          <Link
-            to="/dashboard/settings"
-            onClick={() => setIsOpen(false)}
-            className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute right-0 mt-3 w-56 glass-card p-2 z-50 origin-top-right shadow-lg border border-border"
+            role="menu"
+            aria-label="User menu dropdown"
           >
-            Settings
-          </Link>
-          <Link
-            to="/dashboard"
-            onClick={() => setIsOpen(false)}
-            className="block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700"
-          >
-            Dashboard
-          </Link>
-          <div className="border-t border-slate-200 dark:border-slate-700 my-1" />
-          <button
-            onClick={() => {
-              setIsOpen(false);
-              logout();
-            }}
-            className="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-slate-100 dark:hover:bg-slate-700"
-          >
-            Sign Out
-          </button>
-        </div>
-      )}
+            <div className="px-2 py-2 border-b border-border">
+              <p className="font-semibold text-sm text-foreground truncate">
+                {user.name}
+              </p>
+              <p className="text-xs text-muted-foreground truncate">
+                {user.email}
+              </p>
+            </div>
+            <div className="py-1 space-y-1">
+              <Link
+                to="/dashboard/settings"
+                onClick={() => setOpen(false)}
+                className="block w-full text-left px-2 py-2 text-sm rounded-md text-foreground hover:bg-accent"
+                role="menuitem"
+              >
+                Settings
+              </Link>
+              <Button
+                variant="ghost"
+                onClick={() => {
+                  logout();
+                  setOpen(false);
+                }}
+                className="w-full justify-start px-2 py-2 text-sm text-red-500 hover:text-red-500 hover:bg-red-500/10"
+                role="menuitem"
+              >
+                Sign Out
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { toast } from "sonner";
+import Loader from "../Loader";
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // null = pending
@@ -16,12 +17,7 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   if (isAuthenticated === null) {
-    // Optional: show a loading spinner while checking auth
-    return (
-      <div className="text-center py-10 text-gray-500">
-        Checking authentication...
-      </div>
-    );
+    return <Loader text="Checking authentication..." />;
   }
 
   if (!isAuthenticated) {

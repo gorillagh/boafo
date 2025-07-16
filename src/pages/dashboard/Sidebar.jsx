@@ -1,83 +1,168 @@
+// src/pages/dashboard/Sidebar.jsx
 "use client";
-
+import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, LogOut, Settings, X } from "lucide-react";
-import React, { useEffect } from "react";
+import { LayoutDashboard, Settings, X, Zap, LogOut, Menu } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useDashboard } from "@/context/DashboardContext";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
+  const { plan, logout } = useDashboard();
   const location = useLocation();
-  const navItems = [
-    { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
-    { title: "Settings", to: "/dashboard/settings", icon: Settings },
-  ];
+  const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
-      setIsOpen(false);
-    }
-  }, [location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const navItems = useMemo(
+    () => [
+      { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+      { title: "Settings", to: "/dashboard/settings", icon: Settings },
+      ...(plan === "free"
+        ? [{ title: "Upgrade", to: "/dashboard/settings#billing", icon: Zap }]
+        : []),
+    ],
+    [plan]
+  );
+
+  const navItemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i) => ({
+      opacity: 1,
+      x: 0,
+      transition: { delay: i * 0.05 + 0.2, duration: 0.3 },
+    }),
+  };
+
+  const shouldShowSidebar = !isMobile || isOpen;
 
   return (
     <>
-      {/* Overlay for mobile when sidebar is open */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          onClick={() => setIsOpen(false)}
-        ></div>
-      )}
-
-      <aside
-        className={`fixed top-0 left-0 h-full bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transition-transform duration-300 ease-in-out z-50
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          md:relative md:translate-x-0 md:w-64 md:flex md:flex-col`}
-        // Added md:flex md:flex-col to ensure it takes up space and organizes content on desktop
-        style={{ width: "16rem" }} // Explicitly set width for consistency
-      >
-        <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 h-16">
-          <span className="text-2xl font-bold text-green-500">Boafo</span>
-          <button
+      {/* Backdrop */}
+      <AnimatePresence>
+        {isOpen && isMobile && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 bg-black/60 z-40 md:hidden"
             onClick={() => setIsOpen(false)}
-            className="md:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700"
-            aria-label="Close sidebar"
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {shouldShowSidebar && (
+          <motion.aside
+            key="sidebar"
+            initial={{ x: isMobile ? "-100%" : 0 }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            className={`fixed md:relative inset-y-0 left-0 ${
+              collapsed ? "w-20" : "w-64"
+            } bg-sidebar/80 dark:bg-sidebar/80 backdrop-blur-lg border-r border-sidebar-border z-50 flex flex-col transition-all duration-300`}
           >
-            <X />
-          </button>
-        </div>
-        <nav className="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
-          {/* Added overflow-y-auto for scrollable navigation if many items */}
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={`flex items-center p-3 rounded-lg text-sm font-medium transition-colors text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 ${
-                location.pathname === item.to
-                  ? "bg-slate-100 dark:bg-slate-800"
-                  : ""
-              }`}
-              onClick={() => setIsOpen(false)} // Close sidebar when an item is clicked on mobile
-            >
-              <item.icon className="mr-3 h-5 w-5" />{" "}
-              {/* Added h-5 w-5 for consistent icon sizing */}
-              <span>{item.title}</span>
-            </Link>
-          ))}
-        </nav>
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-          <button
-            onClick={() => {
-              alert("Signing out!");
-              
-              // In a real app, you'd handle actual sign-out logic here (e.g., clearing tokens, redirecting)
-            }}
-            className="w-full flex items-center p-3 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-          >
-            <LogOut className="h-5 w-5" />{" "}
-            {/* Added h-5 w-5 for consistent icon sizing */}
-            <span className="ml-3">Sign Out</span>
-          </button>
-        </div>
-      </aside>
+            {/* Header */}
+            <div className="p-4 flex items-center justify-between h-20 border-b border-sidebar-border">
+              <Link to="/dashboard" onClick={() => setIsOpen(false)}>
+                <motion.span
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className={`text-3xl font-bold font-montserrat bg-gradient-to-r from-primaryGreen-light to-primaryGreen-dark bg-clip-text text-transparent ${
+                    collapsed ? "hidden" : ""
+                  }`}
+                >
+                  Boafo
+                </motion.span>
+              </Link>
+
+              <div className="flex gap-2 items-center">
+                {/* Collapse toggle */}
+                <button
+                  onClick={() => setCollapsed((prev) => !prev)}
+                  className="hidden md:block p-2 rounded-lg hover:bg-sidebar-accent"
+                  aria-label="Toggle collapse"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
+
+                {/* Close button (mobile) */}
+                {isMobile && (
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="md:hidden p-2 rounded-lg hover:bg-sidebar-accent"
+                    aria-label="Close sidebar"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1 p-4 space-y-2">
+              {navItems.map((item, i) => {
+                const isActive =
+                  location.pathname + (location.hash || "") === item.to;
+                const Icon = item.icon;
+
+                return (
+                  <motion.div
+                    key={item.to}
+                    custom={i}
+                    variants={navItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    <Link
+                      to={item.to}
+                      onClick={() => isMobile && setIsOpen(false)}
+                      className={`relative flex items-center gap-4 p-3 rounded-lg font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 ${
+                        isActive
+                          ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                          : ""
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="active-nav-indicator"
+                          className="absolute left-0 top-0 bottom-0 w-1 bg-primaryGreen-light rounded-r-full"
+                        />
+                      )}
+                      <Icon className="h-5 w-5 flex-shrink-0 ml-1" />
+                      {!collapsed && <span>{item.title}</span>}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </nav>
+
+            {/* Logout */}
+            <div className="p-4 border-t border-sidebar-border">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={logout}
+                className="flex items-center w-full p-3 text-red-500 hover:bg-red-500/10 rounded-lg font-medium transition-colors duration-200"
+              >
+                <LogOut className="mr-4 h-5 w-5" />
+                {!collapsed && <span>Sign Out</span>}
+              </motion.button>
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </>
   );
 }

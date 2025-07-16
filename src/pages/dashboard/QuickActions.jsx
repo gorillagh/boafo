@@ -1,48 +1,42 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { BookOpen, Zap } from "lucide-react";
-import React from "react";
-import { FaChrome, FaKeyboard } from "react-icons/fa";
+import { Button } from "@/components/ui/button";
+import { FaChrome, FaKeyboard, FaBookOpen } from "react-icons/fa";
+import { Zap } from "lucide-react";
 
 export default function QuickActions() {
   const actions = [
     {
       title: "Install Extension",
       icon: <FaChrome />,
-      color: "bg-blue-500",
+      onClick: () => window.open("https://chromewebstore.google.com/..."),
     },
     {
       title: "View Shortcuts",
       icon: <FaKeyboard />,
-      color: "bg-purple-500",
+      onClick: () => {},
     },
     {
       title: "Watch Tutorials",
-      icon: <BookOpen />,
-      color: "bg-orange-500",
+      icon: <FaBookOpen />,
+      onClick: () => {},
     },
-    { title: "Upgrade Plan", icon: <Zap />, color: "bg-green-500" },
+    {
+      title: "Upgrade Plan",
+      icon: <Zap />,
+      onClick: () => {},
+    },
   ];
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {actions.map((action, i) => (
-        <Card
-          key={i}
-          className="hover:shadow-lg transition-shadow hover:-translate-y-1 duration-200"
-        >
-          <CardContent className="flex flex-col items-center text-center pt-6">
-            <div
-              className={`text-white rounded-full w-12 h-12 flex items-center justify-center mb-4 ${action.color}`}
-            >
-              {action.icon}
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {actions.map((a, i) => (
+        <Card key={i} className="hover:shadow-lg">
+          <CardContent className="flex flex-col items-center">
+            <div className="text-white bg-green-500 rounded-full p-3 mb-2">
+              {a.icon}
             </div>
-            <h3 className="font-semibold text-slate-800 dark:text-gray-200 mb-2">
-              {action.title}
-            </h3>
-            <Button variant="outline" size="sm" className="mt-2 w-full">
+            <h3 className="font-semibold mb-2">{a.title}</h3>
+            <Button variant="outline" onClick={a.onClick} size="sm">
               Go
             </Button>
           </CardContent>

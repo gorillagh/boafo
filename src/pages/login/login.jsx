@@ -10,6 +10,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import API from "@/lib/axios";
+import { saveToken } from "@/lib/auth";
 
 const loginFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -38,12 +39,12 @@ export default function Login() {
         throw new Error("Login failed: No access token received.");
       }
 
-      // ✅ Store the token in localStorage
-      localStorage.setItem("accessToken", token);
+      // Store the token 
+      saveToken(token);
 
-      toast.success("Login successful! Redirecting...");
+      toast.success("Login successful!");
 
-      // ✅ Navigate to the dashboard. The DashboardProvider will take over from here.
+      // Navigate to the dashboard. The DashboardProvider will take over from here.
       navigate("/dashboard");
     } catch (err) {
       console.error("Login error:", err);

@@ -10,6 +10,7 @@ import API from "@/lib/axios";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { saveToken } from "@/lib/auth";
 
 // Schema that matches backend expectations
 const formSchema = z
@@ -58,7 +59,7 @@ export default function OnboardingStep1Account({
       });
 
       if (res.data?.accessToken) {
-        localStorage.setItem("token", res.data.accessToken);
+        saveToken(res.data.accessToken);
         console.log("token", res.data.accessToken);
         toast.success("Account created successfully!");
         updateData("name", formData.name);

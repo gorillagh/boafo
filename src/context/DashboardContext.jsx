@@ -1,4 +1,3 @@
-import API from "@/lib/axios";
 import React, {
   createContext,
   useContext,
@@ -8,45 +7,32 @@ import React, {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import API from "@/lib/axios";
+import { getToken, clearToken } from "@/lib/auth";
+import { motion, AnimatePresence } from "framer-motion";
 
 const DashboardContext = createContext();
-
 export const useDashboard = () => useContext(DashboardContext);
 
-export const DashboardProvider = ({ children }) => {
+export function DashboardProvider({ children }) {
   const [user, setUser] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const normalizeUser = (user) => {
-    return {
-      ...user,
-      avatarUrl: user.avatarUrl?.startsWith("http")
-        ? user.avatarUrl
-        : user.avatarUrl
-        ? `https://boafo-accessibility-services-production-b6b5.up.railway.app${user.avatarUrl}`
-        : "",
-    };
-  };
-
   const fetchDashboardData = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await API.get("/users/userDashboard");
-      if (response.data.status === "success") {
-        const normalizedUser = normalizeUser(response.data.user);
-        setUser(normalizedUser);
-        setTransactions(response.data.transactions);
+      const { data } = await API.get("/users/userDashboard");
+      if (data.status === "success") {
+        setUser(data.user);
+        setTransactions(data.transactions || []);
       }
-    } catch (error) {
-      console.error("Failed to fetch dashboard data:", error);
-      if (error.response?.status === 401) {
-        localStorage.removeItem("accessToken");
-        setUser(null);
-        setTransactions([]);
-        navigate("/login");
+    } catch (err) {
+      if (err.response?.status === 401) {
+        clearToken();
         toast.error("Session expired. Please log in again.");
+        navigate("/login");
       }
     } finally {
       setLoading(false);
@@ -54,34 +40,51 @@ export const DashboardProvider = ({ children }) => {
   }, [navigate]);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("accessToken");
+    clearToken();
     setUser(null);
     setTransactions([]);
-    toast.success("You have been signed out.");
+    toast.success("Signed out.");
     navigate("/login");
   }, [navigate]);
 
+  const upgradePlan = useCallback(async () => {
+    try {
+      const res = await API.post("/users/upgrade");
+      toast.success(res.data.message);
+      await fetchDashboardData();
+    } catch {
+      toast.error("Upgrade failed.");
+    }
+  }, [fetchDashboardData]);
+
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      fetchDashboardData();
-    } else {
+    if (getToken()) fetchDashboardData();
+    else {
       setLoading(false);
       navigate("/login");
     }
   }, [fetchDashboardData, navigate]);
 
-  const value = {
-    user,
-    setUser,
-    transactions,
-    loading,
-    fetchDashboardData,
-    logout,
-  };
-
   return (
-    <DashboardContext.Provider value={value}>
+    <DashboardContext.Provider
+      value={{
+        user,
+        transactions,
+        loading,
+        logout,
+        upgradePlan,
+        plan: user?.plan || "free",
+        onboarding: {
+          goals: user?.goals || [],
+          contentTypes: user?.contentTypes || [],
+          voice: user?.selectedVoice || "",
+          readingSpeed: user?.readingSpeed || 1,
+          localLanguages: user?.localLanguageInterest ? ["Yes"] : [],
+        },
+        fetchDashboardData,
+      }}
+    >
       {children}
     </DashboardContext.Provider>
   );
-};
+}
