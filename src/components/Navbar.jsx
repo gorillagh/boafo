@@ -254,7 +254,7 @@ const Navbar = () => {
               >
                 {theme === "light" ? <FiMoon size={20} /> : <FiSun size={20} />}
               </button>
-              <Link to="/onboarding">
+              <Link to="/">
                 <button
                   className={`transition-all duration-300 font-medium py-2 px-6 rounded-full ${
                     isScrolled
