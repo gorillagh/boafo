@@ -13,17 +13,11 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function DashboardPage() {
   const { user, plan, loading } = useDashboard();
 
-  if (loading) {
-    return <DashboardSkeleton />;
-  }
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  if (loading) return <DashboardSkeleton />;
+  if (!user) return <Navigate to="/login" replace />;
 
   const firstName = user.name?.split(" ")[0] || "there";
 
-  // Parent container animation
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -31,15 +25,13 @@ export default function DashboardPage() {
       transition: {
         staggerChildren: 0.1,
         delayChildren: 0.1,
-        ease: "easeOut",
       },
     },
     exit: { opacity: 0, transition: { duration: 0.2 } },
   };
 
-  // Each section/card animation
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
@@ -51,14 +43,15 @@ export default function DashboardPage() {
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key="dashboard-page"
+        key="dashboard"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         exit="exit"
+        className="space-y-8"
       >
-        {/* Page Header */}
-        <motion.div variants={itemVariants} className="mb-8">
+        {/* Header */}
+        <motion.div variants={itemVariants}>
           <h1 className="text-4xl font-bold font-montserrat tracking-tight">
             Welcome back,{" "}
             <span className="bg-gradient-to-r from-primaryGreen-light to-primaryGreen-dark bg-clip-text text-transparent">
@@ -71,30 +64,30 @@ export default function DashboardPage() {
           </p>
         </motion.div>
 
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Section */}
-          <div className="lg:col-span-2 space-y-6">
+        {/* Grid layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+          {/* Left - Main Content */}
+          <div className="xl:col-span-8 space-y-6">
             <motion.div variants={itemVariants}>
               <UsageStats />
             </motion.div>
             <motion.div variants={itemVariants}>
               <QuickActions />
             </motion.div>
+            <motion.div variants={itemVariants}>
+              <ShortcutsCard />
+            </motion.div>
           </div>
 
-          {/* Right Section */}
-          <div className="lg:col-span-1 space-y-6">
-            <motion.div variants={itemVariants}>
-              <ExtensionStatus />
-            </motion.div>
+          {/* Right - Sidebar */}
+          <div className="xl:col-span-4 space-y-6">
             {plan === "free" && (
               <motion.div variants={itemVariants}>
                 <PlansCard />
               </motion.div>
             )}
             <motion.div variants={itemVariants}>
-              <ShortcutsCard />
+              <ExtensionStatus />
             </motion.div>
           </div>
         </div>

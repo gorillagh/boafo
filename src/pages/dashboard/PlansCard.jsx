@@ -1,8 +1,8 @@
 "use client";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import { useDashboard } from "@/context/DashboardContext";
 
 export default function PlansCard() {
@@ -10,20 +10,40 @@ export default function PlansCard() {
   const features = [
     "Unlimited TTS & summaries",
     "Premium voices",
-    "Variable speeds",
+    "Custom reading speed",
   ];
+
   return (
-    <Card className="bg-gradient-to-br from-green-50 to-blue-50">
-      <CardHeader title="Go Pro" badge={<Badge variant="success">Pro</Badge>} />
+    <Card className="glass-card p-6 flex flex-col justify-between">
+      <CardHeader className="text-center space-y-2">
+        <div className="flex justify-center">
+          <Badge
+            variant="outline"
+            className="text-green-600 bg-green-100 dark:bg-green-900/30 dark:text-green-300 rounded-full px-3 py-1 text-xs font-semibold"
+          >
+            PRO
+          </Badge>
+        </div>
+        <h3 className="text-xl font-bold tracking-tight text-foreground">
+          Upgrade to Pro
+        </h3>
+        <p className="text-sm text-muted-foreground">Unlock full features</p>
+      </CardHeader>
+
       <CardContent>
-        <ul className="space-y-2 mb-4">
+        <ul className="space-y-3 mb-6">
           {features.map((f, i) => (
-            <li key={i} className="flex items-center">
-              <Check className="mr-2 text-green-500" /> {f}
+            <li key={i} className="flex items-center text-sm text-foreground">
+              <Check className="w-4 h-4 text-green-500 mr-2" /> {f}
             </li>
           ))}
         </ul>
-        <Button onClick={upgradePlan} className="w-full">
+
+        <Button
+          onClick={upgradePlan}
+          className="w-full bg-primaryGreen-light hover:bg-primaryGreen-dark text-white"
+        >
+          <Zap className="w-4 h-4 mr-2" />
           Upgrade Now
         </Button>
       </CardContent>

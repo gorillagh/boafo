@@ -1,5 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -51,31 +59,40 @@ export default function ProfileSettings() {
     preview || `https://api.dicebear.com/8.x/initials/svg?seed=${name}`;
 
   return (
-    <div className="glass-card p-8 max-w-2xl mx-auto flex flex-col items-center gap-8 shadow-lg rounded-2xl border border-border/30">
-      {/* Avatar Preview + Upload */}
-      <div className="flex flex-col items-center space-y-4">
+    <div className="glass-card p-8 space-y-8">
+      <div className="text-center">
+        <h2 className="text-2xl font-semibold font-montserrat">
+          Public Profile
+        </h2>
+        <p className="text-sm text-muted-foreground mt-1">
+          This will be displayed publicly.
+        </p>
+      </div>
+
+      {/* Avatar Section */}
+      <div className="flex items-center justify-center gap-6 flex-wrap">
         <img
           src={avatarSrc}
-          alt="Avatar"
-          className="h-28 w-28 rounded-full object-cover shadow-md ring-4 ring-primaryGreen-light/30"
+          alt="Avatar Preview"
+          className="h-24 w-24 rounded-full object-cover shadow-md ring-4 ring-primaryGreen-light/30"
           onError={(e) => {
             e.currentTarget.src = `https://api.dicebear.com/8.x/initials/svg?seed=${name}`;
           }}
         />
 
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row items-center gap-3">
           <Button
             asChild
             variant="outline"
-            className="bg-background/60 backdrop-blur-md"
+            size="icon"
+            className="rounded-full p-3"
           >
             <label className="cursor-pointer">
-              <FaUpload className="mr-2 h-4 w-4" />
-              Upload
+              <FaUpload className="h-5 w-5" />
               <Input
                 type="file"
-                accept="image/*"
                 className="hidden"
+                accept="image/*"
                 onChange={(e) => {
                   const selectedFile = e.target.files?.[0];
                   if (selectedFile) {
@@ -97,40 +114,35 @@ export default function ProfileSettings() {
                 setFile(null);
                 setRemoved(true);
               }}
-              className="hover:bg-destructive/10"
+              className="hover:bg-red-500/10"
             >
-              <Trash2 className="h-4 w-4 text-muted-foreground" />
+              <Trash2 className="h-5 w-5 text-red-500" />
             </Button>
           )}
         </div>
       </div>
 
       {/* Name Field */}
-      <div className="w-full max-w-sm text-left space-y-2">
-        <Label htmlFor="name" className="text-sm text-foreground/80">
-          Display Name
-        </Label>
+      <div className="space-y-2 max-w-sm mx-auto">
+        <Label htmlFor="name">Full Name</Label>
         <Input
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="bg-background/60 backdrop-blur-md border border-border/20 focus:ring-primaryGreen-light"
         />
       </div>
 
       {/* Save Button */}
-      <Button
-        onClick={save}
-        disabled={loading}
-        className="w-full max-w-sm bg-primaryGreen-light hover:bg-primaryGreen-dark transition-colors duration-200 text-white"
-      >
-        {loading ? (
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Save className="mr-2 h-4 w-4" />
-        )}
-        Save Changes
-      </Button>
+      <div className="flex justify-end">
+        <Button onClick={save} disabled={loading} className="primary-button">
+          {loading ? (
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Save className="mr-2 h-4 w-4" />
+          )}
+          Save Changes
+        </Button>
+      </div>
     </div>
   );
 }
