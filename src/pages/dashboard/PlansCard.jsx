@@ -3,7 +3,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Check, Zap } from "lucide-react";
-import { useDashboard } from "@/context/DashboardContext";
+import { useDashboard } from "@/context/dashboard/UseDashboard";
 
 export default function PlansCard() {
   const { upgradePlan } = useDashboard();

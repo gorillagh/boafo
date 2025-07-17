@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useDashboard } from "@/context/DashboardContext";
 import DashboardSkeleton from "./DashboardSkeleton";
 import QuickActions from "./QuickActions";
 import ExtensionStatus from "./ExtensionStatus";
@@ -9,6 +8,7 @@ import ShortcutsCard from "./ShortcutsCard";
 import PlansCard from "./PlansCard";
 import UsageStats from "./UsageStats";
 import { motion, AnimatePresence } from "framer-motion";
+import { useDashboard } from "@/context/dashboard/UseDashboard";
 
 export default function DashboardPage() {
   const { user, plan, loading } = useDashboard();

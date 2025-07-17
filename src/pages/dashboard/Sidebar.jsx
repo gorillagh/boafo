@@ -4,8 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, Settings, X, Zap, LogOut, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDashboard } from "@/context/DashboardContext";
 import { Tooltip } from "react-tooltip";
+import { useDashboard } from "@/context/dashboard/UseDashboard";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const { plan, logout } = useDashboard();

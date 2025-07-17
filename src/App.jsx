@@ -22,7 +22,7 @@ import SettingsPage from "./pages/dashboard/SettingsPage";
 import NotFound from "./components/NotFound";
 
 // ✅ Import the provider here
-import { DashboardProvider } from "./context/DashboardContext";
+import { DashboardProvider } from "./context/dashboard/DashboardContext";
 
 function App() {
   const router = createBrowserRouter([

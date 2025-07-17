@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
-import { Card } from "@/components/ui/card";
-import { useDashboard } from "@/context/DashboardContext";
 import { BadgeCheck, Rocket, Ban } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useDashboard } from "@/context/dashboard/UseDashboard";
 
 const plans = {
   free: {

@@ -1,10 +1,10 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDashboard } from "@/context/DashboardContext";
 import { useAvatar } from "@/lib/avatar";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useDashboard } from "@/context/dashboard/UseDashboard";
 
 export default function UserNav() {
   const { user, logout } = useDashboard();

@@ -15,8 +15,8 @@ import { Save, Trash2, Loader2 } from "lucide-react";
 import { FaUpload } from "react-icons/fa";
 import { toast } from "sonner";
 import API from "@/lib/axios";
-import { useDashboard } from "@/context/DashboardContext";
 import UserPreferences from "./UserPreferences";
+import { useDashboard } from "@/context/dashboard/UseDashboard";
 
 export default function ProfileSettings() {
   const { user, fetchDashboardData } = useDashboard();
