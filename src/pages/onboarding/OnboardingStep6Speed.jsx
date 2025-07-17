@@ -49,7 +49,7 @@ const OnboardingStep6Speed = ({ onContinue, updateData, data }) => {
 
         {getProductivityBoost(speed) > 0 && (
           <motion.p
-            className="font-semibold text-lg text-blue-600 dark:text-blue-400 mb-6"
+            className="font-semibold text-sm text-blue-600 dark:text-blue-400 mb-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
