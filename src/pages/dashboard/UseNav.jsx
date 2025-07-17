@@ -55,7 +55,7 @@ export default function UserNav() {
             (e.currentTarget.src = `https://api.dicebear.com/8.x/initials/svg?seed=${user.name}`)
           }
           alt={user.name || "User avatar"}
-          className="h-10 w-10 rounded-full object-cover"
+          className="h-14 w-14 rounded-full object-cover"
         />
       </motion.button>
 
@@ -66,7 +66,7 @@ export default function UserNav() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute right-0 mt-3 w-56 glass-card p-2 z-50 origin-top-right shadow-lg border border-border"
+            className="absolute right-0 mt-3 w-56 border-none glass-card p-2 z-50 origin-top-right shadow-xl border border-border"
             role="menu"
             aria-label="User menu dropdown"
           >

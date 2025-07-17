@@ -24,7 +24,7 @@ export default function DashboardHeader({ toggleMobileSidebar }) {
       {/* Kept hidden on mobile for cleaner look, shown on desktop */}
       <div className="hidden md:block" />
 
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center justify-center space-x-4">
         <motion.button
           whileHover={{ scale: 1.1, rotate: 15 }}
           whileTap={{ scale: 0.9 }}
