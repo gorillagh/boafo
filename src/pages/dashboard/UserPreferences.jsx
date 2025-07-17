@@ -15,7 +15,7 @@ export default function UserPreferences({ user }) {
         {/* Goals */}
         <div>
           <Label className="text-muted-foreground">Goals</Label>
-          <div className="bg-muted rounded-lg p-3 text-sm space-y-1 border">
+          <div className="glass-card rounded-xl p-3 text-sm space-y-1">
             {user.goals?.length ? (
               user.goals.map((goal, i) => (
                 <div key={i} className="capitalize">
@@ -31,7 +31,7 @@ export default function UserPreferences({ user }) {
         {/* Content Preferences */}
         <div>
           <Label className="text-muted-foreground">Content Preferences</Label>
-          <div className="bg-muted rounded-lg p-3 text-sm space-y-1 border">
+          <div className="glass-card rounded-xl p-3 text-sm space-y-1">
             {user.contentTypes?.length ? (
               user.contentTypes.map((type, i) => (
                 <div key={i} className="capitalize">
@@ -49,7 +49,7 @@ export default function UserPreferences({ user }) {
         {/* Preferred Voice */}
         <div>
           <Label className="text-muted-foreground">Preferred Voice</Label>
-          <div className="bg-muted rounded-lg p-3 text-sm border capitalize">
+          <div className="glass-card rounded-xl p-3 text-sm capitalize">
             {user.selectedVoice || (
               <span className="italic text-muted-foreground">Not set</span>
             )}
@@ -59,7 +59,7 @@ export default function UserPreferences({ user }) {
         {/* Reading Speed */}
         <div>
           <Label className="text-muted-foreground">Reading Speed</Label>
-          <div className="bg-muted rounded-lg p-3 text-sm border">
+          <div className="glass-card rounded-xl p-3 text-sm">
             {user.readingSpeed ? (
               `${user.readingSpeed}x`
             ) : (
@@ -73,7 +73,7 @@ export default function UserPreferences({ user }) {
           <Label className="text-muted-foreground">
             Local Language Interest
           </Label>
-          <div className="bg-muted rounded-lg p-3 text-sm border">
+          <div className="glass-card rounded-xl p-3 text-sm">
             {user.localLanguageInterest ? "Yes" : "No"}
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function UserPreferences({ user }) {
         {/* Current Plan */}
         <div>
           <Label className="text-muted-foreground">Plan</Label>
-          <div className="bg-muted rounded-lg p-3 text-sm border capitalize">
+          <div className="glass-card rounded-xl p-3 text-sm capitalize">
             {user.plan}
           </div>
         </div>

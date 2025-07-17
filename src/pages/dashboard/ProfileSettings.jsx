@@ -70,9 +70,9 @@ export default function ProfileSettings() {
       </div>
 
       {/* Profile Card */}
-      <Card className="shadow-md border rounded-2xl">
+      <Card className="shadow-md border border-green-400 dark:border-green-900 rounded-2xl">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold">Avatar & Display Name</CardTitle>
+          <CardTitle className="text-lg font-medium">Avatar & Display Name</CardTitle>
           <CardDescription>Update your public display details.</CardDescription>
         </CardHeader>
         <CardContent>
@@ -127,13 +127,13 @@ export default function ProfileSettings() {
             </div>
 
             {/* Name Input */}
-            <div className="w-full sm:max-w-xs">
+            <div className="w-full sm:max-w-xs ">
               <Label htmlFor="name">Full Name</Label>
-              <Input
+              <input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="mt-2 border-green-500 rounded-xl"
+                className="mt-2 w-full py-1 pl-3 glass-card outline-none focus:border-green-500 focus:dark:border-green-900 rounded-xl"
               />
             </div>
           </div>
@@ -142,7 +142,7 @@ export default function ProfileSettings() {
           <Button
             onClick={save}
             disabled={loading}
-            className="rounded-full hover:bg-green-500/10"
+            className="rounded-full glass-card hover:bg-green-500/10"
           >
             {loading ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -155,7 +155,7 @@ export default function ProfileSettings() {
       </Card>
 
       {/* Preferences Card */}
-      <Card className="shadow-md border rounded-2xl">
+      <Card className="shadow-md border border-green-400 dark:border-green-900 rounded-2xl">
         <CardHeader>
           <CardTitle className="text-lg font-semibold">Accessibility Preferences</CardTitle>
           <CardDescription>
