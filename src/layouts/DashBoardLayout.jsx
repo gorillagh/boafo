@@ -13,10 +13,10 @@ export default function DashboardLayout() {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        setSidebarOpen(false); // Sidebar is visible by default in desktop
+        setSidebarOpen(false); 
       }
     };
-    handleResize(); // run once
+    handleResize(); 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

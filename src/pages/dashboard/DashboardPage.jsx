@@ -71,12 +71,14 @@ export default function DashboardPage() {
             <motion.div variants={itemVariants}>
               <UsageStats />
             </motion.div>
-            <motion.div variants={itemVariants}>
+           <div className="flex flex-col lg:flex-row gap-5 justify-between items-center ">
+             <motion.div variants={itemVariants}>
               <QuickActions />
             </motion.div>
             <motion.div variants={itemVariants}>
               <ShortcutsCard />
             </motion.div>
+           </div>
           </div>
 
           {/* Right - Sidebar */}

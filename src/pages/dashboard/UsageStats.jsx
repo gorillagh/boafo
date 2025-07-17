@@ -25,7 +25,7 @@ const stats = [
 
 export default function UsageStats() {
   return (
-    <Card className="glass-card">
+    <Card className="glass-card shadow-xl">
       <CardHeader
         title="This Week's Stats"
         description="Your activity over the last 7 days."
