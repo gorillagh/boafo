@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import { Label } from "@/components/ui/label";
+import { FaMarkdown, FaMarker } from "react-icons/fa";
+import { BadgeCheck } from "lucide-react";
 
 export default function UserPreferences({ user }) {
   if (!user) return null;
@@ -15,43 +17,51 @@ export default function UserPreferences({ user }) {
         {/* Goals */}
         <div>
           <Label className="text-muted-foreground">Goals</Label>
-          <div className="glass-card rounded-xl p-3 text-sm space-y-1">
+          <ul className="glass-card rounded-xl p-3 mt-1 text-sm space-y-1">
             {user.goals?.length ? (
               user.goals.map((goal, i) => (
-                <div key={i} className="capitalize">
-                  • {goal.replace(/_/g, " ")}
-                </div>
+                <li key={i} className="capitalize flex items-center gap-2">
+                  <BadgeCheck className="w-4 h-4 text-green-500" />
+                  <span>{goal.replace(/_/g, " ")} </span>
+                </li>
               ))
             ) : (
               <div className="italic text-muted-foreground">No goals set</div>
             )}
-          </div>
+          </ul>
         </div>
 
         {/* Content Preferences */}
         <div>
           <Label className="text-muted-foreground">Content Preferences</Label>
-          <div className="glass-card rounded-xl p-3 text-sm space-y-1">
+          <ul className="glass-card rounded-xl p-3 mt-1 text-sm space-y-1">
             {user.contentTypes?.length ? (
               user.contentTypes.map((type, i) => (
-                <div key={i} className="capitalize">
-                  • {type.replace(/_/g, " ")}
-                </div>
+                <li key={i} className="capitalize flex items-center gap-2">
+                  <BadgeCheck className="w-4 h-4 text-green-500" />
+                  <span> {type.replace(/_/g, " ")}</span>
+                </li>
               ))
             ) : (
               <div className="italic text-muted-foreground">
                 No preferences set
               </div>
             )}
-          </div>
+          </ul>
         </div>
 
         {/* Preferred Voice */}
         <div>
           <Label className="text-muted-foreground">Preferred Voice</Label>
-          <div className="glass-card rounded-xl p-3 text-sm capitalize">
-            {user.selectedVoice || (
-              <span className="italic text-muted-foreground">Not set</span>
+          <div className="glass-card rounded-xl p-3 mt-1 text-sm capitalize">
+            {user.selectedVoice ? (
+              <p className="capitalize flex items-center gap-2">
+                {" "}
+                <BadgeCheck className="w-4 h-4 text-green-500" />
+                <span>{user.selectedVoice}</span>
+              </p>
+            ) : (
+              <div className="italic text-muted-foreground">Not set</div>
             )}
           </div>
         </div>
@@ -59,11 +69,16 @@ export default function UserPreferences({ user }) {
         {/* Reading Speed */}
         <div>
           <Label className="text-muted-foreground">Reading Speed</Label>
-          <div className="glass-card rounded-xl p-3 text-sm">
+
+          <div className="glass-card rounded-xl mt-1 p-3 text-sm">
             {user.readingSpeed ? (
-              `${user.readingSpeed}x`
+              <p className="capitalize flex items-center gap-2">
+                {" "}
+                <BadgeCheck className="w-4 h-4 text-green-500" />
+                <span>{`${user.readingSpeed}x`}</span>
+              </p>
             ) : (
-              <span className="italic text-muted-foreground">Default (1x)</span>
+              <div className="italic text-muted-foreground">Default (1x)</div>
             )}
           </div>
         </div>
@@ -73,16 +88,18 @@ export default function UserPreferences({ user }) {
           <Label className="text-muted-foreground">
             Local Language Interest
           </Label>
-          <div className="glass-card rounded-xl p-3 text-sm">
-            {user.localLanguageInterest ? "Yes" : "No"}
+          <div className="glass-card rounded-xl p-3 mt-1 text-sm flex items-center gap-2">
+            <BadgeCheck className="w-4 h-4 text-green-500" />
+            <span>{user.localLanguageInterest ? "Yes" : "No"}</span>
           </div>
         </div>
 
         {/* Current Plan */}
         <div>
           <Label className="text-muted-foreground">Plan</Label>
-          <div className="glass-card rounded-xl p-3 text-sm capitalize">
-            {user.plan}
+          <div className="glass-card rounded-xl p-3 mt-1 text-sm flex items-center gap-2 capitalize">
+            <BadgeCheck className="w-4 h-4 text-green-500" />{" "}
+            <span>{user.plan}</span>
           </div>
         </div>
       </div>

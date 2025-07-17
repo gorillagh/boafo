@@ -72,7 +72,7 @@ export default function ProfileSettings() {
       {/* Profile Card */}
       <Card className="shadow-md border border-green-400 dark:border-green-900 rounded-2xl">
         <CardHeader>
-          <CardTitle className="text-lg font-medium">Avatar & Display Name</CardTitle>
+          <CardTitle className="text-lg font-medium">Profile Info</CardTitle>
           <CardDescription>Update your public display details.</CardDescription>
         </CardHeader>
         <CardContent>
