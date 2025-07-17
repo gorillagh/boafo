@@ -126,6 +126,7 @@ export default function ProfileSettings() {
         <Input
           id="name"
           value={name}
+          className="border-green-500 rounded-xl"
           onChange={(e) => setName(e.target.value)}
         />
       </div>
