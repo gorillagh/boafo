@@ -66,11 +66,11 @@ export default function UserNav() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute right-0 mt-3 w-56 border-none glass-card p-2 z-50 origin-top-right shadow-xl border border-border"
+            className="absolute right-0 mt-3 w-56 border-none bg-green-100 dark:bg-emerald-950 rounded-xl p-2 z-50 origin-top-right shadow-xl border border-border"
             role="menu"
             aria-label="User menu dropdown"
           >
-            <div className="px-2 py-2 border-b border-border">
+            <div className="px-2 py-2 border-b border-green-400 dark:border-green-900">
               <p className="font-semibold text-sm text-foreground truncate">
                 {user.name}
               </p>
@@ -82,7 +82,7 @@ export default function UserNav() {
               <Link
                 to="/dashboard/settings"
                 onClick={() => setOpen(false)}
-                className="block w-full text-left px-2 py-2 text-sm rounded-md text-foreground hover:bg-accent"
+                className="block border-b border-green-400 dark:border-green-900 w-full text-left px-2 py-2 text-sm rounded-md text-foreground hover:bg-accent"
                 role="menuitem"
               >
                 Settings
