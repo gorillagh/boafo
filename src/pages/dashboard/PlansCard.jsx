@@ -14,7 +14,7 @@ export default function PlansCard() {
   ];
 
   return (
-    <Card className="glass-card p-6 flex flex-col justify-between">
+    <Card className="glass-card p-6 flex flex-col justify-between shadow-xl">
       <CardHeader className="text-center space-y-2">
         <div className="flex justify-center">
           <Badge
@@ -41,6 +41,7 @@ export default function PlansCard() {
 
         <Button
           onClick={upgradePlan}
+          disabled
           className="w-full bg-primaryGreen-light hover:bg-primaryGreen-dark text-white"
         >
           <Zap className="w-4 h-4 mr-2" />

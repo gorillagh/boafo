@@ -60,8 +60,10 @@ function PlanCard({ type, current, onSelect }) {
 
       <Button
         className="mt-6 w-full max-w-[200px]"
-        disabled={isCurrent}
+        // disabled={isCurrent}
+        disabled
         onClick={() => onSelect(type)}
+        
       >
         {isCurrent ? "Current Plan" : `Switch to ${title}`}
       </Button>

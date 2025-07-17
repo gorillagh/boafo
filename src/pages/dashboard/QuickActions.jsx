@@ -23,7 +23,7 @@ export default function QuickActions() {
       {actions.map((action, i) => (
         <Card
           key={i}
-          className="group glass-card p-6 flex flex-col items-center justify-center transition-all duration-200 hover:shadow-xl rounded-2xl"
+          className="group glass-card shadow-2xl p-6 flex flex-col items-center justify-center transition-all duration-200 hover:shadow-xl rounded-2xl"
         >
           <div className="bg-primaryGreen-light/90 dark:bg-primaryGreen-dark/80 text-white rounded-full p-3 mb-4 shadow-md group-hover:scale-110 transition-transform">
             {action.icon}

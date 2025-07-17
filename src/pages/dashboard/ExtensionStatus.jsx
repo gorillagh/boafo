@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function ExtensionStatus() {
   return (
-    <Card className="glass-card h-full">
+    <Card className="glass-card h-full shadow-xl">
       <CardHeader
         title="Extension Status"
         icon={<CheckCircle className="text-primaryGreen-light" />}

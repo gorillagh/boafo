@@ -11,7 +11,7 @@ export default function ShortcutsCard() {
   ];
 
   return (
-    <Card className="glass-card p-6">
+    <Card className="glass-card p-6 shadow-xl">
       <CardHeader className="flex flex-col items-center text-center space-y-2">
         <div className="rounded-full p-3 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-300">
           <Keyboard className="w-6 h-6" />
