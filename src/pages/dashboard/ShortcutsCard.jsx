@@ -30,7 +30,7 @@ export default function ShortcutsCard() {
           >
             <span className="text-sm">{s.label}</span>
             <Badge
-              className="text-xs hover:bg-green-500/10 font-mono bg-background border text-muted-foreground"
+              className="text-xs cursor-default hover:bg-green-500/10 font-mono bg-background border text-muted-foreground"
             >
               {s.key}
             </Badge>

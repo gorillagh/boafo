@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, Settings, X, Zap, LogOut, Menu } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useDashboard } from "@/context/DashboardContext";
+import { Tooltip } from "react-tooltip";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const { plan, logout } = useDashboard();
@@ -45,6 +46,15 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   return (
     <>
+      {/* 👇 ONLY THIS LINE IS CHANGED */}
+      <Tooltip
+        id="sidebar-tooltip"
+        place="right"
+        className="z-40"
+        offset={18}
+        style={{ padding: "3px 8px", fontSize: "10px" }}
+      />
+
       {/* Backdrop */}
       <AnimatePresence>
         {isOpen && isMobile && (
@@ -84,7 +94,11 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                   }`}
                 >
                   <div>
-                    <img className="h-10 rounded-lg  w-10" src="/public/logo-green.png" alt="logo" />
+                    <img
+                      className="h-10 rounded-lg w-10"
+                      src="/logo-green.png"
+                      alt="logo"
+                    />
                   </div>
                   Boafo
                 </motion.span>
@@ -93,6 +107,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               <div className="flex gap-2 items-center">
                 {/* Collapse toggle */}
                 <button
+                  data-tooltip-content="Toggle Sidebar"
                   onClick={() => setCollapsed((prev) => !prev)}
                   className="hidden md:block p-2 rounded-lg hover:bg-sidebar-accent"
                   aria-label="Toggle collapse"
@@ -129,6 +144,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     animate="visible"
                   >
                     <Link
+                      data-tooltip-id="sidebar-tooltip"
+                      data-tooltip-content={collapsed ? item.title : ""}
                       to={item.to}
                       onClick={() => isMobile && setIsOpen(false)}
                       className={`relative flex items-center gap-4 p-3 rounded-lg font-medium text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all duration-200 ${
@@ -154,6 +171,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             {/* Logout */}
             <div className="p-4 border-t border-sidebar-border">
               <motion.button
+                data-tooltip-id="sidebar-tooltip"
+                data-tooltip-content={collapsed ? "Sign Out" : ""}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={logout}

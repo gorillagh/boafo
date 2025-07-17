@@ -47,7 +47,7 @@ export default function UserNav() {
         aria-haspopup="true"
         aria-expanded={open}
         aria-label="User menu"
-        className="rounded-full ring-2 ring-offset-2 ring-offset-background ring-primaryGreen-light/50 hover:ring-primaryGreen-light transition-all duration-300"
+        className="rounded-full ring-1 ring-offset-1 ring-offset-background ring-primaryGreen-light/50 hover:ring-primaryGreen-light transition-all duration-300"
       >
         <img
           src={src}
@@ -55,7 +55,7 @@ export default function UserNav() {
             (e.currentTarget.src = `https://api.dicebear.com/8.x/initials/svg?seed=${user.name}`)
           }
           alt={user.name || "User avatar"}
-          className="h-14 w-14 rounded-full object-cover"
+          className="h-11 w-11 rounded-full object-cover"
         />
       </motion.button>
 

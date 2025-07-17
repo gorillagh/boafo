@@ -12,7 +12,7 @@ export default function DashboardHeader({ toggleMobileSidebar }) {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-      className="h-20 flex items-center justify-between px-6 bg-background/60 dark:bg-background/60 backdrop-blur-md border-b border-border/50 sticky top-0 z-30"
+      className="h-20 border-green-400 flex items-center justify-between px-6 bg-background/60 dark:bg-background/60 backdrop-blur-md border-b border-border/50 sticky top-0 z-30"
     >
       <button
         onClick={toggleMobileSidebar}
