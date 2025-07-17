@@ -1,4 +1,3 @@
-// src/pages/resetPassword/ResetPassword.jsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -9,6 +8,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import API from "@/lib/axios";
 import { Loader2 } from "lucide-react";
+import Logo from "@/components/Logo";
 
 const resetSchema = z
   .object({
@@ -55,56 +55,77 @@ export default function ResetPassword() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center text-center bg-gray-50 dark:bg-gray-900">
-      <div className="p-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg max-w-md w-full">
-        <h1 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">
+    <section className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-secondaryGreen-light to-gray-50 dark:from-[#0D0D0D] dark:via-secondaryGreen-dark dark:to-[#0D0D0D] opacity-80 -z-10"></div>
+      <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
+
+      <div className="relative glass-card max-w-lg w-full p-8 text-center my-8 mx-4">
+        {/* Logo */}
+        <Logo />
+
+        <h2 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">
           Reset Password
-        </h1>
+        </h2>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <input
-            placeholder="Email"
-            {...register("email")}
-            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email.message}</p>
-          )}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full max-w-sm mx-auto"
+        >
+          <div className="mb-4">
+            <input
+              placeholder="Email"
+              {...register("email")}
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <input
+              placeholder="Reset Code"
+              {...register("resetCode")}
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            />
+            {errors.resetCode && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.resetCode.message}
+              </p>
+            )}
+            <div className="mb-4"></div>
 
-          <input
-            placeholder="Reset Code"
-            {...register("resetCode")}
-            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
-          />
-          {errors.resetCode && (
-            <p className="text-red-500 text-sm">{errors.resetCode.message}</p>
-          )}
-
-          <input
-            type="password"
-            placeholder="New Password"
-            {...register("newPassword")}
-            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
-          />
-          {errors.newPassword && (
-            <p className="text-red-500 text-sm">{errors.newPassword.message}</p>
-          )}
-
-          <input
-            type="password"
-            placeholder="Confirm New Password"
-            {...register("confirmPassword")}
-            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white"
-          />
-          {errors.confirmPassword && (
-            <p className="text-red-500 text-sm">
-              {errors.confirmPassword.message}
-            </p>
-          )}
+            <input
+              type="password"
+              placeholder="New Password"
+              {...register("newPassword")}
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            />
+            {errors.newPassword && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.newPassword.message}
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <input
+              type="password"
+              placeholder="Confirm New Password"
+              {...register("confirmPassword")}
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+          </div>
 
           <button
             type="submit"
-            className="primary-button w-full py-3"
+           className="primary-button text-sm w-full py-3 mb-4"
             disabled={loading}
           >
             {loading ? (

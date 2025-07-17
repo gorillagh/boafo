@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import API from "@/lib/axios";
 import { saveToken } from "@/lib/auth";
+import Logo from "@/components/Logo";
 
 const loginFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -64,12 +65,7 @@ export default function Login() {
 
       <div className="relative glass-card max-w-lg w-full p-8 text-center my-8 mx-4">
         {/* Logo */}
-        <div className="mb-5 flex justify-center items-center gap-3">
-          <img src="/public/logo-green.png" className="h-8 w-8" alt="" />
-          <p className="font-montserrat font-bold text-xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
-            Boafo
-          </p>
-        </div>
+        <Logo />
 
         <h2 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">
           Welcome Back!
@@ -91,7 +87,7 @@ export default function Login() {
               className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 text-xs mt-1">
                 {errors.email.message}
               </p>
             )}

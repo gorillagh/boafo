@@ -17,6 +17,7 @@ import OnboardingStep7LocalLanguage from "./OnboardingStep7LocalLanguage";
 import OnboardingStep8Install from "./OnboardingStep8Install";
 import { getToken } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/Logo";
 
 const OnboardingFlow = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -176,12 +177,7 @@ const OnboardingFlow = () => {
         </div>
 
         {/* Logo */}
-        <div className="mb-5 flex justify-center items-center gap-3">
-          <img src="/public/logo-green.png" className="h-8 w-8" alt="" />
-          <p className="font-montserrat font-bold text-xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
-            Boafo
-          </p>
-        </div>
+        <Logo />
 
         <AnimatePresence mode="wait">
           <motion.div
