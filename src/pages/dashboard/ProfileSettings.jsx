@@ -83,9 +83,8 @@ export default function ProfileSettings() {
         <div className="flex flex-col sm:flex-row items-center gap-3">
           <Button
             asChild
-            variant="outline"
             size="icon"
-            className="rounded-full p-3"
+            className="rounded-full p-3 hover:bg-green-500/10"
           >
             <label className="cursor-pointer">
               <FaUpload className="h-5 w-5" />
@@ -107,7 +106,6 @@ export default function ProfileSettings() {
 
           {(preview || user.avatarUrl) && (
             <Button
-              variant="ghost"
               size="icon"
               onClick={() => {
                 setPreview("");
@@ -134,7 +132,7 @@ export default function ProfileSettings() {
 
       {/* Save Button */}
       <div className="flex justify-end">
-        <Button onClick={save} disabled={loading} className="primary-button">
+        <Button onClick={save} disabled={loading} className="hover:bg-green-500/10 mx-auto rounded-l-full rounded-r-full ">
           {loading ? (
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
           ) : (

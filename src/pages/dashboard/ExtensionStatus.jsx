@@ -28,10 +28,10 @@ export default function ExtensionStatus() {
                 </p>
               </div>
             </div>
-            <Badge variant="secondary">v2.1.0</Badge>
+            <Badge variant="secondary">v1.0.0</Badge>
           </div>
         </div>
-        <Button variant="outline" className="w-full mt-4">
+        <Button className="w-full mt-4 rounded-l-full hover:bg-green-500/10 rounded-r-full">
           <Download className="mr-2 h-4 w-4" /> Check for Update
         </Button>
       </CardContent>

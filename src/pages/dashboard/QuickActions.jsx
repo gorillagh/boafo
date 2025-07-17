@@ -35,9 +35,8 @@ export default function QuickActions() {
             {action.title}
           </h3>
           <Button
-          
             size="sm"
-            className="w-full rounded-l-full rounded-r-full hover:bg-green-500 hover:text-white"
+            className="w-full rounded-l-full rounded-r-full hover:bg-green-500/10"
             onClick={action.onClick}
           >
             Go
