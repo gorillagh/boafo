@@ -79,7 +79,7 @@ export default function OnboardingStep1Account({
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark mb-4">
+      <h2 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">
         Create Your Account
       </h2>
 
@@ -90,7 +90,7 @@ export default function OnboardingStep1Account({
             type="text"
             placeholder="Name"
             {...register("name")}
-            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
           />
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
@@ -103,7 +103,7 @@ export default function OnboardingStep1Account({
             type="email"
             placeholder="Email"
             {...register("email")}
-            className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
           />
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
@@ -116,7 +116,7 @@ export default function OnboardingStep1Account({
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             {...register("password")}
-            className="w-full p-3 pr-10 rounded-md bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            className="w-full placeholder:text-xs text-sm p-2 pl-4 pr-10 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
           />
           <button
             type="button"
@@ -138,7 +138,7 @@ export default function OnboardingStep1Account({
             type={showConfirm ? "text" : "password"}
             placeholder="Confirm Password"
             {...register("confirmPassword")}
-            className="w-full p-3 pr-10 rounded-md bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            className="w-full placeholder:text-xs text-sm p-2 px-4 pr-10 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-200 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
           />
           <button
             type="button"
@@ -155,12 +155,16 @@ export default function OnboardingStep1Account({
         </div>
 
         {/* Submit Button */}
-        <Button type="submit" className="w-full py-3 mb-4" disabled={loading}>
-          {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Sign Up"}
-        </Button>
+        <button
+          type="submit"
+          className="primary-button text-sm w-full py-3 mb-4"
+          disabled={loading}
+        >
+          {loading ? <Loader2 className="h-5 w-5 animate-spin mx-auto" /> : "Sign Up"}
+        </button>
       </form>
 
-      <p className="text-textColor-light dark:text-textColor-dark mb-4">
+      <p className="text-textColor-light text-xs dark:text-textColor-dark mb-4">
         Already have an account?{" "}
         <a
           href="/login"
@@ -170,15 +174,15 @@ export default function OnboardingStep1Account({
         </a>
       </p>
 
-      <div className="relative w-full max-w-sm flex items-center justify-center mb-6">
+      <div className="relative w-full text-xs max-w-sm flex items-center justify-center mb-6">
         <span className="absolute bg-white dark:bg-gray-900 px-2 text-gray-500 dark:text-gray-400 z-10">
           or
         </span>
         <div className="absolute w-full h-px bg-gray-200 dark:bg-gray-700"></div>
       </div>
 
-      <button className="secondary-button w-full py-3 mb-3 flex items-center justify-center border-gray-300 dark:border-gray-600">
-        <FaGoogle className="mr-2 text-lg" /> Continue with Google
+      <button className="secondary-button text-sm w-full py-3 mb-3 flex items-center justify-center border-gray-300 dark:border-gray-600">
+        <FaGoogle className="mr-2" /> Continue with Google
       </button>
     </div>
   );

@@ -79,10 +79,13 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.1 }}
-                  className={`text-3xl font-bold font-montserrat bg-gradient-to-r from-primaryGreen-light to-primaryGreen-dark bg-clip-text text-transparent ${
+                  className={`text-3xl flex justify-center items-center gap-3 font-bold font-montserrat bg-gradient-to-r from-primaryGreen-light to-primaryGreen-dark bg-clip-text text-transparent ${
                     collapsed ? "hidden" : ""
                   }`}
                 >
+                  <div>
+                    <img className="h-10 rounded-lg  w-10" src="/public/logo-green.png" alt="logo" />
+                  </div>
                   Boafo
                 </motion.span>
               </Link>

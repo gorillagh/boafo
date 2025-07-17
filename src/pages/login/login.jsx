@@ -39,7 +39,7 @@ export default function Login() {
         throw new Error("Login failed: No access token received.");
       }
 
-      // Store the token 
+      // Store the token
       saveToken(token);
 
       toast.success("Login successful!");
@@ -57,48 +57,24 @@ export default function Login() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative pb-16">
+    <section className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-secondaryGreen-light to-gray-50 dark:from-[#0D0D0D] dark:via-secondaryGreen-dark dark:to-[#0D0D0D] opacity-80 -z-10"></div>
       <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
 
-      <div className="relative glass-card max-w-3xl w-full p-8 md:p-12 text-center my-8 mx-4">
+      <div className="relative glass-card max-w-lg w-full p-8 text-center my-8 mx-4">
         {/* Logo */}
-        <div className="mb-8">
-          <span className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              className="mr-2"
-            >
-              <path
-                d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2ZM11 16h2V8h-2v8Zm-3-4h2V8H8v4Zm6 0h2V8h-2v4Z"
-                fill="url(#gradient-logo)"
-              />
-              <defs>
-                <linearGradient
-                  id="gradient-logo"
-                  x1="12"
-                  y1="2"
-                  x2="12"
-                  y2="22"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#34C759" />
-                  <stop offset="1" stopColor="#2DB54F" />
-                </linearGradient>
-              </defs>
-            </svg>
+        <div className="mb-5 flex justify-center items-center gap-3">
+          <img src="/public/logo-green.png" className="h-8 w-8" alt="" />
+          <p className="font-montserrat font-bold text-xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
             Boafo
-          </span>
+          </p>
         </div>
 
-        <h2 className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark mb-4">
+        <h2 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">
           Welcome Back!
         </h2>
-        <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-8 max-w-md mx-auto">
+        <p className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark mb-8 max-w-md mx-auto">
           Sign in to continue your journey with Boafo.
         </p>
 
@@ -112,7 +88,7 @@ export default function Login() {
               type="email"
               placeholder="Email"
               {...register("email")}
-              className="w-full p-3 rounded-md bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -127,7 +103,7 @@ export default function Login() {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               {...register("password")}
-              className="w-full p-3 pr-10 rounded-md bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 pr-10 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
             />
             <button
               type="button"
@@ -147,7 +123,7 @@ export default function Login() {
           <div className="flex justify-end mb-4">
             <Link
               to="/forgot-password"
-              className="text-sm text-primaryGreen-light dark:text-primaryGreen-dark hover:underline"
+              className="text-xs text-primaryGreen-light dark:text-primaryGreen-dark hover:underline"
             >
               Forgot Password?
             </Link>
@@ -156,7 +132,7 @@ export default function Login() {
           {/* Submit */}
           <button
             type="submit"
-            className="primary-button w-full py-3 mb-4"
+            className="primary-button text-sm w-full py-3 mb-4"
             disabled={loading}
           >
             {loading ? (
@@ -167,7 +143,7 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="text-textColor-light dark:text-textColor-dark mb-4">
+        <p className="text-textColor-light text-xs dark:text-textColor-dark mb-4">
           Don’t have an account?{" "}
           <Link
             to="/onboarding"
@@ -179,15 +155,15 @@ export default function Login() {
 
         {/* Divider */}
         <div className="relative w-full max-w-sm mx-auto flex items-center justify-center mb-6">
-          <span className="absolute bg-white dark:bg-gray-900 px-2 text-gray-500 dark:text-gray-400 z-10">
+          <span className="absolute text-sm bg-white dark:bg-gray-900 px-2 text-gray-500 dark:text-gray-400 z-10">
             or
           </span>
           <div className="absolute w-full h-px bg-gray-200 dark:bg-gray-700"></div>
         </div>
 
         {/* Google button */}
-        <button className="secondary-button w-full max-w-sm mx-auto py-3 mb-3 flex items-center justify-center border-gray-300 dark:border-gray-600">
-          <FaGoogle className="mr-2 text-lg" /> Continue with Google
+        <button className="secondary-button text-sm w-full max-w-sm mx-auto py-3 mb-3 flex items-center justify-center border-gray-300 dark:border-gray-600">
+          <FaGoogle className="mr-2" /> Continue with Google
         </button>
       </div>
     </section>

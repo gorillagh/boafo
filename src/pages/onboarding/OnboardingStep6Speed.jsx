@@ -26,10 +26,10 @@ const OnboardingStep6Speed = ({ onContinue, updateData, data }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark mb-4">
+      <h2 className="font-montserrat font-bold text-xl w-[90%] text-textColor-light dark:text-textColor-dark mb-4">
         Set Your Preferred Reading Speed
       </h2>
-      <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-8">
+      <p className="font-ubuntu text-xs w-[70%] text-textColor-light dark:text-textColor-dark mb-8">
         You can always adjust this later in the Boafo settings.
       </p>
 
@@ -39,10 +39,11 @@ const OnboardingStep6Speed = ({ onContinue, updateData, data }) => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <div className="font-montserrat font-bold text-5xl mb-4 text-primaryGreen-light dark:text-primaryGreen-dark">
-          {speed.toFixed(1)}x
+        <div className="font-montserrat font-bold text-3xl mb-4 text-primaryGreen-light dark:text-primaryGreen-dark">
+          <span>{speed.toFixed(1)}</span>
+          <span>x</span>
         </div>
-        <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-4">
+        <p className="font-ubuntu text-sm text-textColor-light dark:text-textColor-dark mb-4">
           This is approximately {getWPM(speed)} words per minute.
         </p>
 
@@ -68,7 +69,7 @@ const OnboardingStep6Speed = ({ onContinue, updateData, data }) => {
             [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-primaryGreen-light [&::-webkit-slider-thumb]:dark:bg-primaryGreen-dark [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:appearance-none
             [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-primaryGreen-light [&::-moz-range-thumb]:dark:bg-primaryGreen-dark [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:appearance-none"
         />
-        <div className="flex justify-between w-full mt-2 text-sm text-gray-500 dark:text-gray-400 px-1">
+        <div className="flex justify-between w-full mt-2 text-xs text-gray-500 dark:text-gray-400 px-1">
           <span>Slower</span>
           <span>Normal</span>
           <span>Faster</span>
@@ -77,7 +78,7 @@ const OnboardingStep6Speed = ({ onContinue, updateData, data }) => {
 
       <button
         onClick={handleSubmit}
-        className="primary-button w-full max-w-xs py-3"
+        className="primary-button text-sm w-full max-w-xs py-3"
       >
         Continue
       </button>

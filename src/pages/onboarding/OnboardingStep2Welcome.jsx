@@ -1,7 +1,7 @@
 // src/components/onboarding/OnboardingStep2Welcome.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { FaBookOpen, FaGlobe, FaVolumeUp, FaCommentDots } from "react-icons/fa"; // Example icons
+import { FaBookOpen, FaGlobe, FaVolumeUp, FaCommentDots } from "react-icons/fa";
 
 const OnboardingStep2Welcome = ({ onContinue }) => {
   const iconVariants = {
@@ -28,10 +28,10 @@ const OnboardingStep2Welcome = ({ onContinue }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark mb-4">
+      <h2 className="font-montserrat font-bold text-xl w-[90%] text-textColor-light dark:text-textColor-dark mb-4">
         Empower Your Digital Journey with Boafo!
       </h2>
-      <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-8 max-w-md">
+      <p className="font-ubuntu text-xs w-[70%] text-textColor-light dark:text-textColor-dark mb-8 max-w-md">
         Turn any text or speech into an accessible and productive experience,
         effortlessly.
       </p>
@@ -43,31 +43,7 @@ const OnboardingStep2Welcome = ({ onContinue }) => {
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ repeat: Infinity, duration: 2 }}
         >
-          <svg
-            width="64"
-            height="64"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM11 16H13V8H11V16ZM8 12H10V8H8V12ZM14 12H16V8H14V12Z"
-              fill="url(#gradient-center-logo)"
-            />
-            <defs>
-              <linearGradient
-                id="gradient-center-logo"
-                x1="12"
-                y1="2"
-                x2="12"
-                y2="22"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#34C759" />
-                <stop offset="1" stopColor="#2DB54F" />
-              </linearGradient>
-            </defs>
-          </svg>
+            <img src="/public/logo-green.png" className="h-11 w-11" alt="" />
         </motion.div>
 
         {/* Surrounding smaller icons */}
@@ -93,7 +69,7 @@ const OnboardingStep2Welcome = ({ onContinue }) => {
 
       <button
         onClick={onContinue}
-        className="primary-button w-full max-w-xs py-3"
+        className="primary-button text-sm w-full max-w-xs py-3"
       >
         Continue
       </button>

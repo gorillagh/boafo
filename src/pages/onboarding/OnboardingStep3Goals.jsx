@@ -36,10 +36,10 @@ const OnboardingStep3Goals = ({ onContinue, updateData, data }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark mb-4">
+      <h2 className="font-montserrat font-bold text-xl w-[90%] text-textColor-light dark:text-textColor-dark mb-4">
         What would you like to achieve with Boafo?
       </h2>
-      <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-8">
+      <p className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark mb-8">
         Choose all that apply.
       </p>
 
@@ -48,7 +48,7 @@ const OnboardingStep3Goals = ({ onContinue, updateData, data }) => {
           <motion.label
             key={goal.id}
             htmlFor={goal.id}
-            className="flex items-center glass-card p-4 cursor-pointer hover:bg-primaryGreen-light hover:bg-opacity-10 dark:hover:bg-primaryGreen-dark dark:hover:bg-opacity-10 transition-colors duration-200"
+            className="flex text-sm glass-card p-4 cursor-pointer hover:bg-primaryGreen-light hover:bg-opacity-10 dark:hover:bg-primaryGreen-dark dark:hover:bg-opacity-10 transition-colors duration-200"
             variants={itemVariants}
             initial="hidden"
             animate="visible"
@@ -59,16 +59,16 @@ const OnboardingStep3Goals = ({ onContinue, updateData, data }) => {
               id={goal.id}
               checked={selectedGoals.includes(goal.id)}
               onChange={() => handleCheckboxChange(goal.id)}
-              className="form-checkbox h-5 w-5 text-primaryGreen-light dark:text-primaryGreen-dark rounded focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark mr-3"
+              className="form-checkbox h-3 w-3 text-primaryGreen-light dark:text-primaryGreen-dark rounded focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark mr-3"
             />
-            <span className="font-ubuntu text-textColor-light dark:text-textColor-dark">{goal.label}</span>
+            <span className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark">{goal.label}</span>
           </motion.label>
         ))}
       </div>
 
       <button
         onClick={handleSubmit}
-        className="primary-button w-full max-w-xs py-3"
+        className="primary-button text-sm w-full max-w-xs py-3"
       >
         Continue
       </button>

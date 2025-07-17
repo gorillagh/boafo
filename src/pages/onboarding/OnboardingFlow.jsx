@@ -16,6 +16,7 @@ import OnboardingStep6Speed from "./OnboardingStep6Speed";
 import OnboardingStep7LocalLanguage from "./OnboardingStep7LocalLanguage";
 import OnboardingStep8Install from "./OnboardingStep8Install";
 import { getToken } from "@/lib/auth";
+import { Button } from "@/components/ui/button";
 
 const OnboardingFlow = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -151,15 +152,15 @@ const OnboardingFlow = () => {
   const progress = (currentStep / totalSteps) * 100;
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative pb-16">
+    <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-secondaryGreen-light to-gray-50 dark:from-[#0D0D0D] dark:via-secondaryGreen-dark dark:to-[#0D0D0D] opacity-80 -z-10"></div>
       <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
 
-      <div className="relative glass-card max-w-3xl w-full p-8 md:p-12 text-center my-8 mx-4">
+      <div className="relative glass-card max-w-lg w-full p-5 text-center my-4 mx-4">
         {currentStep > 1 && (
           <button
             onClick={handleBack}
-            className="absolute top-6 left-6 text-textColor-light dark:text-textColor-dark hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark transition-colors duration-200 flex items-center"
+            className="absolute text-sm top-4 left-5 text-textColor-light dark:text-textColor-dark hover:text-primaryGreen-light dark:hover:text-primaryGreen-dark transition-colors duration-200 flex items-center"
           >
             <FaArrowLeft className="mr-2" /> Back
           </button>
@@ -174,36 +175,12 @@ const OnboardingFlow = () => {
           ></motion.div>
         </div>
 
-        <div className="mb-8">
-          <span className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
-            <svg
-              width="32"
-              height="32"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="mr-2"
-            >
-              <path
-                d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM11 16H13V8H11V16ZM8 12H10V8H8V12ZM14 12H16V8H14V12Z"
-                fill="url(#gradient-logo)"
-              />
-              <defs>
-                <linearGradient
-                  id="gradient-logo"
-                  x1="12"
-                  y1="2"
-                  x2="12"
-                  y2="22"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#34C759" />
-                  <stop offset="1" stopColor="#2DB54F" />
-                </linearGradient>
-              </defs>
-            </svg>
+        {/* Logo */}
+        <div className="mb-5 flex justify-center items-center gap-3">
+          <img src="/public/logo-green.png" className="h-8 w-8" alt="" />
+          <p className="font-montserrat font-bold text-xl text-textColor-light dark:text-textColor-dark flex items-center justify-center">
             Boafo
-          </span>
+          </p>
         </div>
 
         <AnimatePresence mode="wait">

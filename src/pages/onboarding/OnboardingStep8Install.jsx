@@ -22,10 +22,10 @@ const OnboardingStep8Install = ({ onCompleteOnboarding }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark mb-4 text-center">
+      <h2 className="font-montserrat font-bold text-xl w-[90%] text-textColor-light dark:text-textColor-dark mb-4 text-center">
         Almost Done! Install Boafo.
       </h2>
-      <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-8 text-center max-w-md">
+      <p className="font-ubuntu text-xs w-[70%] text-textColor-light dark:text-textColor-dark mb-8 text-center max-w-md">
         To start using Boafo's powerful features, you need to add our extension
         to your Chrome browser.
       </p>
@@ -36,18 +36,18 @@ const OnboardingStep8Install = ({ onCompleteOnboarding }) => {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
       >
-        <FaChrome className="text-primaryGreen-light dark:text-primaryGreen-dark text-8xl mb-6" />
-        <h3 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">
+        <FaChrome className="text-primaryGreen-light dark:text-primaryGreen-dark text-6xl mb-6" />
+        <h3 className="font-montserrat font-bold text-lg text-textColor-light dark:text-textColor-dark mb-4">
           Get Boafo from the Chrome Web Store
         </h3>
-        <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-6">
+        <p className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark mb-6">
           Click the button below to be redirected.
         </p>
         <button
           onClick={handleInstallClick}
-          className="primary-button inline-flex items-center justify-center px-8 py-4 text-lg font-bold shadow-lg transform hover:scale-105"
+          className="primary-button text-xs inline-flex items-center justify-center px-5 py-3 font-bold shadow-lg transform hover:scale-105"
         >
-          <FaChrome className="mr-3 text-2xl" /> Add Boafo to Chrome
+          <FaChrome className="mr-3" /> Add Boafo to Chrome
         </button>
       </motion.div>
 
@@ -58,10 +58,10 @@ const OnboardingStep8Install = ({ onCompleteOnboarding }) => {
         transition={{ delay: 0.5, duration: 0.4 }}
       >
         <FaPuzzlePiece className="text-blue-500 dark:text-blue-400 text-5xl mb-4" />
-        <h3 className="font-montserrat font-bold text-xl text-textColor-light dark:text-textColor-dark mb-3">
+        <h3 className="font-montserrat font-bold text-lg text-textColor-light dark:text-textColor-dark mb-3">
           Don't forget to pin Boafo!
         </h3>
-        <p className="font-ubuntu text-textColor-light dark:text-textColor-dark">
+        <p className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark">
           After installation, click the puzzle piece icon (Extensions) in your
           browser toolbar, find Boafo, and click the pin icon next to it for
           quick access!

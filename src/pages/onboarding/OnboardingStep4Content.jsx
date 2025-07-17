@@ -38,10 +38,10 @@ const OnboardingStep4Content = ({ onContinue, updateData, data }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="font-montserrat font-bold text-3xl text-textColor-light dark:text-textColor-dark mb-4">
+      <h2 className="font-montserrat font-bold text-xl w-[90%] text-textColor-light dark:text-textColor-dark mb-4">
         What type of content do you usually engage with?
       </h2>
-      <p className="font-ubuntu text-textColor-light dark:text-textColor-dark mb-8">
+      <p className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark mb-8">
         Choose all that apply.
       </p>
 
@@ -61,9 +61,9 @@ const OnboardingStep4Content = ({ onContinue, updateData, data }) => {
               id={content.id}
               checked={selectedContent.includes(content.id)}
               onChange={() => handleCheckboxChange(content.id)}
-              className="form-checkbox h-5 w-5 text-primaryGreen-light dark:text-primaryGreen-dark rounded focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark mr-3"
+              className="form-checkbox h-3 w-3 text-primaryGreen-light dark:text-primaryGreen-dark rounded focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark mr-3"
             />
-            <span className="font-ubuntu text-textColor-light dark:text-textColor-dark">
+            <span className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark">
               {content.label}
             </span>
           </motion.label>
@@ -72,7 +72,7 @@ const OnboardingStep4Content = ({ onContinue, updateData, data }) => {
 
       <button
         onClick={handleSubmit}
-        className="primary-button w-full max-w-xs py-3"
+        className="primary-button text-sm w-full max-w-xs py-3"
       >
         Continue
       </button>
