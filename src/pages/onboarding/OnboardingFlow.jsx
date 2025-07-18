@@ -73,6 +73,16 @@ const OnboardingFlow = () => {
           },
         }
       );
+
+      // ✅ POST MESSAGE TO EXTENSION
+      window.postMessage(
+        {
+          type: "BOAFO_TOKEN",
+          token: token,
+        },
+        "*"
+      );
+
       toast.success("Onboarding completed!");
       navigate("/dashboard");
     } catch (err) {
