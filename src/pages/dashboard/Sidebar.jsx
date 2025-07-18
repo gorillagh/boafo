@@ -7,10 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Tooltip } from "react-tooltip";
 import { useDashboard } from "@/context/dashboard/UseDashboard";
 
-export default function Sidebar({ isOpen, setIsOpen }) {
+export default function Sidebar({ isOpen, setIsOpen, collapsed, setCollapsed  }) {
   const { plan, logout } = useDashboard();
   const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -78,7 +77,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
-            className={`fixed md:relative inset-y-0 left-0 ${
+            className={`fixed inset-y-0 left-0 top-0 h-screen ${
               collapsed ? "w-20" : "w-64"
             } bg-sidebar/80 dark:bg-sidebar/80 backdrop-blur-lg border-r border-sidebar-border z-50 flex flex-col transition-all duration-300`}
           >

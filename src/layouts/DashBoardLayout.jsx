@@ -8,6 +8,8 @@ import Sidebar from "@/pages/dashboard/Sidebar";
 
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+
 
   // Reset sidebarOpen when switching to desktop
   useEffect(() => {
@@ -31,10 +33,19 @@ export default function DashboardLayout() {
       </div>
 
       {/* Sidebar */}
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      {/* <div className="sticky left-0 top-0 h-full"> */}
+      <Sidebar 
+      isOpen={sidebarOpen} 
+      setIsOpen={setSidebarOpen} 
+      collapsed={collapsed} 
+      setCollapsed={setCollapsed}
+      />
+      {/* </div> */}
 
       {/* Main Content */}
-      <div className="relative flex-1 flex flex-col z-10">
+      <div className={`relative flex-1 flex flex-col z-10 transition-all duration-300 ${
+          collapsed ? "md:ml-20" : "md:ml-64"
+        }`}>
         <DashboardHeader
           toggleMobileSidebar={() => setSidebarOpen((prev) => !prev)}
         />
@@ -43,7 +54,7 @@ export default function DashboardLayout() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-hidden"
+          className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto"
         >
           <Outlet />
         </motion.main>
