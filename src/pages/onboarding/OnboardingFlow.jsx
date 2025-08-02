@@ -5,6 +5,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import API from "@/lib/axios";
+import { getToken, clearToken } from "@/lib/authHelpers";
+import Logo from "@/components/Logo";
 
 // Import individual step components (skip account creation)
 import OnboardingStep2Welcome from "./OnboardingStep2Welcome";
@@ -14,8 +16,6 @@ import OnboardingStep5Voice from "./OnboardingStep5Voice";
 import OnboardingStep6Speed from "./OnboardingStep6Speed";
 import OnboardingStep7LocalLanguage from "./OnboardingStep7LocalLanguage";
 import OnboardingStep8Install from "./OnboardingStep8Install";
-import { getToken } from "@/lib/authHelpers";
-import Logo from "@/components/Logo";
 
 const OnboardingFlow = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -35,7 +35,7 @@ const OnboardingFlow = () => {
     const token = getToken();
     if (!token) {
       toast.error("Please sign up or log in first.");
-      navigate("/onboarding"); // redirect to signup (onboarding route)
+      navigate("/signup"); // redirect to signup
     }
   }, [navigate]);
 
@@ -51,7 +51,7 @@ const OnboardingFlow = () => {
       const token = getToken();
       const res = await API.post(
         "/users/onboardingFlow",
-        { ...onboardingData },
+        onboardingData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -60,10 +60,18 @@ const OnboardingFlow = () => {
       navigate("/dashboard");
     } catch (err) {
       console.error("Onboarding API error:", err);
-      toast.error(
-        "Failed to save preferences. " +
-          (err.response?.data?.message || "Please try again.")
-      );
+      const status = err.response?.status;
+      const message = err.response?.data?.message;
+      if (status === 401) {
+        // Access token expired or invalid
+        toast.error("Session expired. Please log in again.");
+        clearToken();
+        navigate("/login");
+      } else {
+        toast.error(
+          "Failed to save preferences. " + (message || "Please try again.")
+        );
+      }
     }
   };
 
@@ -113,9 +121,7 @@ const OnboardingFlow = () => {
         );
       case 7:
         return (
-          <OnboardingStep8Install
-            onCompleteOnboarding={handleFinalizeAndNavigate}
-          />
+          <OnboardingStep8Install onCompleteOnboarding={handleFinalizeAndNavigate} />
         );
       default:
         return <div>Something went wrong.</div>;

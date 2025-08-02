@@ -14,12 +14,12 @@ import Logo from "@/components/Logo";
 import { GoogleLogin } from "@react-oauth/google";
 import { saveToken } from "@/lib/authHelpers";
 
-// Validation schema
+// Validation schema: Increased password minimum length to match backend
 const formSchema = z
   .object({
     name: z.string().min(2, "Name is required"),
     email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -27,7 +27,7 @@ const formSchema = z
     path: ["confirmPassword"],
   });
 
-export default function SignUp({ onContinue, updateData, data }) {
+export default function SignUp({ data }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,34 +47,38 @@ export default function SignUp({ onContinue, updateData, data }) {
     },
   });
 
+  // Updated onSubmit to match the new backend flow
   const onSubmit = async (formData) => {
     setLoading(true);
+    const normalizedEmail = formData.email.trim().toLowerCase();
     try {
-      const res = await API.post("/users/onboarding", {
+      // Endpoint updated to /users/register
+      const res = await API.post("/users/register", {
         name: formData.name,
-        email: formData.email.trim().toLowerCase(),
+        email: normalizedEmail,
         password: formData.password,
-        confirmPassword: formData.confirmPassword,
       });
 
-      const { accessToken, redirectToOnboarding } = res.data;
-      if (!accessToken) throw new Error("No token received");
+      // The backend now returns the email in the response data
+      const { email } = res.data.data;
 
-      saveToken(accessToken);
-      toast.success("Account created successfully!");
+      if (!email) throw new Error("No email returned from server");
 
-      // Navigate based on backend flag
-      if (redirectToOnboarding) {
-        navigate("/onboardingFlow");
-      } else {
-        navigate("/dashboard");
-      }
+      // Use the API's success message
+      toast.success(
+        res.data.message || "Account created. OTP sent to your email."
+      );
+
+      // Navigate to the verify page with the email as a query parameter
+      navigate(`/verify-otp?email=${encodeURIComponent(email)}`);
     } catch (err) {
       const apiErr = err.response?.data;
       const message = apiErr?.message || "Registration failed";
-      if (apiErr?.redirectToLogin) {
+
+      // Handle the specific case where the user already exists and is verified
+      if (err.response?.status === 409) {
         toast.error(message);
-        setTimeout(() => navigate("/login"), 2000);
+        setTimeout(() => navigate("/login"), 2000); // Redirect to login
       } else {
         toast.error(message);
       }
@@ -120,7 +124,6 @@ export default function SignUp({ onContinue, updateData, data }) {
 
   return (
     <section className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
-      {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-secondaryGreen-light to-gray-50 dark:from-[#0D0D0D] dark:via-secondaryGreen-dark dark:to-[#0D0D0D] opacity-80 -z-10"></div>
       <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
 
@@ -242,15 +245,21 @@ export default function SignUp({ onContinue, updateData, data }) {
           <div className="absolute w-full h-px bg-gray-200 dark:bg-gray-700"></div>
         </div>
 
-        {/* Google button */}
-        <GoogleLogin
-          onSuccess={handleGoogleLogin}
-          onError={() => toast.error("Google sign-up failed.")}
-          useOneTap
-          theme="outline"
-          shape="pill"
-          text="continue_with"
-        />
+        {/* Google Login */}
+        {loading ? (
+          <div className="w-full flex justify-center">
+            <Loader2 className="animate-spin h-5 w-5 text-gray-500" />
+          </div>
+        ) : (
+          <GoogleLogin
+            onSuccess={handleGoogleLogin}
+            onError={() => toast.error("Google sign-up failed.")}
+            useOneTap
+            theme="outline"
+            shape="pill"
+            text="continue_with"
+          />
+        )}
       </div>
     </section>
   );

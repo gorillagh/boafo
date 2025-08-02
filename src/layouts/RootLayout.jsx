@@ -11,7 +11,8 @@ export default function RootLayout() {
     "/login",
     "/dashboard",
     "/forgot-password",
-    "/reset-password"
+    "/reset-password",
+    "/verify-otp"
   ];
   const showFooter = !hideFooterOn.some((p) => location.pathname.startsWith(p));
 

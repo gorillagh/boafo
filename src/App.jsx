@@ -24,6 +24,7 @@ import NotFound from "./components/NotFound";
 
 // Dashboard provider
 import { DashboardProvider } from "./context/dashboard/DashboardContext";
+import VerifyOtp from "./pages/signup/VerifyOtp";
 
 function App() {
   const router = createBrowserRouter([
@@ -37,6 +38,8 @@ function App() {
         { path: "login", element: <Login /> },
         { path: "forgot-password", element: <ForgotPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
+        { path: "verify-otp", element: <VerifyOtp /> },
+        
 
         // ✅ Protect onboardingFlow using route nesting
         {
