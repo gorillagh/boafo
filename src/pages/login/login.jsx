@@ -8,9 +8,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import API from "@/lib/axios";
-import { saveToken } from "@/lib/auth";
 import Logo from "@/components/Logo";
 import { GoogleLogin } from "@react-oauth/google";
+import { saveToken } from "@/lib/authHelpers";
 
 const loginFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -34,7 +34,6 @@ export default function Login() {
     try {
       const res = await API.post("/users/login", formData);
       const token = res.data?.accessToken;
-      const redirectToOnboarding = res.data?.redirectToOnboarding;
 
       if (!token) {
         throw new Error("Login failed: No access token received.");
@@ -42,14 +41,11 @@ export default function Login() {
 
       // Store the token
       saveToken(token);
+
       toast.success("Login successful!");
 
-      // ✅ Redirect based on onboarding state
-      if (redirectToOnboarding) {
-        navigate("/onboarding");
-      } else {
-        navigate("/dashboard");
-      }
+      // Navigate to the dashboard. The DashboardProvider will take over from here.
+      navigate("/dashboard");
     } catch (err) {
       console.error("Login error:", err);
       const message =
@@ -67,18 +63,11 @@ export default function Login() {
           token: response.credential,
         });
         const token = res.data?.accessToken;
-        const redirectToOnboarding = res.data?.redirectToOnboarding;
 
         if (token) {
           saveToken(token);
           toast.success("Login successful!");
-
-          // ✅ Redirect to onboarding if needed
-          if (redirectToOnboarding) {
-            navigate("/onboarding");
-          } else {
-            navigate("/dashboard");
-          }
+          navigate("/dashboard");
         }
       } catch (error) {
         console.error("Google login error", error);

@@ -2,22 +2,21 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaChrome, FaPuzzlePiece } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { openChromeExtensionStore } from "@/lib/authHelpers";
 
-const CHROME_WEB_STORE_LINK = "https://chromewebstore.google.com/detail/bfpoecmheiafbmghdbajladmhdjgobkg?utm_source=item-share-cb";
+const CHROME_WEB_STORE_LINK = import.meta.env.VITE_CHROME_WEB_STORE_LINK;
 
 const OnboardingStep8Install = ({ onCompleteOnboarding }) => {
   const navigate = useNavigate();
 
   const handleInstallClick = () => {
-    window.open(CHROME_WEB_STORE_LINK, "_blank", "noopener,noreferrer");
-    console.log("Redirecting to Chrome Web Store...");
-    setTimeout(() => {
+    openChromeExtensionStore(CHROME_WEB_STORE_LINK, () => {
       if (onCompleteOnboarding) {
-        onCompleteOnboarding(); 
+        onCompleteOnboarding();
       } else {
         navigate("/dashboard");
       }
-    }, 2000); 
+    });
   };
 
   return (

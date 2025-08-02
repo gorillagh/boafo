@@ -10,8 +10,8 @@ import API from "@/lib/axios";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { saveToken } from "@/lib/auth";
 import { GoogleLogin } from "@react-oauth/google";
+import { saveToken } from "@/lib/authHelpers";
 
 // Schema that matches backend expectations
 const formSchema = z

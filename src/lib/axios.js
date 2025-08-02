@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken } from "./authHelpers";
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -6,7 +7,7 @@ const API = axios.create({
 
 // Attach token on every request
 API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken");
+  const token = getToken();
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

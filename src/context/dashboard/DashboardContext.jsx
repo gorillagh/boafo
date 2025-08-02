@@ -1,10 +1,14 @@
 "use client";
 import { createContext, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { getToken, clearToken } from "@/lib/auth";
-;
-import { clearCache, getCachedTransactions, getCachedUser, isCacheValid } from "./DashboardCache";
-import { fetchDashboardData, upgradeUserPlan } from "./DashboardActions";
+import { getToken, performLogout } from "@/lib/authHelpers";
+import {
+  getCachedTransactions,
+  getCachedUser,
+  isCacheValid,
+} from "./DashboardCache";
+import { fetchDashboardData } from "./fetchDashboardData";
+import { upgradeUserPlan } from "./upgradeUserPlan";
 
 export const DashboardContext = createContext();
 
@@ -21,12 +25,9 @@ export function DashboardProvider({ children }) {
   }, [navigate]);
 
   const logout = useCallback(() => {
-    clearToken();
-    clearCache();
-    setUser(null);
+    performLogout(navigate, setUser);
     setTransactions([]);
-    navigate("/login");
-  }, [navigate]);
+  }, [navigate, setUser, setTransactions]);
 
   const upgradePlan = useCallback(
     () => upgradeUserPlan(fetchData),

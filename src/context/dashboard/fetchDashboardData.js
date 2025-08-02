@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import API from "@/lib/axios";
-import { clearToken } from "@/lib/auth";
+import { clearToken } from "@/lib/authHelpers";
 import { clearCache, saveToCache } from "./DashboardCache";
 
 export async function fetchDashboardData(
@@ -17,6 +17,7 @@ export async function fetchDashboardData(
       setUser(res.data.user);
       setTransactions(res.data.transactions || []);
       saveToCache(res.data.user, res.data.transactions);
+      return true;
     } else {
       throw new Error("Invalid response");
     }
@@ -25,21 +26,13 @@ export async function fetchDashboardData(
       clearToken();
       clearCache();
       toast.error("Session expired. Please log in again.");
-      navigate("/login");
+      if (navigate) navigate("/login");
     } else {
+      console.error("Dashboard fetch failed:", err);
       toast.error("Failed to load dashboard data.");
     }
+    return false;
   } finally {
     setLoading(false);
-  }
-}
-
-export async function upgradeUserPlan(fetchDashboardData, toast) {
-  try {
-    const res = await API.post("/users/upgrade");
-    toast.success(res.data.message);
-    await fetchDashboardData(); // Refresh after upgrade
-  } catch (err) {
-    toast.error("Upgrade failed. Try again.", err);
   }
 }
