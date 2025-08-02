@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { saveToken } from "@/lib/auth";
+import { GoogleLogin } from "@react-oauth/google";
 
 // Schema that matches backend expectations
 const formSchema = z
@@ -76,7 +77,25 @@ export default function OnboardingStep1Account({
       setLoading(false);
     }
   };
+  const handleGoogleLogin = async (response) => {
+    if (response?.credential) {
+      try {
+        const res = await API.post("/users/google-auth", {
+          token: response.credential,
+        });
+        const token = res.data?.accessToken;
 
+        if (token) {
+          saveToken(token);
+          toast.success("Account created successfully with Google!");
+          onContinue();
+        }
+      } catch (error) {
+        console.error("Google signup error", error);
+        toast.error("Google sign-up failed.");
+      }
+    }
+  };
   return (
     <div className="flex flex-col items-center">
       <h2 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">
@@ -160,7 +179,11 @@ export default function OnboardingStep1Account({
           className="primary-button text-sm w-full py-3 mb-4"
           disabled={loading}
         >
-          {loading ? <Loader2 className="h-5 w-5 animate-spin mx-auto" /> : "Sign Up"}
+          {loading ? (
+            <Loader2 className="h-5 w-5 animate-spin mx-auto" />
+          ) : (
+            "Sign Up"
+          )}
         </button>
       </form>
 
@@ -181,9 +204,14 @@ export default function OnboardingStep1Account({
         <div className="absolute w-full h-px bg-gray-200 dark:bg-gray-700"></div>
       </div>
 
-      <button className="secondary-button text-sm w-full py-3 mb-3 flex items-center justify-center border-gray-300 dark:border-gray-600">
-        <FaGoogle className="mr-2" /> Continue with Google
-      </button>
+      <GoogleLogin
+        onSuccess={handleGoogleLogin}
+        onError={() => toast.error("Google sign-up failed.")}
+        useOneTap
+        theme="outline"
+        shape="pill"
+        text="continue_with"
+      />
     </div>
   );
 }

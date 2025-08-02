@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL:
-    "https://boafo-accessibility-services-production-b6b5.up.railway.app",
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 // Attach token on every request

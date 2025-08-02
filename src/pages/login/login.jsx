@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
@@ -12,6 +10,7 @@ import { Loader2 } from "lucide-react";
 import API from "@/lib/axios";
 import { saveToken } from "@/lib/auth";
 import Logo from "@/components/Logo";
+import { GoogleLogin } from "@react-oauth/google";
 
 const loginFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -57,13 +56,33 @@ export default function Login() {
     }
   };
 
+  const handleGoogleLogin = async (response) => {
+    if (response?.credential) {
+      try {
+        const res = await API.post("/users/google-auth", {
+          token: response.credential,
+        });
+        const token = res.data?.accessToken;
+
+        if (token) {
+          saveToken(token);
+          toast.success("Login successful!");
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Google login error", error);
+        toast.error("Google login failed.");
+      }
+    }
+  };
+
   return (
     <section className="h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-secondaryGreen-light to-gray-50 dark:from-[#0D0D0D] dark:via-secondaryGreen-dark dark:to-[#0D0D0D] opacity-80 -z-10"></div>
       <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
 
-      <div className="relative glass-card max-w-lg w-full p-8 text-center my-8 mx-4">
+      <div className="relative glass-card max-w-lg w-full p-8 flex flex-col items-center">
         {/* Logo */}
         <Logo />
 
@@ -158,9 +177,14 @@ export default function Login() {
         </div>
 
         {/* Google button */}
-        <button className="secondary-button text-sm w-full max-w-sm mx-auto py-3 mb-3 flex items-center justify-center border-gray-300 dark:border-gray-600">
-          <FaGoogle className="mr-2" /> Continue with Google
-        </button>
+        <GoogleLogin
+          onSuccess={handleGoogleLogin}
+          onError={() => toast.error("Google login failed.")}
+          useOneTap
+          theme="outline"
+          shape="pill"
+          text="continue_with"
+        />
       </div>
     </section>
   );
