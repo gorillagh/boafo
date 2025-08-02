@@ -1,67 +1,81 @@
+// src/pages/signup/SignUp.jsx
+"use client";
+
 import React, { useState } from "react";
-import { FaGoogle } from "react-icons/fa";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, Link } from "react-router-dom";
+import API from "@/lib/axios";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import API from "@/lib/axios";
 import Logo from "@/components/Logo";
 import { GoogleLogin } from "@react-oauth/google";
 import { saveToken } from "@/lib/authHelpers";
 
-const loginFormSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+// Validation schema
+const formSchema = z
+  .object({
+    name: z.string().min(2, "Name is required"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
-export default function Login() {
+export default function SignUp({ onContinue, updateData, data }) {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(loginFormSchema),
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: data?.name || "",
+      email: data?.email || "",
+      password: data?.password || "",
+      confirmPassword: data?.password || "",
+    },
   });
 
   const onSubmit = async (formData) => {
     setLoading(true);
     try {
-      const res = await API.post("/users/login", formData);
-      const { accessToken, redirectToOnboarding } = res.data;
+      const res = await API.post("/users/onboarding", {
+        name: formData.name,
+        email: formData.email.trim().toLowerCase(),
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+      });
 
-      if (!accessToken) {
-        throw new Error("Login failed: No access token received.");
-      }
+      const { accessToken, redirectToOnboarding } = res.data;
+      if (!accessToken) throw new Error("No token received");
 
       saveToken(accessToken);
-      toast.success("Login successful!");
+      toast.success("Account created successfully!");
 
-      // Route based on onboarding status
+      // Navigate based on backend flag
       if (redirectToOnboarding) {
-        navigate("/onboarding");
+        navigate("/onboardingFlow");
       } else {
         navigate("/dashboard");
       }
     } catch (err) {
-      console.error("Login error:", err);
-
-      // If validation errors object exists, show them
       const apiErr = err.response?.data;
-      if (apiErr?.redirectToOnboarding) {
-        toast.error(apiErr.message);
-        navigate("/onboarding");
-        return;
-      }
-      if (apiErr?.errors && typeof apiErr.errors === "object") {
-        Object.values(apiErr.errors).forEach((msg) => toast.error(msg));
+      const message = apiErr?.message || "Registration failed";
+      if (apiErr?.redirectToLogin) {
+        toast.error(message);
+        setTimeout(() => navigate("/login"), 2000);
       } else {
-        const message = apiErr?.message || "An unknown error occurred.";
         toast.error(message);
       }
     } finally {
@@ -74,18 +88,16 @@ export default function Login() {
       toast.error("No credential returned from Google.");
       return;
     }
-
     setLoading(true);
     try {
       const res = await API.post("/users/google-auth", {
         token: response.credential,
       });
-
       const { accessToken, redirectToOnboarding } = res.data;
-      if (!accessToken) throw new Error("No token received.");
+      if (!accessToken) throw new Error("No token received");
 
       saveToken(accessToken);
-      toast.success("Google login successful!");
+      toast.success("Signed in with Google!");
 
       if (redirectToOnboarding) {
         navigate("/onboardingFlow");
@@ -93,14 +105,14 @@ export default function Login() {
         navigate("/dashboard");
       }
     } catch (error) {
-      console.error("Google login error:", error);
+      console.error("Google signup error", error);
       const apiErr = error.response?.data;
       if (apiErr?.redirectToOnboarding) {
         toast.error(apiErr.message);
-        navigate("/onboarding");
-        return;
+        navigate("/onboardingFlow");
+      } else {
+        toast.error(apiErr?.message || "Google sign-in failed.");
       }
-      toast.error(error.response?.data?.message || "Google login failed.");
     } finally {
       setLoading(false);
     }
@@ -113,20 +125,32 @@ export default function Login() {
       <div className="absolute inset-0 bg-[url('/pattern-dots-light.png')] dark:bg-[url('/pattern-dots-dark.png')] bg-repeat opacity-5 -z-10"></div>
 
       <div className="relative glass-card max-w-lg w-full p-8 flex flex-col items-center">
-        {/* Logo */}
         <Logo />
 
         <h2 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">
-          Welcome Back!
+          Create Your Account
         </h2>
         <p className="font-ubuntu text-xs text-textColor-light dark:text-textColor-dark mb-8 max-w-md mx-auto">
-          Sign in to continue your journey with Boafo.
+          Sign up to start your journey with Boafo.
         </p>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-sm mx-auto"
         >
+          {/* Name */}
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Name"
+              {...register("name")}
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>
+            )}
+          </div>
+
           {/* Email */}
           <div className="mb-4">
             <input
@@ -158,20 +182,32 @@ export default function Login() {
               {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
             </button>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="text-red-500 text-xs mt-1">
                 {errors.password.message}
               </p>
             )}
           </div>
 
-          {/* Forgot Password */}
-          <div className="flex justify-end mb-4">
-            <Link
-              to="/forgot-password"
-              className="text-xs text-primaryGreen-light dark:text-primaryGreen-dark hover:underline"
+          {/* Confirm Password */}
+          <div className="mb-6 relative">
+            <input
+              type={showConfirm ? "text" : "password"}
+              placeholder="Confirm Password"
+              {...register("confirmPassword")}
+              className="w-full placeholder:text-xs text-sm p-2 pl-4 pr-10 rounded-xl bg-gray-100 dark:bg-gray-700 text-textColor-light dark:text-textColor-dark border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-1 focus:ring-primaryGreen-light dark:focus:ring-primaryGreen-dark"
+            />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 dark:text-gray-400"
+              onClick={() => setShowConfirm(!showConfirm)}
             >
-              Forgot Password?
-            </Link>
+              {showConfirm ? <IoEyeOffOutline /> : <IoEyeOutline />}
+            </button>
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
 
           {/* Submit */}
@@ -183,18 +219,18 @@ export default function Login() {
             {loading ? (
               <Loader2 className="h-5 w-5 animate-spin mx-auto" />
             ) : (
-              "Sign In"
+              "Sign Up"
             )}
           </button>
         </form>
 
         <p className="text-textColor-light text-xs dark:text-textColor-dark mb-4">
-          Don’t have an account?{" "}
+          Already have an account?{" "}
           <Link
-            to="/onboarding"
+            to="/login"
             className="text-primaryGreen-light dark:text-primaryGreen-dark hover:underline"
           >
-            Sign Up
+            Log in
           </Link>
         </p>
 
@@ -209,7 +245,7 @@ export default function Login() {
         {/* Google button */}
         <GoogleLogin
           onSuccess={handleGoogleLogin}
-          onError={() => toast.error("Google login failed.")}
+          onError={() => toast.error("Google sign-up failed.")}
           useOneTap
           theme="outline"
           shape="pill"

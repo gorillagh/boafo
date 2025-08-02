@@ -7,8 +7,9 @@ import { ThemeProvider } from "./context/ThemeContext";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/home";
 import Privacy from "./pages/privacy";
+import SignUp from "./pages/signup/SignUp";
 import OnboardingFlow from "./pages/onboarding/OnboardingFlow";
-import Login from "./pages/login/login";
+import Login from "./pages/login/Login";
 import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
 import ResetPassword from "./pages/resetPassword/ResetPassword";
 
@@ -21,7 +22,7 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import SettingsPage from "./pages/dashboard/SettingsPage";
 import NotFound from "./components/NotFound";
 
-// ✅ Import the provider here
+// Dashboard provider
 import { DashboardProvider } from "./context/dashboard/DashboardContext";
 
 function App() {
@@ -32,13 +33,20 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "privacy", element: <Privacy /> },
-        { path: "onboarding", element: <OnboardingFlow /> },
+        { path: "onboarding", element: <SignUp /> },
         { path: "login", element: <Login /> },
         { path: "forgot-password", element: <ForgotPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
+
+        // ✅ Protect onboardingFlow using route nesting
+        {
+          element: <ProtectedRoute />,
+          children: [{ path: "onboardingFlow", element: <OnboardingFlow /> }],
+        },
+
+        // ✅ Protected Dashboard
         {
           path: "dashboard",
-          // ✅ FIXED: Wrap the layout with the provider HERE
           element: (
             <ProtectedRoute>
               <DashboardProvider>
@@ -53,6 +61,7 @@ function App() {
         },
       ],
     },
+
     { path: "*", element: <NotFound /> },
   ]);
 

@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
     if (token) {
       setIsAuthenticated(true);
     } else {
-      toast.error("Please log in to access this page.");
+      toast.error("Please Sign up to access this page.");
       setIsAuthenticated(false);
     }
   }, []);
@@ -21,7 +21,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/onboarding" replace />;
   }
 
   return children ? children : <Outlet />;
