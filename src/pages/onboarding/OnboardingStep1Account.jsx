@@ -61,7 +61,6 @@ export default function OnboardingStep1Account({
 
       if (res.data?.accessToken) {
         saveToken(res.data.accessToken);
-        console.log("token", res.data.accessToken);
         toast.success("Account created successfully!");
         updateData("name", formData.name);
         updateData("email", formData.email);
@@ -72,30 +71,50 @@ export default function OnboardingStep1Account({
       }
     } catch (err) {
       const message = err.response?.data?.message || "Registration failed";
-      toast.error(message);
+
+      // ✅ Handle "email already exists"
+      if (message.toLowerCase().includes("email already exists")) {
+        toast.error(
+          "An account with this email already exists. Redirecting to login..."
+        );
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000); // wait 2s before redirect
+      } else {
+        toast.error(message);
+      }
     } finally {
       setLoading(false);
     }
   };
+
   const handleGoogleLogin = async (response) => {
     if (response?.credential) {
       try {
         const res = await API.post("/users/google-auth", {
           token: response.credential,
         });
+
         const token = res.data?.accessToken;
+        const user = res.data?.user;
 
         if (token) {
           saveToken(token);
-          toast.success("Account created successfully with Google!");
-          onContinue();
+          toast.success("Signed in with Google!");
+
+          if (user.onboardingComplete) {
+            window.location.href = "/dashboard";
+          } else {
+            onContinue();
+          }
         }
       } catch (error) {
         console.error("Google signup error", error);
-        toast.error("Google sign-up failed.");
+        toast.error("Google sign-in failed.");
       }
     }
   };
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="font-montserrat font-bold text-2xl text-textColor-light dark:text-textColor-dark mb-4">

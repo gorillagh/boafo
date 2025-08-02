@@ -34,6 +34,7 @@ export default function Login() {
     try {
       const res = await API.post("/users/login", formData);
       const token = res.data?.accessToken;
+      const redirectToOnboarding = res.data?.redirectToOnboarding;
 
       if (!token) {
         throw new Error("Login failed: No access token received.");
@@ -41,11 +42,14 @@ export default function Login() {
 
       // Store the token
       saveToken(token);
-
       toast.success("Login successful!");
 
-      // Navigate to the dashboard. The DashboardProvider will take over from here.
-      navigate("/dashboard");
+      // ✅ Redirect based on onboarding state
+      if (redirectToOnboarding) {
+        navigate("/onboarding");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       console.error("Login error:", err);
       const message =
@@ -63,11 +67,18 @@ export default function Login() {
           token: response.credential,
         });
         const token = res.data?.accessToken;
+        const redirectToOnboarding = res.data?.redirectToOnboarding;
 
         if (token) {
           saveToken(token);
           toast.success("Login successful!");
-          navigate("/dashboard");
+
+          // ✅ Redirect to onboarding if needed
+          if (redirectToOnboarding) {
+            navigate("/onboarding");
+          } else {
+            navigate("/dashboard");
+          }
         }
       } catch (error) {
         console.error("Google login error", error);
