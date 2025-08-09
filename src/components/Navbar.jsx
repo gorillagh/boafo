@@ -94,12 +94,6 @@ const Navbar = () => {
         });
       }
 
-      // Log what we found - for debugging
-      console.log(
-        "Found sections:",
-        sections.map((s) => s.id)
-      );
-
       return sections;
     };
 
