@@ -44,7 +44,7 @@ export default function Login() {
 
       // Route based on onboarding status
       if (redirectToOnboarding) {
-        navigate("/onboarding");
+        navigate("/onboardingFlow");
       } else {
         navigate("/dashboard");
       }
