@@ -48,21 +48,21 @@ const AboutCompany = () => {
 
   const teamMembers = [
     {
-      name: "Kofi Mensah",
-      role: "Founder & CEO",
-      image: "/testimonials/kofi.webp",
+      name: "Sampson Dzivor",
+      role: "Co-Founder & CEO",
+      image: "/testimonials/Sampson.jpg",
       quote: "Technology should empower everyone, regardless of ability.",
     },
     {
-      name: "Ama Darko",
-      role: "Head of Accessibility",
-      image: "/testimonials/ama.webp",
+      name: "Adwoa Anim",
+      role: "Project Manager",
+      image: "/testimonials/adwoa.png",
       quote: "We design with empathy first, technology second.",
     },
     {
-      name: "Kwame Osei",
+      name: "Elvis Owusu",
       role: "Lead Developer",
-      image: "/testimonials/kwame.webp",
+      image: "/testimonials/Elvis.webp",
       quote: "Every line of code we write is a step toward digital inclusion.",
     },
   ];

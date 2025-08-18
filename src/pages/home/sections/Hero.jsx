@@ -171,9 +171,9 @@ const Hero = () => {
                 {/* Screen content */}
                 <div className="bg-white dark:bg-gray-900 rounded-3xl overflow-hidden shadow-inner">
                   <img
-                    src="/hero.webp"
+                    src="/hero.jpg"
                     alt="Boafo interface demonstration"
-                    className="w-full h-auto"
+                    className="h-[25rem] object-cover "
                   />
                 </div>
               </motion.div>

@@ -141,9 +141,9 @@ const CTA = () => {
                   <div className=" bg-transparent  rounded-3xl  shadow-2xl">
                     <div className="relative rounded-xl overflow-hidden bg-transparent">
                       <img
-                        src="/illustrations/CTA.webp"
+                        src="/illustrations/CTA.jpg"
                         alt="Boafo in action on various devices"
-                        className="w-full h-auto"
+                        className="w-full h-[36rem] object-cover rounded-3xl shadow-lg"
                       />
                     </div>
                   </div>
