@@ -318,7 +318,7 @@ const AboutProduct = () => {
               >
                 <div className="backdrop-blur-xl bg-white dark:bg-gray-900 bg-opacity-60 dark:bg-opacity-30 p-1.5">
                   <img
-                    src="/about-product3.png"
+                    src="/about-product3.jpg"
                     alt="Boafo widget demonstration"
                     className="w-full md:w-[35rem] h-auto md:h-[27rem] rounded-lg"
                   />

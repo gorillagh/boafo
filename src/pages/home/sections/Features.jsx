@@ -40,7 +40,7 @@ const Features = () => {
         "Converts text content into audio, enabling visually impaired users to hear website information.",
       color: "#34C759",
       darkColor: "#28A745",
-      illustration: "/illustrations/text-to-speech.jpg",
+      illustration: "/illustrations/text-to-speech.png",
     },
     {
       icon: <FaMicrophone size={24} />,
