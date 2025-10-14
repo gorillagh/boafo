@@ -272,7 +272,7 @@ const AboutProduct = () => {
       description:
         "Our advanced speech recognition technology enables users to navigate digital platforms using voice commands alone. This demonstration shows how users can search for content, filter results, and perform actions using natural voice instructions. Designed to understand various accents and dialects, it makes interactions accessible to a diverse range of users. For individuals with motor disabilities or those who find typing challenging, this feature transforms the digital experience into an interactive conversation.",
       videoSrc: "/videos/speech-recognition-demo.mp4",
-      posterSrc: "/illustrations/speech-recognition-preview.webp",
+      posterSrc: "/illustrations/speech-to-text-preview.png",
     },
     {
       title: "Language Translation",
@@ -318,9 +318,9 @@ const AboutProduct = () => {
               >
                 <div className="backdrop-blur-xl bg-white dark:bg-gray-900 bg-opacity-60 dark:bg-opacity-30 p-1.5">
                   <img
-                    src="/about-product3.webp"
+                    src="/about-product3.jpg"
                     alt="Boafo widget demonstration"
-                    className="w-full h-auto rounded-lg"
+                    className="w-full md:w-[35rem] h-auto md:h-[27rem] rounded-lg"
                   />
                 </div>
               </motion.div>

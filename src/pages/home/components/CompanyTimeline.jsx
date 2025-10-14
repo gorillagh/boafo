@@ -11,7 +11,7 @@ const CompanyTimeline = () => {
       title: "The Beginning",
       description:
         "Digital Drivers Technology was founded in Accra with a mission to make technology accessible to all.",
-      image: "/timelines/beginning.webp",
+      image: "/timelines/beginning.png",
       imageAlt: "Founding team at the first office in Accra",
       highlight: "Started with just 3 team members and a shared vision",
     },
@@ -20,7 +20,7 @@ const CompanyTimeline = () => {
       title: "First Prototype",
       description:
         "The first version of Boafo was developed to address accessibility challenges in e-commerce.",
-      image: "/timelines/first-prototype.webp",
+      image: "/timelines/first-prototype.png",
       imageAlt: "Team working on Boafo prototype",
       highlight: "Over 200 hours of user research with diverse ability groups",
     },
@@ -29,7 +29,7 @@ const CompanyTimeline = () => {
       title: "Community Partnership",
       description:
         "Partnered with local disability organizations to refine and enhance our accessibility solutions.",
-      image: "/timelines/community-partnership.webp",
+      image: "/timelines/community-partnership.jpg",
       imageAlt: "Partnership signing ceremony with community organizations",
       highlight: "Established 5 key partnerships across Ghana",
     },
@@ -38,7 +38,7 @@ const CompanyTimeline = () => {
       title: "Launch & Recognition",
       description:
         "Official launch of Boafo followed by recognition at the Ghana Technology Awards.",
-      image: "/timelines/launch-recognition.webp",
+      image: "/timelines/launch-recognition.jpg",
       imageAlt: "Team receiving award at Ghana Technology Awards",
       highlight: "Won 'Most Innovative Accessibility Solution' award",
     },
@@ -47,7 +47,7 @@ const CompanyTimeline = () => {
       title: "Expansion",
       description:
         "Expanded operations across West Africa, helping thousands access e-commerce platforms.",
-      image: "/timelines/expansion.webp",
+      image: "/timelines/expansion.png",
       imageAlt: "New office opening in West Africa",
       highlight: "Now serving over 15,000 users across 5 countries",
     },
@@ -56,7 +56,7 @@ const CompanyTimeline = () => {
       title: "Global Accessibility Revolution",
       description:
         "Boafo expanded from e-commerce to global digital accessibility. We now support the entire web with advanced AI tools, local language support (Twi, Frafra, French, Spanish, Dutch, and more), and adaptive interfaces. New international partnerships reinforce our commitment to making technology accessible for everyone.",
-      image: "/timelines/future.webp",
+      image: "/timelines/global.png",
       imageAlt: "",
       highlight: "Bringing accessibility to the entire digital world",
     },

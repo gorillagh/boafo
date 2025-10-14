@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f8f9fa" />
+  
+  <!-- Desk -->
+  <rect x="100" y="380" width="600" height="20" rx="5" fill="#8a5a44" />
+  <rect x="120" y="400" width="560" height="10" rx="2" fill="#6d4534" />
+  
+  <!-- Computer screen -->
+  <rect x="250" y="150" width="300" height="220" rx="8" fill="#2d3748" />
+  <rect x="260" y="160" width="280" height="190" rx="4" fill="#fff" />
+  
+  <!-- Computer stand -->
+  <path d="M380 380 L420 380 L410 350 L390 350 Z" fill="#a0aec0" />
+  
+  <!-- Website content on screen -->
+  <rect x="280" y="180" width="240" height="150" rx="4" fill="#f0f4f8" />
+  
+  <!-- Accessibility widget on screen -->
+  <circle cx="500" cy="200" r="22" fill="#4299e1" />
+  <path d="M500 190 A10 10 0 0 1 510 200 A10 10 0 0 1 500 210 A10 10 0 0 1 490 200 A10 10 0 0 1 500 190 Z" fill="white" />
+  <circle cx="500" cy="200" r="3" fill="white" />
+  <path d="M492 208 L508 208" stroke="white" stroke-width="2" stroke-linecap="round" />
+  <path d="M496 204 L504 204" stroke="white" stroke-width="2" stroke-linecap="round" />
+  
+  <!-- Widget menu visible on screen -->
+  <rect x="440" y="230" width="120" height="90" rx="4" fill="white" stroke="#4299e1" stroke-width="2" />
+  <rect x="450" y="240" width="100" height="16" rx="2" fill="#ebf8ff" />
+  <rect x="450" y="262" width="100" height="16" rx="2" fill="#ebf8ff" />
+  <rect x="450" y="284" width="100" height="16" rx="2" fill="#ebf8ff" />
+  
+  <!-- Buttons labels -->
+  <text x="500" y="252" font-family="Arial" font-size="10" text-anchor="middle" fill="#2b6cb0">Larger Text</text>
+  <text x="500" y="274" font-family="Arial" font-size="10" text-anchor="middle" fill="#2b6cb0">High Contrast</text>
+  <text x="500" y="296" font-family="Arial" font-size="10" text-anchor="middle" fill="#2b6cb0">Read Aloud</text>
+  
+  <!-- Person sitting at desk -->
+  <ellipse cx="350" cy="440" rx="70" ry="10" fill="#a0aec0" opacity="0.3" />
+  
+  <!-- Chair -->
+  <rect x="310" y="380" width="80" height="10" rx="2" fill="#4a5568" />
+  <rect x="320" y="390" width="60" height="50" rx="4" fill="#4a5568" />
+  <rect x="330" y="440" width="40" height="10" rx="2" fill="#2d3748" />
+  
+  <!-- Person's body -->
+  <!-- Head -->
+  <circle cx="350" cy="300" r="30" fill="#fed7aa" />
+  <path d="M330 290 Q350 285 370 290" stroke="#4a5568" stroke-width="1" fill="none" />
+  
+  <!-- Hair -->
+  <path d="M325 280 Q350 260 375 280" fill="#4a5568" />
+  
+  <!-- Eyes -->
+  <ellipse cx="335" cy="295" rx="3" ry="4" fill="#1a202c" />
+  <ellipse cx="365" cy="295" rx="3" ry="4" fill="#1a202c" />
+  
+  <!-- Mouth - smiling -->
+  <path d="M340 315 Q350 325 360 315" stroke="#1a202c" stroke-width="2" fill="none" />
+  
+  <!-- Body and clothes -->
+  <path d="M350 330 L350 380" stroke="#fed7aa" stroke-width="12" />
+  <path d="M350 340 L380 380" stroke="#fed7aa" stroke-width="8" />
+  <path d="M350 340 L320 380" stroke="#fed7aa" stroke-width="8" />
+  <rect x="335" y="335" width="30" height="50" rx="5" fill="#3182ce" />
+  
+  <!-- Arm reaching to mouse -->
+  <path d="M380 355 Q420 360 430 330" stroke="#fed7aa" stroke-width="8" fill="none" />
+  <circle cx="430" cy="330" r="6" fill="#fed7aa" />
+  
+  <!-- Computer mouse -->
+  <ellipse cx="430" cy="330" rx="12" ry="8" fill="#a0aec0" stroke="#4a5568" stroke-width="1" />
+  
+  <!-- Crutch leaning against desk (mild mobility aid) -->
+  <path d="M450 270 L430 380" stroke="#a0aec0" stroke-width="6" />
+  <path d="M450 270 L460 250" stroke="#a0aec0" stroke-width="6" />
+  <ellipse cx="460" cy="245" rx="10" ry="5" fill="#a0aec0" />
+  <path d="M445 320 L465 320" stroke="#a0aec0" stroke-width="3" />
+  
+  <!-- Coffee mug -->
+  <rect x="180" y="330" width="20" height="30" rx="2" fill="#ed8936" />
+  <path d="M200 335 Q215 340 200 355" stroke="#ed8936" stroke-width="5" fill="none" />
+  <ellipse cx="190" cy="330" rx="12" ry="3" fill="#c05621" />
+
+  <!-- Title at the bottom -->
+  <text x="400" y="550" font-family="Arial" font-size="18" font-weight="bold" text-anchor="middle" fill="#2d3748">User with Mild Mobility Impairment Using Accessibility Widget</text>
+</svg>

@@ -40,16 +40,7 @@ const Features = () => {
         "Converts text content into audio, enabling visually impaired users to hear website information.",
       color: "#34C759",
       darkColor: "#28A745",
-      illustration: "/illustrations/text-to-speech.webp",
-    },
-    {
-      icon: <FaImage size={24} />,
-      title: "Audio Description",
-      description:
-        "Describes images and graphics in audio form for visually impaired users.",
-      color: "#5E5CE6",
-      darkColor: "#4E4CD4",
-      illustration: "/illustrations/audio-description.webp",
+      illustration: "/illustrations/text-to-speech.png",
     },
     {
       icon: <FaMicrophone size={24} />,
@@ -58,7 +49,7 @@ const Features = () => {
         "Transcribes audio input into text, simplifying searches for users with limited typing abilities.",
       color: "#FF9500",
       darkColor: "#E68600",
-      illustration: "/illustrations/speech-to-text.webp",
+      illustration: "/illustrations/speech-to-text.jpg",
     },
     {
       icon: <FaExpand size={24} />,
@@ -67,7 +58,7 @@ const Features = () => {
         "Allows users to adjust text and image sizes for a comfortable viewing experience.",
       color: "#FF3B30",
       darkColor: "#D33227",
-      illustration: "/illustrations/resizable-elements.webp",
+      illustration: "/illustrations/resizable-elements.jpg",
     },
     {
       icon: <FaFileAlt size={24} />,
@@ -76,7 +67,7 @@ const Features = () => {
         "Generates descriptive text for images, providing context for graphics without alt text.",
       color: "#007AFF",
       darkColor: "#0066D6",
-      illustration: "/illustrations/image-description.webp",
+      illustration: "/illustrations/image-description.png",
     },
   ];
 
