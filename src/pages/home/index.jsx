@@ -10,28 +10,28 @@ const features = [
   {
     title: 'Listen instead of reading',
     body: 'Turn written articles, documentation, and news into smooth spoken words. Follow along at your chosen pace.',
-    image: '/illustrations/text-to-speech-preview.webp',
+    image: '/features/text-to-speech.jpg',
     number: '01',
     badge: 'Text-to-Speech'
   },
   {
     title: 'Let your voice do the typing',
     body: 'Speak naturally and let Boafo type for you. Hands-free input engineered for comfort and clarity.',
-    image: '/illustrations/speech-to-text-preview.png',
+    image: '/features/voice-dictation.jpg',
     number: '02',
     badge: 'Voice Dictation'
   },
   {
     title: 'Read with visual comfort',
     body: 'Fine-tune your screen with high-contrast modes, readable dyslexia fonts, customizable line spacing, and focus tools.',
-    image: '/illustrations/resizable-elements.jpg',
+    image: '/features/visual-tools.jpg',
     number: '03',
     badge: 'Visual Tools'
   },
   {
     title: 'Feel at home in your language',
     body: 'Experience the web in local African languages and natural native accents built in collaboration with local communities.',
-    image: '/illustrations/language-translation-preview.webp',
+    image: '/features/local-languages.jpg',
     number: '04',
     badge: 'Local Languages'
   }
