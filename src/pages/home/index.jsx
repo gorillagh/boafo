@@ -222,7 +222,7 @@ export default function Home() {
               <p className="steps-subtext">Set up once, and your personal comfort profile travels with you anywhere across the web.</p>
               <div className="steps-visual-card">
                 <img
-                  src="/about-product.webp"
+                  src="/features/onboarding-preview.jpg"
                   alt="Boafo reading companion settings and comfort preview"
                   className="steps-visual-img"
                 />

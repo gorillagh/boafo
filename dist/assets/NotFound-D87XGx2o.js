@@ -1,0 +1,1 @@
+import{j as e,B as t,b as s,L as a}from"./index-DSIXRiRP.js";function o(){return e.jsxs("main",{className:"page-loading",children:[e.jsx(t,{}),e.jsx("h1",{style:{fontSize:32},children:"This page took a different path."}),e.jsx("p",{children:"Let’s get you back to Boafo."}),e.jsx(s,{asChild:!0,children:e.jsx(a,{to:"/",children:"Return home"})})]})}export{o as default};

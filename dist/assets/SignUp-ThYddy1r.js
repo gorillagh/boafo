@@ -1,0 +1,1 @@
+import{j as o}from"./index-DSIXRiRP.js";import{A as r}from"./AccountForm-BBISGVxp.js";import"./input-BRz2IVji.js";import"./loader-circle-BjB7Ccuh.js";import"./eye-glY7DXC4.js";function s(){return o.jsx(r,{mode:"signup"})}export{s as default};
