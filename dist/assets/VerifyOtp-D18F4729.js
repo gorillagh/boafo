@@ -1,0 +1,1 @@
+import{j as r}from"./index-SYn6yHBr.js";import{A as o}from"./AccountForm-87nY3w2k.js";import"./input-Cru_7cX6.js";import"./loader-circle-D9aq9Ibw.js";import"./eye-BXGYb__H.js";function f(){return r.jsx(o,{mode:"verify"})}export{f as default};

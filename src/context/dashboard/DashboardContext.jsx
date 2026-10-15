@@ -1,69 +1,12 @@
-"use client";
-import { createContext, useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { getToken, performLogout } from "@/lib/authHelpers";
-import {
-  getCachedTransactions,
-  getCachedUser,
-  isCacheValid,
-} from "./DashboardCache";
-import { fetchDashboardData } from "./fetchDashboardData";
-import { upgradeUserPlan } from "./upgradeUserPlan";
-
-export const DashboardContext = createContext();
-
-export function DashboardProvider({ children }) {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(() => getCachedUser());
-  const [transactions, setTransactions] = useState(() =>
-    getCachedTransactions()
-  );
-  const [loading, setLoading] = useState(() => !user || !isCacheValid());
-
-  const fetchData = useCallback(() => {
-    return fetchDashboardData(setUser, setTransactions, setLoading, navigate);
-  }, [navigate]);
-
-  const logout = useCallback(() => {
-    performLogout(navigate, setUser);
-    setTransactions([]);
-  }, [navigate, setUser, setTransactions]);
-
-  const upgradePlan = useCallback(
-    () => upgradeUserPlan(fetchData),
-    [fetchData]
-  );
-
-  useEffect(() => {
-    if (!getToken()) {
-      logout();
-    } else if (!user || !isCacheValid()) {
-      fetchData();
-    } else {
-      setLoading(false);
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return (
-    <DashboardContext.Provider
-      value={{
-        user,
-        transactions,
-        loading,
-        plan: user?.plan || "free",
-        logout,
-        upgradePlan,
-        fetchDashboardData: fetchData,
-        onboarding: {
-          goals: user?.goals || [],
-          contentTypes: user?.contentTypes || [],
-          voice: user?.selectedVoice || "",
-          readingSpeed: user?.readingSpeed || 1,
-          localLanguages: user?.localLanguageInterest ? ["Yes"] : [],
-        },
-      }}
-    >
-      {children}
-    </DashboardContext.Provider>
-  );
+import { createContext, useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import API from '@/lib/axios';
+import { clearToken } from '@/lib/authHelpers';
+export const DashboardContext=createContext();
+export function DashboardProvider({children}){
+ const navigate=useNavigate();const [data,setData]=useState({user:null,usage:[],keys:[]});const [loading,setLoading]=useState(true);const [error,setError]=useState('');
+ const fetchData=useCallback(async()=>{setLoading(true);setError('');try{const {data:result}=await API.get('/users/userDashboard');setData({user:result.user,usage:result.usage||[],keys:result.keys||[]});return true;}catch(error){if(error.response?.status===401){clearToken();navigate('/login',{replace:true});}setError(error.response?.data?.message||'Your workspace could not be loaded. Please try again.');return false;}finally{setLoading(false);}},[navigate]);
+ const logout=useCallback(async()=>{try{await API.post('/users/logout');}finally{clearToken();setData({user:null,usage:[],keys:[]});navigate('/login',{replace:true});}},[navigate]);
+ useEffect(()=>{fetchData();},[fetchData]);
+ return <DashboardContext.Provider value={{...data,loading,error,logout,plan:data.user?.plan||'free',fetchDashboardData:fetchData}}>{children}</DashboardContext.Provider>;
 }

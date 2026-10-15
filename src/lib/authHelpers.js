@@ -1,34 +1,6 @@
-// src/lib/authHelpers.js
-import { clearCache } from "@/context/dashboard/DashboardCache";
-
-export const saveToken = (token) => {
-  localStorage.setItem("accessToken", token);
-};
-
-export const getToken = () => {
-  return localStorage.getItem("accessToken");
-};
-
-export const clearToken = () => {
-  localStorage.removeItem("accessToken");
-};
-
-
-export function performLogout(navigate, setUser = null) {
-  clearToken();
-  clearCache();
-  if (typeof setUser === "function") {
-    setUser(null);
-  }
-  navigate("/login");
-}
-
-
-// utils/openChromeStore.js
-export const openChromeExtensionStore = (url, onComplete, delay = 2000) => {
-  window.open(url, "_blank", "noopener,noreferrer");
-  console.log("Redirecting to Chrome Web Store...");
-  setTimeout(() => {
-    if (onComplete) onComplete();
-  }, delay);
-};
+import { clearCache } from '@/context/dashboard/DashboardCache';
+export const saveToken = token => { if(typeof token!=='string'||!token) throw new Error('No session received.'); localStorage.removeItem('accessToken'); clearCache(); sessionStorage.setItem('accessToken',token); };
+export const getToken = () => {const token=sessionStorage.getItem('accessToken');if(token)return token;const previous=localStorage.getItem('accessToken');if(previous){sessionStorage.setItem('accessToken',previous);localStorage.removeItem('accessToken');return previous;}return null;};
+export const clearToken = () => {sessionStorage.removeItem('accessToken');localStorage.removeItem('accessToken');clearCache();};
+export function performLogout(navigate,setUser=null){clearToken();if(setUser)setUser(null);navigate('/login',{replace:true});}
+export const openChromeExtensionStore = url => window.open(url,'_blank','noopener,noreferrer');

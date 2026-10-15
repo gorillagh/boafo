@@ -1,64 +1,10 @@
-// src/layouts/DashboardLayout.jsx
-"use client";
-import { Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import DashboardHeader from "@/pages/dashboard/DashboardHeader";
-import Sidebar from "@/pages/dashboard/Sidebar";
-
-export default function DashboardLayout() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
-
-
-  // Reset sidebarOpen when switching to desktop
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setSidebarOpen(false); 
-      }
-    };
-    handleResize(); 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return (
-    <div className="relative min-h-screen flex text-textColor-light dark:text-textColor-dark ">
-      {/* Animated Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-secondaryGreen-light dark:from-gray-900 dark:to-secondaryGreen-dark" />
-        <div className="absolute w-1/2 h-1/2 bg-gradient-to-r from-primaryGreen-light/40 to-transparent rounded-full blur-3xl" />
-        <div className="absolute w-1/2 h-1/2 bg-gradient-to-l from-primaryGreen-dark/40 to-transparent rounded-full blur-3xl" />
-      </div>
-
-      {/* Sidebar */}
-      {/* <div className="sticky left-0 top-0 h-full"> */}
-      <Sidebar 
-      isOpen={sidebarOpen} 
-      setIsOpen={setSidebarOpen} 
-      collapsed={collapsed} 
-      setCollapsed={setCollapsed}
-      />
-      {/* </div> */}
-
-      {/* Main Content */}
-      <div className={`relative flex-1 flex flex-col z-10 transition-all duration-300 ${
-          collapsed ? "md:ml-20" : "md:ml-64"
-        }`}>
-        <DashboardHeader
-          toggleMobileSidebar={() => setSidebarOpen((prev) => !prev)}
-        />
-        <motion.main
-          key={location.pathname}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto"
-        >
-          <Outlet />
-        </motion.main>
-      </div>
-    </div>
-  );
-}
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { LayoutGrid, KeyRound, Settings, Users, ArrowUpRight, LogOut, Menu, LifeBuoy } from 'lucide-react';
+import Brand from '@/components/Brand';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTitle, SheetDescription } from '@/components/ui/sheet';
+import { useWorkspace } from '@/stores/workspace';
+import { useDashboard } from '@/context/dashboard/UseDashboard';
+import { useEntrance } from '@/hooks/useEntrance';
+function Navigation({close}){const {user,logout}=useDashboard();return <><div className="workspace-brand"><Brand/></div><span className="nav-caption">YOUR WORKSPACE</span><nav aria-label="Workspace navigation">{[[LayoutGrid,'Overview','/dashboard'],[KeyRound,'Plugin access','/dashboard/keys'],[Settings,'Account & preferences','/dashboard/settings'],...(user?.role==='admin'?[[Users,'Manage users','/dashboard/users']]:[])].map(([Icon,label,to])=><NavLink end={to==='/dashboard'} to={to} key={to} onClick={close}><Icon size={18}/><span>{label}</span></NavLink>)}</nav><div className="sidebar-note"><span className="mini-leaf">↗</span><strong>A little help goes a long way.</strong><p>Bring a more welcoming experience to your website.</p><NavLink to="/dashboard/keys" onClick={close}>Set up your plugin <ArrowUpRight size={14}/></NavLink></div><div className="sidebar-bottom"><a href="mailto:digitaldriverstechnologies@gmail.com"><LifeBuoy size={17}/>Help & support</a><Button variant="ghost" onClick={logout}><LogOut size={17}/>Sign out of all devices</Button><span>Boafo · Made for everyone.</span></div></>;}
+export default function DashboardLayout(){const {menuOpen,setMenuOpen}=useWorkspace();const {user,loading,error,fetchDashboardData}=useDashboard();const location=useLocation();const ref=useEntrance();const title=location.pathname.endsWith('keys')?'Plugin access':location.pathname.endsWith('users')?'User management':location.pathname.endsWith('settings')?'Account & preferences':'Overview';return <div className="workspace" ref={ref}><a href="#workspace-main" className="skip-link">Skip to content</a><aside className="workspace-sidebar"><Navigation/></aside><Sheet open={menuOpen} onOpenChange={setMenuOpen}><SheetContent side="left" className="workspace-mobile-sheet"><SheetTitle className="sr-only">Workspace navigation</SheetTitle><SheetDescription className="sr-only">Navigate your Boafo account.</SheetDescription><Navigation close={()=>setMenuOpen(false)}/></SheetContent></Sheet><div className="workspace-body"><header className="workspace-header"><div><Button className="workspace-menu" size="icon" variant="ghost" aria-label="Open workspace menu" onClick={()=>setMenuOpen(true)}><Menu/></Button><span>My workspace</span><span className="header-slash">/</span><strong>{title}</strong></div><div><span className="workspace-plan">{user?.plan||'Free'} plan</span><NavLink to="/dashboard/settings" className="user-initial" aria-label="Account settings">{user?.name?.charAt(0).toUpperCase()||'B'}</NavLink></div></header><main id="workspace-main" className="workspace-main">{loading?<div className="workspace-loading" role="status"><div/><div/><div/><p>Loading your workspace…</p></div>:error?<div className="workspace-error"><h1>Let’s try that again.</h1><p role="alert">{error}</p><Button onClick={fetchDashboardData}>Reload workspace</Button></div>:<Outlet/>}</main><footer className="workspace-footer"><span>More independence, every day.</span><a href="/privacy">Your privacy matters <ArrowUpRight size={12}/></a></footer></div></div>;}

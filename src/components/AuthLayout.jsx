@@ -1,0 +1,6 @@
+import { Link } from 'react-router-dom';
+import Brand from '@/components/Brand';
+import { ArrowUpRight, Check } from 'lucide-react';
+export default function AuthLayout({ title, description, children }) {
+  return <div className="auth-layout"><aside className="auth-story"><Brand /><div><span className="eyebrow">A LITTLE HELP. MORE INDEPENDENCE.</span><h1>A web that<br />works for you.</h1><p>Your reading companion. Your website’s welcoming hand. One space to make it all happen.</p><div className="auth-art" aria-hidden="true"><div><span>Read. Listen. Explore.</span><div className="auth-art-lines"><i/><i/><i/></div><span className="auth-art-badge"><Check size={15}/> Everyone belongs here.</span></div></div></div><span className="auth-story-footer">Rooted in Ghana. Open to everyone.</span></aside><main className="auth-main"><Link to="/" className="auth-back">Back to Boafo <ArrowUpRight size={14}/></Link><div className="auth-card"><div className="auth-mobile-brand"><Brand /></div><h1>{title}</h1><p className="auth-description">{description}</p>{children}</div><div className="auth-legal"><Link to="/privacy">Privacy policy</Link><a href="mailto:digitaldriverstechnologies@gmail.com">Need help?</a></div></main></div>;
+}

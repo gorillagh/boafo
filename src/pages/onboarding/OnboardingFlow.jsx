@@ -1,169 +1,25 @@
-// src/components/onboarding/OnboardingFlow.jsx
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import API from "@/lib/axios";
-import { getToken, clearToken } from "@/lib/authHelpers";
-import Logo from "@/components/Logo";
-
-// Import individual step components (skip account creation)
-import OnboardingStep2Welcome from "./OnboardingStep2Welcome";
-import OnboardingStep3Goals from "./OnboardingStep3Goals";
-import OnboardingStep4Content from "./OnboardingStep4Content";
-import OnboardingStep5Voice from "./OnboardingStep5Voice";
-import OnboardingStep6Speed from "./OnboardingStep6Speed";
-import OnboardingStep7LocalLanguage from "./OnboardingStep7LocalLanguage";
-import OnboardingStep8Install from "./OnboardingStep8Install";
-
-const OnboardingFlow = () => {
-  const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 7; // steps 2-8 now remapped to 1-7
-  const navigate = useNavigate();
-
-  const [onboardingData, setOnboardingData] = useState({
-    goals: [],
-    contentTypes: [],
-    selectedVoice: null,
-    readingSpeed: 1.0,
-    localLanguageInterest: false,
-  });
-
-  // Ensure user is authenticated before onboarding
-  useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      toast.error("Please sign up or log in first.");
-      navigate("/signup"); // redirect to signup
-    }
-  }, [navigate]);
-
-  const updateOnboardingData = (key, value) => {
-    setOnboardingData((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleNext = () => setCurrentStep((s) => Math.min(s + 1, totalSteps));
-  const handleBack = () => setCurrentStep((s) => Math.max(s - 1, 1));
-
-  const handleFinalizeAndNavigate = async () => {
-    try {
-      const token = getToken();
-      const res = await API.post(
-        "/users/onboardingFlow",
-        onboardingData,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      window.postMessage({ type: "BOAFO_TOKEN", token }, "*");
-      toast.success("Onboarding completed!");
-      navigate("/dashboard");
-    } catch (err) {
-      console.error("Onboarding API error:", err);
-      const status = err.response?.status;
-      const message = err.response?.data?.message;
-      if (status === 401) {
-        // Access token expired or invalid
-        toast.error("Session expired. Please log in again.");
-        clearToken();
-        navigate("/login");
-      } else {
-        toast.error(
-          "Failed to save preferences. " + (message || "Please try again.")
-        );
-      }
-    }
-  };
-
-  const renderStep = () => {
-    switch (currentStep) {
-      case 1:
-        return <OnboardingStep2Welcome onContinue={handleNext} />;
-      case 2:
-        return (
-          <OnboardingStep3Goals
-            onContinue={handleNext}
-            updateData={updateOnboardingData}
-            data={onboardingData}
-          />
-        );
-      case 3:
-        return (
-          <OnboardingStep4Content
-            onContinue={handleNext}
-            updateData={updateOnboardingData}
-            data={onboardingData}
-          />
-        );
-      case 4:
-        return (
-          <OnboardingStep5Voice
-            onContinue={handleNext}
-            updateData={updateOnboardingData}
-            data={onboardingData}
-          />
-        );
-      case 5:
-        return (
-          <OnboardingStep6Speed
-            onContinue={handleNext}
-            updateData={updateOnboardingData}
-            data={onboardingData}
-          />
-        );
-      case 6:
-        return (
-          <OnboardingStep7LocalLanguage
-            onContinue={handleNext}
-            updateData={updateOnboardingData}
-            data={onboardingData}
-          />
-        );
-      case 7:
-        return (
-          <OnboardingStep8Install onCompleteOnboarding={handleFinalizeAndNavigate} />
-        );
-      default:
-        return <div>Something went wrong.</div>;
-    }
-  };
-
-  const progress = ((currentStep - 1) / (totalSteps - 1)) * 100;
-
-  return (
-    <section className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
-      <div className="relative glass-card max-w-lg w-full p-5 text-center my-4 mx-4">
-        {currentStep > 1 && (
-          <button onClick={handleBack} className="absolute top-4 left-5">
-            <FaArrowLeft /> Back
-          </button>
-        )}
-
-        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 mb-8">
-          <motion.div
-            className="bg-primaryGreen-light dark:bg-primaryGreen-dark h-2.5 rounded-full"
-            initial={{ width: 0 }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.5 }}
-          />
-        </div>
-
-        <Logo />
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            {renderStep()}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </section>
-  );
-};
-
-export default OnboardingFlow;
+import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, ArrowRight, Check, Headphones, BookOpen, Globe, Mic, Eye, Focus, Play, Loader2, Puzzle } from 'lucide-react';
+import Brand from '@/components/Brand';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
+import API from '@/lib/axios';
+import { useOnboarding } from '@/stores/onboarding';
+const steps=['Make it yours','Find your rhythm','You’re ready'];
+const goals=[['reading','Read with more ease',BookOpen],['listening','Listen to content',Headphones],['focus','Stay focused',Focus],['language','Explore languages',Globe],['vision','Make things clearer',Eye],['voice','Use my voice',Mic]];
+export default function OnboardingFlow(){
+ const {data,step,initialize,update,setStep,clear}=useOnboarding();const [loading,setLoading]=useState(true);const [error,setError]=useState('');const [busy,setBusy]=useState(false);const heading=useRef(null);const navigate=useNavigate();
+ const load=async()=>{setError('');setLoading(true);try{const {data:response}=await API.get('/users/me');initialize(response.user);}catch(err){setError(err.response?.data?.message||'Could not load your setup. Please try again.');}finally{setLoading(false);}};
+ useEffect(()=>{load();return()=>{window.speechSynthesis?.cancel();};},[]);
+ useEffect(()=>{if(!loading)heading.current?.focus();},[step,loading]);
+ const next=async()=>{setBusy(true);setError('');try{if(step<2){await API.put('/users/onboarding',{...data,step:step+1});setStep(step+1);}else{await API.post('/users/onboardingFlow',data);clear();navigate('/dashboard',{replace:true});}}catch(err){setError(err.response?.data?.message||'Your choices could not be saved. Try again.');}finally{setBusy(false);}};
+ const sample=()=>{if(!window.speechSynthesis){setError('Audio preview is not supported in this browser. You can continue without it.');return;}window.speechSynthesis.cancel();const speech=new SpeechSynthesisUtterance('Welcome to Boafo. Take your time, and make the web your own.');speech.rate=data.readingSpeed;window.speechSynthesis.speak(speech);};
+ const toggle=(field,value)=>update({[field]:data[field].includes(value)?data[field].filter(x=>x!==value):[...data[field],value]});
+ return <div className="onboarding-layout"><aside className="onboarding-side"><Brand/><div><span className="eyebrow">LET’S MAKE THIS FEEL LIKE YOU</span><h1>Your pace.<br/>Your preferences.<br/><span>Your Boafo.</span></h1><ol>{steps.map((title,i)=><li key={title} aria-current={step===i?'step':undefined}><span>{step>i?<Check size={16}/>:i+1}</span><div><strong>{title}</strong><small>{['Choose what matters to you','Set a comfortable reading pace','Take your next step'][i]}</small></div></li>)}</ol></div><p>Change your preferences anytime in your dashboard.</p></aside><main className="onboarding-main"><div className="onboarding-top"><Link to="/">Back to Boafo</Link><span>Step {step+1} of 3</span></div><div className="onboarding-content">{loading?<p role="status">Loading your preferences…</p>:!data?<><p role="alert">{error}</p><Button onClick={load}>Try again</Button></>:<><span className="eyebrow">{steps[step].toUpperCase()}</span><h1 ref={heading} tabIndex={-1}>{['What would make the web easier?','A comfortable pace makes a difference.','Your space is ready.'][step]}</h1><p className="onboarding-description">{['Choose as many as you like. You can skip anything you’re unsure about.','Preview a reading speed that feels right. These preferences are saved to your account.','Explore your dashboard, create a plugin code for your website, or add the extension for your own browsing.'][step]}</p>
+ {step===0&&<><div className="goal-grid">{goals.map(([id,label,Icon])=><button key={id} className="goal-option" aria-pressed={data.goals.includes(id)} onClick={()=>toggle('goals',id)}><Icon size={22}/><span>{label}</span><span className="option-check">{data.goals.includes(id)&&<Check size={13}/>}</span></button>)}</div><fieldset className="content-choices"><legend>Where will Boafo help you?</legend>{[['articles','Articles'],['work','At work'],['study','Studying'],['shopping','Shopping'],['everyday','Everyday browsing']].map(([id,label])=><button key={id} aria-pressed={data.contentTypes.includes(id)} onClick={()=>toggle('contentTypes',id)}>{label}</button>)}</fieldset></>}
+ {step===1&&<div className="reading-settings"><div className="pace-header"><Headphones size={24}/><strong>{data.readingSpeed.toFixed(1)}×</strong></div><label id="pace-label">Reading speed</label><Slider aria-labelledby="pace-label" value={[data.readingSpeed]} min={.5} max={2} step={.1} onValueChange={([readingSpeed])=>update({readingSpeed})}/><div className="pace-labels"><span>More relaxed</span><span>A little faster</span></div><div className="form-field"><label htmlFor="voice">Voice preference for the plugin</label><select id="voice" value={data.selectedVoice} onChange={e=>update({selectedVoice:e.target.value})}><option value="neutral">Neutral</option><option value="female">Female</option><option value="male">Male</option></select></div><Button variant="outline" onClick={sample}><Play/>Preview reading pace</Button><p className="field-hint">Preview uses your browser’s default voice. Plugin voice availability varies by language.</p><div className="language-choice"><div><strong>Interested in local languages?</strong><p>Save your interest to help us understand your preferences.</p></div><Switch checked={data.localLanguageInterest} onCheckedChange={localLanguageInterest=>update({localLanguageInterest})} aria-label="Interest in local languages"/></div></div>}
+ {step===2&&<div className="setup-complete"><span className="setup-check"><Check size={28}/></span><h2>Make room for possibility.</h2><p>Your dashboard brings your preferences, website integrations, and feature usage together.</p><div><Puzzle size={22}/><span><strong>Building for your community?</strong><small>Create a website access code from Plugin access.</small></span></div><div><Headphones size={22}/><span><strong>Browsing for yourself?</strong><small>Find the extension installation link in your dashboard.</small></span></div></div>}
+ {error&&<p role="alert" className="form-error">{error}</p>}<div className="onboarding-actions"><Button variant="ghost" onClick={()=>setStep(Math.max(step-1,0))} disabled={step===0||busy}><ArrowLeft/>Back</Button><Button disabled={busy} onClick={next}>{busy?<Loader2 className="animate-spin"/>:null}{step===2?'Go to my dashboard':'Save and continue'}<ArrowRight/></Button></div><p className="setup-privacy">Only the preferences you choose are saved. No browsing history is collected.</p></> }</div></main></div>;
+}
