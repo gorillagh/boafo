@@ -175,3 +175,205 @@
     height: 320px;
   }
 }
+/* Hero Showcase Visual */
+.hero-showcase-container {
+  margin: 32px 0 20px;
+}
+.hero-showcase-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #e1e9dc;
+  background: #ffffff;
+  box-shadow: 0 16px 50px rgba(35, 60, 30, 0.07);
+}
+.hero-showcase-img {
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  display: block;
+}
+.hero-showcase-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 230, 215, 0.85);
+  padding: 8px 16px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #273722;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.25);
+}
+.plugin-trigger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+}
+
+/* Visual Bento Grid Features */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+.bento-card {
+  background: #ffffff;
+  border: 1px solid #e2ebd9;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 6px 24px rgba(35, 60, 30, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.bento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(35, 60, 30, 0.08);
+  border-color: #cbd8c0;
+}
+.bento-media {
+  position: relative;
+  background: #f7f9f5;
+  height: 220px;
+  overflow: hidden;
+  border-bottom: 1px solid #edf2e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bento-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.bento-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #e0ebd8;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #274720;
+}
+.bento-content {
+  padding: 24px 26px;
+  flex: 1;
+}
+.bento-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #8da484;
+  letter-spacing: 1px;
+  display: block;
+  margin-bottom: 8px;
+}
+.bento-content h3 {
+  font-size: 20px;
+  line-height: 1.35;
+  letter-spacing: -0.4px;
+  margin-bottom: 10px;
+  color: #1a2417;
+}
+.bento-content p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #697663;
+}
+
+/* Community Testimonials */
+.community-section {
+  padding: 70px 0;
+}
+.text-center {
+  text-align: center;
+}
+.text-center .eyebrow,
+.text-center p {
+  margin-inline: auto;
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+}
+.testimonial-card {
+  background: #ffffff;
+  border: 1px solid #e4ecdc;
+  border-radius: 18px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 6px 24px rgba(35, 60, 30, 0.03);
+}
+.testimonial-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.testimonial-quote {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #384832;
+  margin-bottom: 22px;
+  flex: 1;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 14px;
+  border-top: 1px solid #eff3eb;
+}
+.author-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #dbe5d4;
+}
+.testimonial-author strong {
+  display: block;
+  font-size: 13px;
+  color: #1c2718;
+}
+.testimonial-author span {
+  display: block;
+  font-size: 11px;
+  color: #798772;
+}
+
+@media(max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-showcase-img {
+    max-height: 340px;
+  }
+}

@@ -1,4 +1,4 @@
-import{c as y,j as e,b as l,L as i,A as x,d as C,H as A}from"./index-gPfRTOxo.js";import{C as c}from"./card-BS3tPIh0.js";import{u as z}from"./UseDashboard-DZK7ZEpJ.js";import{K as j}from"./key-round-GrBUI2VC.js";import{G as v}from"./globe-CapnIFZ3.js";import{S}from"./settings-RvTPsTcA.js";import{P as q}from"./puzzle-lIjDhRWB.js";/**
+import{c as y,j as e,b as l,L as i,A as x,d as C,H as A}from"./index-lmPoC-Sh.js";import{C as c}from"./card-Bb9VE9b0.js";import{u as z}from"./UseDashboard-DqQbb3H-.js";import{K as j}from"./key-round-DYsW6u4G.js";import{G as v}from"./globe-Q7_WjqhH.js";import{S}from"./settings-miqVgma6.js";import{P as q}from"./puzzle-DUlu1KjC.js";/**
  * @license lucide-react v0.525.0 - ISC
  *
  * This source code is licensed under the ISC license.

@@ -1,23 +1,67 @@
 ﻿import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowRight, Headphones, Mic, ScanEye, Languages, SlidersHorizontal, Menu, X, Check, Copy, CheckCheck, Sparkles } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Headphones, Mic, ScanEye, Languages, SlidersHorizontal, Menu, X, Check, Copy, CheckCheck, Sparkles, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Brand from '@/components/Brand';
-import ReadingDemo from '@/components/ReadingDemo';
 import { useWorkspace } from '@/stores/workspace';
 import { useEntrance } from '@/hooks/useEntrance';
 
 const features = [
-  [Headphones, 'Listen instead of reading.', 'Turn written articles and pages into natural speech. Follow along at whatever pace suits you.', '01'],
-  [Mic, 'Let your voice do the typing.', 'Express your thoughts without strain. Hands-free input engineered for clarity and ease.', '02'],
-  [ScanEye, 'Read more comfortably.', 'Adaptive contrast, custom font sizing, line-height tuning, and distraction-free focus tools.', '03'],
-  [Languages, 'Feel at home in your language.', 'Inclusive accessibility with native support and accents built for local communities across Africa.', '04'],
+  {
+    title: 'Listen instead of reading',
+    body: 'Turn written articles, documentation, and news into smooth spoken words. Follow along at your chosen pace.',
+    image: '/illustrations/text-to-speech-preview.webp',
+    number: '01',
+    badge: 'Text-to-Speech'
+  },
+  {
+    title: 'Let your voice do the typing',
+    body: 'Speak naturally and let Boafo type for you. Hands-free input engineered for comfort and clarity.',
+    image: '/illustrations/speech-to-text-preview.png',
+    number: '02',
+    badge: 'Voice Dictation'
+  },
+  {
+    title: 'Read with visual comfort',
+    body: 'Fine-tune your screen with high-contrast modes, readable dyslexia fonts, customizable line spacing, and focus tools.',
+    image: '/illustrations/resizable-elements.jpg',
+    number: '03',
+    badge: 'Visual Tools'
+  },
+  {
+    title: 'Feel at home in your language',
+    body: 'Experience the web in local African languages and natural native accents built in collaboration with local communities.',
+    image: '/illustrations/language-translation-preview.webp',
+    number: '04',
+    badge: 'Local Languages'
+  }
+];
+
+const testimonials = [
+  {
+    name: 'Ama K.',
+    role: 'Graduate Researcher · Accra',
+    avatar: '/testimonials/ama.webp',
+    quote: 'Listening to long articles with Boafo while taking notes has changed my study rhythm completely. It feels natural and effortless.'
+  },
+  {
+    name: 'Kofi Mensah',
+    role: 'Digital Accessibility Advocate',
+    avatar: '/testimonials/kofi.jpg',
+    quote: 'For low-vision users like me, the contrast adjustments and speech tools mean I no longer struggle on essential web services.'
+  },
+  {
+    name: 'Sampson D.',
+    role: 'Product Engineer · Accra',
+    avatar: '/testimonials/Sampson.jpg',
+    quote: 'We designed Boafo because access to knowledge should be a universal reality online, never an afterthought or an obstacle.'
+  }
 ];
 
 const faqs = [
   ['What is Boafo?', 'Boafo is an inclusive browser accessibility companion built by Digital Drivers Technology. It brings assistive reading, natural listening, and adaptive viewing tools together directly in your browser.'],
   ['How do I get started?', 'Create a free account, choose your reading speed and voice preferences, and add Boafo to your browser or website in minutes.'],
-  ['Can I try it before signing up?', 'Yes! The live reading demo right on this page demonstrates real text-to-speech and dynamic font sizing with zero registration required.'],
+  ['How can I test the plugin?', 'Look at the bottom-right corner of this page! The floating Boafo icon is live right now. Click it or press Alt+W to test all the accessibility tools directly on this site.'],
   ['Can developers embed Boafo on their own websites?', 'Yes. Developers and organizations can create a website access code in their dashboard and embed Boafo on any site with a single script tag.'],
 ];
 
@@ -34,6 +78,15 @@ export default function Home() {
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const triggerPlugin = () => {
+    const btn = document.getElementById('accessibility-widget-button');
+    if (btn) {
+      btn.click();
+    } else {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'w', altKey: true }));
+    }
+  };
+
   return (
     <div className="marketing" ref={ref}>
       <a href="#main" className="skip-link">Skip to content</a>
@@ -46,6 +99,7 @@ export default function Home() {
               ['Features', '#features'],
               ['How it works', '#how-it-works'],
               ['Developers', '#developers'],
+              ['Community', '#community'],
               ['Our story', '#about'],
               ['FAQs', '#faqs']
             ].map(([label, href]) => (
@@ -74,6 +128,7 @@ export default function Home() {
       </header>
 
       <main id="main">
+        {/* Hero Section */}
         <section className="hero-section page-width">
           <div className="hero-topline" data-reveal>
             <span className="small-pill">
@@ -95,9 +150,9 @@ export default function Home() {
                 <Button asChild size="lg">
                   <Link to="/onboarding">Find your way with Boafo <ArrowUpRight size={18} /></Link>
                 </Button>
-                <a href="#try-it" className="text-link">
-                  Try the experience <ArrowRight size={16} />
-                </a>
+                <button type="button" onClick={triggerPlugin} className="text-link plugin-trigger-btn">
+                  Test live plugin <ArrowRight size={16} />
+                </button>
               </div>
               <span className="hero-footnote">
                 <Check size={14} /> Built for people. Designed for independence.
@@ -105,8 +160,19 @@ export default function Home() {
             </div>
           </div>
 
-          <div id="try-it" className="hero-demo" data-reveal>
-            <ReadingDemo />
+          {/* Hero Showcase Visual */}
+          <div className="hero-showcase-container" data-reveal>
+            <div className="hero-showcase-card">
+              <img
+                src="/hero-showcase.jpg"
+                alt="Boafo Accessibility Companion modern 3D interface"
+                className="hero-showcase-img"
+              />
+              <div className="hero-showcase-badge">
+                <span className="pulse-dot" />
+                <span>Live Accessibility Companion · Try bottom-right icon or Alt+W</span>
+              </div>
+            </div>
           </div>
 
           <div className="feature-strip">
@@ -117,6 +183,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Visual Bento Grid Features Section */}
         <section id="features" className="features-section page-width">
           <div className="section-heading" data-reveal>
             <div>
@@ -124,24 +191,29 @@ export default function Home() {
               <h2>A little help.<br />A lot more possibility.</h2>
             </div>
             <p>
-              Different people need different things.<br />
-              Find the tools that work for you.
+              Different people need different tools.<br />
+              Explore how Boafo adapts to you.
             </p>
           </div>
-          <div className="feature-grid">
-            {features.map(([Icon, title, body, number]) => (
-              <article className="feature-item" key={title} data-reveal>
-                <div className="feature-icon">
-                  <Icon size={24} />
-                  <span>{number}</span>
+
+          <div className="bento-grid">
+            {features.map((item) => (
+              <article className="bento-card" key={item.title} data-reveal>
+                <div className="bento-media">
+                  <img src={item.image} alt={item.title} className="bento-img" />
+                  <span className="bento-tag">{item.badge}</span>
                 </div>
-                <h3>{title}</h3>
-                <p>{body}</p>
+                <div className="bento-content">
+                  <span className="bento-num">{item.number}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
               </article>
             ))}
           </div>
         </section>
 
+        {/* How It Works */}
         <section id="how-it-works" className="steps-section">
           <div className="page-width steps-layout">
             <div data-reveal>
@@ -170,6 +242,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Developer Integration Section */}
         <section id="developers" className="dev-integration-section page-width">
           <div className="dev-card" data-reveal>
             <div className="dev-content">
@@ -211,6 +284,38 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Community Voices / Testimonials */}
+        <section id="community" className="community-section page-width">
+          <div className="section-heading text-center" data-reveal>
+            <div>
+              <span className="eyebrow">COMMUNITY VOICES</span>
+              <h2>Designed with care.<br />Trusted by real people.</h2>
+            </div>
+            <p>Every feature in Boafo was born from real feedback and everyday needs.</p>
+          </div>
+
+          <div className="testimonials-grid">
+            {testimonials.map((t) => (
+              <article className="testimonial-card" key={t.name} data-reveal>
+                <div className="testimonial-stars">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={15} className="star-filled" fill="#16a34a" color="#16a34a" />
+                  ))}
+                </div>
+                <p className="testimonial-quote">"{t.quote}"</p>
+                <div className="testimonial-author">
+                  <img src={t.avatar} alt={t.name} className="author-avatar" />
+                  <div>
+                    <strong>{t.name}</strong>
+                    <span>{t.role}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Our Story Section with Authentic Photo */}
         <section id="about" className="page-width about-section">
           <div className="story-visual" data-reveal>
             <div className="story-image-wrap">
@@ -237,6 +342,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* FAQs Section */}
         <section id="faqs" className="page-width faq-section">
           <div data-reveal>
             <span className="eyebrow">GOOD TO KNOW</span>
@@ -253,6 +359,7 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Final CTA */}
         <section className="page-width">
           <div className="final-cta" data-reveal>
             <span className="eyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
